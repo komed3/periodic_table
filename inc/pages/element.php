@@ -10,6 +10,10 @@
             
             $this->set_title( $lng->msg( 'element-page-title', $e->ID, $e->symbol, $e->name ) );
             
+            $this->add_keywords( $e->ID, $e->symbol, $e->name );
+            
+            $this->add_classes( 'element' );
+            
             $this->add_content(
                 '<h1>' . ( new Formatter( '{' . $e->ID . '}' . $e->symbol . ': ' . $e->name ) )->str() . '</h1>'
             );

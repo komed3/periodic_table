@@ -11,11 +11,11 @@
             $default = null
         ) {
             
-            global $db, $db_prfx;
+            global $db;
             
             $res = $db->query('
                 SELECT  *
-                FROM    ' . $db_prfx . 'property
+                FROM    ' . $db->prefix . 'property
                 WHERE   p_element = ' . $element->ID . '
                 AND     p_key = "' . trim( $key ) . '"
             ');

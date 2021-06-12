@@ -1,5 +1,6 @@
 {
     "periodic_table": "Periodensystem der Elemente",
+    "credits": "&copy; Copyright $1 komed3. Quelle: Wikipedia.",
     "dp": ",",
     "tp": "&nbsp;",
     "p10": "·10<$1>",
