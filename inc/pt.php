@@ -4,8 +4,8 @@
     
     /* SETTINGS ----------------------------------------------------- */
     
-    $IP = 'http://localhost/periodictable/';
-    $LNG = 'de';
+    $_IP = 'http://localhost/periodictable/';
+    $_LNG = 'de';
     
     $db_host = 'localhost';
     $db_user = 'pt';
@@ -13,10 +13,10 @@
     $db_name = 'periodictable';
     $db_prfx = '';
     
-    $db = new mysqli( $db_host, $db_user, $db_pswd, $db_name );
-    
     /* INCLUDES ----------------------------------------------------- */
     
+    require_once __DIR__ . '/database.php';
+    require_once __DIR__ . '/language.php';
     require_once __DIR__ . '/formatter.php';
     require_once __DIR__ . '/property.php';
     require_once __DIR__ . '/element.php';
