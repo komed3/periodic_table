@@ -9,15 +9,17 @@
         public $period;
         
         function __construct(
-            int $element
+            $element
         ) {
             
-            global $db, $db_prfx;
+            global $db;
             
             $e = $db->query('
                 SELECT  *
-                FROM    ' . $db_prfx . 'element
-                WHERE   ID = ' . $element . '
+                FROM    ' . $db->prefix . 'element
+                WHERE   ID = "' . $element . '"
+                OR      e_symbol = "' . $element . '"
+                OR      e_name = "' . $element . '"
             ');
             
             if( $e->num_rows != 1 )
@@ -30,6 +32,12 @@
             $this->name = $e->e_name;
             $this->group = $e->e_group;
             $this->period = $e->e_period;
+            
+        }
+        
+        public function is_element() {
+            
+            return !empty( $this->ID );
             
         }
         

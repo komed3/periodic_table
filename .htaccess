@@ -5,6 +5,6 @@ RewriteRule ^\.htaccess$ - [F]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule .* /index.php
+RewriteRule .* /periodictable/index.php
 
 ErrorDocument 404 /

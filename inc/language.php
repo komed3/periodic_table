@@ -53,7 +53,7 @@
             string ... $replaces
         ) {
             
-            return $this->defmsg( $key, $key, $replaces );
+            return $this->defmsg( $key, $key, ... $replaces );
             
         }
         
