@@ -31,7 +31,7 @@
             string $description
         ) {
             
-            $this->description = $description;
+            $this->description = implode( ' ', array_slice( explode( ' ', $description ), 0, 30 ) ) . ' …';
             
         }
         

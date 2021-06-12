@@ -5,5 +5,10 @@
     "tp": "&nbsp;",
     "p10": "·10<$1>",
     "p00": "·10<-$1>",
-    "element-page-title": "$3 ($2), OZ: $1"
+    "element-page-title": "$3 ($2), OZ: $1",
+    "prop-general": "Allgemeine Eigenschaften",
+    "prop-atomic": "Atomare Eigenschaften",
+    "prop-chemical": "Chemische Eigenschaften",
+    "prop-physical": "Physikalische Eigenschaften",
+    "prop-GHS": "GHS-Klassifikation"
 }

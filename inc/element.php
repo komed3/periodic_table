@@ -3,10 +3,14 @@
     class Element {
         
         public $ID;
+        
         public $symbol;
         public $name;
+        
         public $group;
         public $period;
+        
+        public $description;
         
         function __construct(
             $element
@@ -32,12 +36,25 @@
             $this->name = $e->e_name;
             $this->group = $e->e_group;
             $this->period = $e->e_period;
+            $this->description = $e->e_desc;
             
         }
         
         public function is_element() {
             
             return !empty( $this->ID );
+            
+        }
+        
+        public function get_symbol() {
+            
+            return '<symbol>' . ( new Formatter( '{' . $this->ID . '}' . $this->symbol ) )->str() . '</symbol>';
+            
+        }
+        
+        public function get_name() {
+            
+            return $this->name;
             
         }
         
