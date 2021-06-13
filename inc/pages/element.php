@@ -35,6 +35,11 @@
             
             foreach( [
                 'general' => [
+                    'name_de' => [],
+                    'name_lat' => [],
+                    'name_en' => [],
+                    'symbol' => [],
+                    'atomic_number' => [],
                     'set' => [
                         'format' => 'i18n'
                     ],
@@ -230,7 +235,48 @@
                         'format' => 'num'
                     ]
                 ],
-                'GHS' => []
+                'electronegativity' => [
+                    'pauling' => [
+                        'format' => 'exp'
+                    ],
+                    'allen' => [
+                        'format' => 'exp'
+                    ],
+                    'mulliken' => [
+                        'format' => 'exp'
+                    ],
+                    'sanderson' => [
+                        'format' => 'exp'
+                    ],
+                    'allred_rochow' => [
+                        'format' => 'exp'
+                    ],
+                    'ghosh_gupta' => [
+                        'format' => 'physical',
+                        'unit' => 'eV'
+                    ],
+                    'pearson' => [
+                        'format' => 'physical',
+                        'unit' => 'eV'
+                    ]
+                ],
+                'hardness' => [
+                    'mohs' => [
+                        'format' => 'exp'
+                    ],
+                    'vickers' => [
+                        'format' => 'exp'
+                    ],
+                    'brinell' => [
+                        'format' => 'exp'
+                    ]
+                ],
+                'GHS' => [
+                    'GHS%' => [],
+                    'H' => [],
+                    'EUH' => [],
+                    'P' => []
+                ]
             ] as $section => $props ) {
                 
                 $proplist = [];

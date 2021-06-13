@@ -17,7 +17,7 @@
                 SELECT  *
                 FROM    ' . $db->prefix . 'property
                 WHERE   p_element = ' . $element->ID . '
-                AND     p_key = "' . trim( $key ) . '"
+                AND     p_key LIKE "' . trim( $key ) . '"
             ');
             
             $this->rows = $res->num_rows;
