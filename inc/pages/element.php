@@ -35,11 +35,11 @@
             
             foreach( [
                 'general' => [
+                    'symbol' => [],
+                    'atomic_number' => [],
                     'name_de' => [],
                     'name_lat' => [],
                     'name_en' => [],
-                    'symbol' => [],
-                    'atomic_number' => [],
                     'set' => [
                         'format' => 'i18n'
                     ],
@@ -172,6 +172,9 @@
                     'boiling' => [
                         'format' => 'temp'
                     ],
+                    'sublimation' => [
+                        'format' => 'temp'
+                    ],
                     'vaporization_enthalpy' => [
                         'format' => 'physical',
                         'unit' => 'kJ·mol<−1>'
@@ -209,6 +212,9 @@
                     ],
                     'critical_temp' => [
                         'format' => 'temp'
+                    ],
+                    'radioactivity' => [
+                        'format' => 'i18n'
                     ]
                 ],
                 'chemical' => [

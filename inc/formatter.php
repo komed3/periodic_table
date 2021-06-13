@@ -203,6 +203,14 @@
             
         }
         
+        public function boolstr() {
+            
+            global $lng;
+            
+            return $lng->msg( !!boolval( $this->raw() ) ? 'yes' : 'no' );
+            
+        }
+        
         public function exlink(
             $identifier = null
         ) {
