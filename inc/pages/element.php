@@ -41,15 +41,18 @@
                     'name_lat' => [],
                     'name_en' => [],
                     'set' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'age' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'discovery' => [
                         'format' => 'datetime',
                         'dtf' => 'Y',
-                        'empty' => 'unknown'
+                        'empty' => 'unknown',
+                        'link' => true
                     ],
                     'discoverer' => [
                         'format' => 'exlink',
@@ -208,13 +211,15 @@
                         'unit' => 'W·m<−1>·K<−1>'
                     ],
                     'superconductivity' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'critical_temp' => [
                         'format' => 'temp'
                     ],
                     'radioactivity' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ]
                 ],
                 'chemical' => [
@@ -243,38 +248,48 @@
                 ],
                 'electronegativity' => [
                     'pauling' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'allen' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'mulliken' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'sanderson' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'allred_rochow' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'ghosh_gupta' => [
                         'format' => 'physical',
-                        'unit' => 'eV'
+                        'unit' => 'eV',
+                        'link' => true
                     ],
                     'pearson' => [
                         'format' => 'physical',
-                        'unit' => 'eV'
+                        'unit' => 'eV',
+                        'link' => true
                     ]
                 ],
                 'hardness' => [
                     'mohs' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'vickers' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'brinell' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ]
                 ],
                 'GHS' => [
@@ -364,7 +379,9 @@
                     }
                     
                     $proplist[] = '<tr class="property p-' . $key . '">' .
-                        '<th>' . $lng->msg( $key ) . '</th>' .
+                        '<th>' . ( !empty( $params['link'] ) && $params['link']
+                            ? Linker::i( $lng->msg( $key ), $lng->msg( $key ) )
+                            : $lng->msg( $key ) ) . '</th>' .
                         '<td>' . ( $propres->rows == 0
                             ? $lng->msg( empty( $params['empty'] )
                                 ? 'undefined'
