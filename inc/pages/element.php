@@ -42,10 +42,13 @@
                         'format' => 'i18n'
                     ],
                     'discovery' => [
+                        'format' => 'datetime',
+                        'dtf' => 'Y',
                         'empty' => 'unknown'
                     ],
                     'discoverer' => [
                         'format' => 'exlink',
+                        'identifier' => 'https://de.wikipedia.org/w/index.php?search=$1',
                         'empty' => 'unknown'
                     ]
                 ],
@@ -68,25 +71,67 @@
                 ],
                 'frequencies' => [
                     'mf_earth' => [
-                        'format' => 'si'
+                        'format' => 'pct'
                     ],
                     'freq_solar' => [
-                        'format' => 'si'
+                        'format' => 'exp'
                     ],
                     'freq_earth' => [
-                        'format' => 'si'
+                        'format' => 'physical',
+                        'unit' => 'ppmw'
                     ],
                     'freq_bios' => [
-                        'format' => 'si'
+                        'format' => 'physical',
+                        'unit' => 'ppmw'
                     ],
                     'freq_cover' => [
-                        'format' => 'si'
+                        'format' => 'physical',
+                        'unit' => 'ppmw'
                     ],
                     'freq_ocean' => [
-                        'format' => 'si'
+                        'format' => 'physical',
+                        'unit' => 'ppmw'
                     ]
                 ],
-                'atomic' => [],
+                'atomic' => [
+                    'atomic_mass' => [
+                        'format' => 'physical',
+                        'unit' => 'u'
+                    ],
+                    'r_calc' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_emp' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_cov' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_cov1' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_cov2' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_cov3' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_vdw1' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'r_vdw2' => [
+                        'format' => 'physical',
+                        'unit' => 'pm'
+                    ],
+                    'configuration' => []
+                ],
                 'physical' => [],
                 'chemical' => [],
                 'GHS' => []
@@ -113,8 +158,20 @@
                                 $val = $prop->val->raw();
                                 break;
                             
+                            case 'datetime':
+                                $val = $prop->val->datetime(
+                                    empty( $params['dtf'] ) ? 'Y-m-d' : $params['dtf']
+                                );
+                                break;
+                            
                             case 'num':
                                 $val = $prop->val->num(
+                                    empty( $params['digits'] ) ? false : $params['digits']
+                                );
+                                break;
+                            
+                            case 'pct':
+                                $val = $prop->val->pct(
                                     empty( $params['digits'] ) ? false : $params['digits']
                                 );
                                 break;
@@ -123,6 +180,13 @@
                                 $val = $prop->val->exp(
                                     empty( $params['digits'] ) ? false : $params['digits'],
                                     empty( $params['p10'] ) ? true : $params['p10']
+                                );
+                                break;
+                            
+                            case 'physical':
+                                $val = $prop->val->physical(
+                                    empty( $params['digits'] ) ? false : $params['digits'],
+                                    empty( $params['unit'] ) ? null : $params['unit']
                                 );
                                 break;
                             

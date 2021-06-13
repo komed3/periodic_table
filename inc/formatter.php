@@ -106,17 +106,61 @@
             
         }
         
-        public function si() {
+        public function pct(
+            $digits = false
+        ) {
             
-            return $this->v;
+            $number = $this->rawnum();
+            
+            if( $number < 10e-9 ) {
+                
+                $unit = 'ppb';
+                $number /= 10e-9;
+                
+            } else if( $number < 10e-6 ) {
+                
+                $unit = 'ppm';
+                $number /= 10e-6;
+                
+            } else if( $number < 10e-3 ) {
+                
+                $unit = '‰';
+                $number /= 10e-3;
+                
+            } else {
+                
+                $unit = '%';
+                
+            }
+            
+            return '<value class="pct">' .
+                ( new Formatter( $number ) )->exp( $digits ) .
+                '<unit>' . $unit . '</unit>' .
+            '</value>';
+            
+        }
+        
+        public function physical(
+            $digits = false,
+            $unit = null
+        ) {
+            
+            return '<value class="physical">' .
+                $this->exp( $digits ) . ( !empty( $unit )
+                    ? '<unit>' . ( new Formatter( $unit ) )->str() . '</unit>' : '' ) .
+            '</value>';
             
         }
         
         public function datetime(
-            string $format
+            string $format = 'Y-m-d'
         ) {
             
-            return date( $format, strtotime( $this->v ) );
+            $timestamp = strtotime( $this->v );
+            
+            return '<time data-timestamp="' . $timestamp . '">' .
+                date( $format, $timestamp ) .
+            '</time>';
             
         }
         
