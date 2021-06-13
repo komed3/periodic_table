@@ -5,10 +5,14 @@
     "tp": "&nbsp;",
     "p10": "·10<$1>",
     "p00": "·10<-$1>",
+    "undefined": "&ndash;",
+    "unknown": "unbekannt",
     "element-page-title": "$3 ($2), OZ: $1",
-    "prop-general": "Allgemeine Eigenschaften",
-    "prop-atomic": "Atomare Eigenschaften",
-    "prop-chemical": "Chemische Eigenschaften",
-    "prop-physical": "Physikalische Eigenschaften",
-    "prop-GHS": "GHS-Klassifikation"
+    "section-general": "Allgemeine Eigenschaften",
+    "section-classification": "Klassifizierung",
+    "section-frequencies": "Häufigkeiten",
+    "section-atomic": "Atomare Eigenschaften",
+    "section-chemical": "Chemische Eigenschaften",
+    "section-physical": "Physikalische Eigenschaften",
+    "section-GHS": "GHS-Gefahrstoffkennzeichnung"
 }

@@ -51,7 +51,7 @@
         }
         
         public function num(
-            int $digits = 0
+            $digits = false
         ) {
             
             return $this->exp( $digits, false );
@@ -59,7 +59,7 @@
         }
         
         public function exp(
-            int $digits = 0,
+            $digits = false,
             bool $p10 = true
         ) {
             
@@ -126,7 +126,18 @@
             
             global $lng;
             
-            return $lng->msg( $this->v, $replaces );
+            return $lng->msg( $this->v, ... $replaces );
+            
+        }
+        
+        public function exlink(
+            $identifier = null
+        ) {
+            
+            return empty( $identifier )
+                ? $this->raw()
+                : '<a href="' . str_replace( '$1', $this->raw(), $identifier ) . '" target="_blank">' .
+                        $this->raw() . '</a>';
             
         }
         
