@@ -130,10 +130,106 @@
                         'format' => 'physical',
                         'unit' => 'pm'
                     ],
-                    'configuration' => []
+                    'configuration' => [],
+                    'ionization' => [
+                        'format' => 'physical',
+                        'unit' => 'eV'
+                    ],
+                    'electron_affinity' => [
+                        'format' => 'physical',
+                        'unit' => 'eV'
+                    ]
                 ],
-                'physical' => [],
-                'chemical' => [],
+                'physical' => [
+                    'phase' => [
+                        'format' => 'i18n'
+                    ],
+                    'crystal_system' => [
+                        'format' => 'i18n'
+                    ],
+                    'magnetism' => [
+                        'format' => 'i18n'
+                    ],
+                    'magnetic_susceptibility' => [
+                        'format' => 'exp'
+                    ],
+                    'density' => [
+                        'format' => 'physical',
+                        'unit' => 'g·m<−3>'
+                    ],
+                    'molar_volume' => [
+                        'format' => 'physical',
+                        'unit' => 'm<3>·mol<−1>'
+                    ],
+                    'melting' => [
+                        'format' => 'temp'
+                    ],
+                    'boiling' => [
+                        'format' => 'temp'
+                    ],
+                    'vaporization_enthalpy' => [
+                        'format' => 'physical',
+                        'unit' => 'kJ·mol<−1>'
+                    ],
+                    'fusion_enthalpy' => [
+                        'format' => 'physical',
+                        'unit' => 'kJ·mol<−1>'
+                    ],
+                    'work_function' => [
+                        'format' => 'physical',
+                        'unit' => 'eV'
+                    ],
+                    'vapor_pressure' => [
+                        'format' => 'physical',
+                        'unit' => 'Pa'
+                    ],
+                    'sound_speed' => [
+                        'format' => 'physical',
+                        'unit' => 'm·s<−1>'
+                    ],
+                    'specific_heat' => [
+                        'format' => 'physical',
+                        'unit' => 'J·kg<−1>·K<−1>'
+                    ],
+                    'electrical_conductivity' => [
+                        'format' => 'physical',
+                        'unit' => 'A·V<−1>·m<−1>'
+                    ],
+                    'thermal_conductivity' => [
+                        'format' => 'physical',
+                        'unit' => 'W·m<−1>·K<−1>'
+                    ],
+                    'superconductivity' => [
+                        'format' => 'i18n'
+                    ],
+                    'critical_temp' => [
+                        'format' => 'temp'
+                    ]
+                ],
+                'chemical' => [
+                    'oxidation' => [
+                        'format' => 'str'
+                    ],
+                    'metal' => [
+                        'format' => 'i18n'
+                    ],
+                    'goldschmidt' => [
+                        'format' => 'i18n'
+                    ],
+                    'potential' => [
+                        'format' => 'physical',
+                        'unit' => 'V'
+                    ],
+                    'acid_base' => [
+                        'format' => 'i18n'
+                    ],
+                    'basicity' => [
+                        'format' => 'i18n'
+                    ],
+                    'isotopes' => [
+                        'format' => 'num'
+                    ]
+                ],
                 'GHS' => []
             ] as $section => $props ) {
                 
@@ -190,6 +286,13 @@
                                 );
                                 break;
                             
+                            case 'temp':
+                                $val = $prop->val->temp(
+                                    empty( $params['celsius'] ) ? true : $params['celsius'],
+                                    empty( $params['digits'] ) ? false : $params['digits']
+                                );
+                                break;
+                            
                             case 'exlink':
                                 $val = $prop->val->exlink(
                                     empty( $params['identifier'] ) ? null : $params['identifier']
@@ -199,8 +302,11 @@
                         }
                         
                         $proplines[] = '<property class="pf-' . $format . '">' .
-                            $val . ( strlen( $prop->com->raw() ) == 0
-                                ? '' : '<comment>' . $prop->com->str() . '</comment>' ) .
+                            $val .
+                            ( ( $ref = $e->get_ref( $key ) )->rows > 0 && ( !isset( $params['ref'] ) || $params['ref'] )
+                                ? '<ref>' . $lng->defmsg( '@', '@' ) . $ref->p[0]->val->temp() . '</ref>' : '' ) .
+                            ( strlen( $prop->com->raw() ) > 0
+                                ? '<comment>' . $prop->com->str() . '</comment>' : '' ) .
                         '</property>';
                         
                     }

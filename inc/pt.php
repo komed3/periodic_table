@@ -2,6 +2,8 @@
     
     define( 'pt', true );
     
+    $sTime = microtime( true );
+    
     /* SETTINGS ----------------------------------------------------- */
     
     $_IP = 'http://localhost/periodictable/';

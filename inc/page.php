@@ -91,9 +91,25 @@
         
         public function output() {
             
-            global $lng;
+            global $lng, $sTime;
             
-            return '<!DOCTYPE html>' .
+            $status = [];
+            
+            foreach( [
+                'server' => $_SERVER['SERVER_NAME'],
+                'response' => http_response_code(),
+                'query' => $_SERVER['REQUEST_URI'],
+                'datetime' => date( 'c' ),
+                'time' => round( microtime( true ) - $sTime, 3 ),
+                'php_version' => phpversion(),
+                'memory' => memory_get_usage()
+            ] as $key => $val ) {
+                
+                $status[] = '  ' . str_pad( $key, 20, ' ', STR_PAD_RIGHT ) . $val;
+                
+            }
+            
+            $html = '<!DOCTYPE html>' .
             '<html lang="' . $lng->lngcode . '">' .
                 '<head>' .
                     '<title>' . $this->title . '</title>' .
@@ -111,7 +127,15 @@
                     $this->get_content() .
                     $this->get_footer() .
                 '</body>' .
+                '<!--' . PHP_EOL . implode( PHP_EOL, $status ) . PHP_EOL . '-->' .
             '</html>';
+            
+            $dom = new DOMDocument();
+            $dom->preserveWhiteSpace = false;
+            $dom->loadHTML( $html, LIBXML_NOWARNING | LIBXML_NOERROR );
+            $dom->formatOutput = true;
+
+            return $dom->saveHTML();
             
         }
         

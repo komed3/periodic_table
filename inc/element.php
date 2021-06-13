@@ -67,6 +67,15 @@
             
         }
         
+        public function get_ref(
+            string $prop,
+            $default = null
+        ) {
+            
+            return new Property( $this, $prop . '_ref', $default );
+            
+        }
+        
     }
     
 ?>

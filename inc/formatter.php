@@ -65,8 +65,8 @@
             
             global $lng;
             
-            $p10digits = strlen( number_format( $this->v, 0, '', '' ) ) - 1;
-            preg_match( '/e-([0-9]{1,})$/Ui', $this->v, $p00digits );
+            $p10digits = strlen( number_format( $this->rawnum(), 0, '', '' ) ) - 1;
+            preg_match( '/e-([0-9]{1,})$/Ui', $this->rawnum(), $p00digits );
             $pSuffix = '';
             
             if( $p10 && $p10digits > 5 ) {
@@ -145,10 +145,39 @@
             $unit = null
         ) {
             
+            global $lng;
+            
             return '<value class="physical">' .
                 $this->exp( $digits ) . ( !empty( $unit )
-                    ? '<unit>' . ( new Formatter( $unit ) )->str() . '</unit>' : '' ) .
+                    ? '<unit title="' . $lng->defmsg( 'unit-' . $unit, $unit ) . '">' .
+                          ( new Formatter( $unit ) )->str() .
+                      '</unit>' : '' ) .
             '</value>';
+            
+        }
+        
+        public function temp(
+            bool $celsius = true,
+            $digits = false
+        ) {
+            
+            global $lng;
+            
+            return '<temp data-temp="' . $this->rawnum() . '">' .
+                '<K>' .
+                    $this->exp( $digits ) .
+                    '<unit title="' . $lng->defmsg( 'temp-K', 'K' ) . '">' .
+                        $lng->defmsg( 'unit-K', 'K' ) .
+                    '</unit>' .
+                '</K>' . ( $celsius ?
+                    '<C>' .
+                        ( new Formatter( $this->rawnum() - 273.15 ) )->exp() .
+                        '<unit title="' . $lng->defmsg( 'temp-C', '°C' ) . '">' .
+                            $lng->defmsg( 'unit-C', '°C' ) .
+                        '</unit>' .
+                    '</C>' :
+                    '' ) .
+            '</temp>';
             
         }
         
