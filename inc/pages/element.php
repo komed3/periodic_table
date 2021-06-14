@@ -40,10 +40,6 @@
                     'name_de' => [],
                     'name_lat' => [],
                     'name_en' => [],
-                    'set' => [
-                        'format' => 'i18n',
-                        'link' => true
-                    ],
                     'age' => [
                         'format' => 'i18n',
                         'link' => true
@@ -61,6 +57,27 @@
                     ]
                 ],
                 'classification' => [
+                    'set' => [
+                        'format' => 'i18n',
+                        'link' => true
+                    ],
+                    'group' => [
+                        'format' => 'i18n',
+                        'prefix' => 'group-',
+                        'link' => true
+                    ],
+                    'period' => [
+                        'format' => 'i18n',
+                        'prefix' => 'period-',
+                        'link' => true
+                    ],
+                    'block' => [
+                        'format' => 'i18n',
+                        'prefix' => 'block-',
+                        'link' => true
+                    ]
+                ],
+                'registration' => [
                     'CAS' => [
                         'format' => 'exlink',
                         'identifier' => 'https://commonchemistry.cas.org/detail?cas_rn=$1'
@@ -99,6 +116,10 @@
                     'freq_ocean' => [
                         'format' => 'physical',
                         'unit' => 'ppmw'
+                    ],
+                    'freq_body' => [
+                        'format' => 'physical',
+                        'unit' => 'mol'
                     ]
                 ],
                 'atomic' => [
@@ -150,16 +171,20 @@
                 ],
                 'physical' => [
                     'phase' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'crystal_system' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'magnetism' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'magnetic_susceptibility' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'link' => true
                     ],
                     'density' => [
                         'format' => 'physical',
@@ -230,17 +255,20 @@
                         'format' => 'i18n'
                     ],
                     'goldschmidt' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'potential' => [
                         'format' => 'physical',
                         'unit' => 'V'
                     ],
                     'acid_base' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'basicity' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'isotopes' => [
                         'format' => 'num'
@@ -363,6 +391,13 @@
                             case 'exlink':
                                 $val = $prop->val->exlink(
                                     empty( $params['identifier'] ) ? null : $params['identifier']
+                                );
+                                break;
+                            
+                            case 'i18n':
+                                $val = $lng->msg(
+                                    ( empty( $params['prefix'] ) ? '' : $params['prefix'] ) .
+                                    $prop->val->raw()
                                 );
                                 break;
                             

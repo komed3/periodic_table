@@ -212,13 +212,16 @@
         }
         
         public function exlink(
-            $identifier = null
+            $identifier = null,
+            $text = null
         ) {
             
             return empty( $identifier )
                 ? $this->raw()
-                : '<a href="' . str_replace( '$1', $this->raw(), $identifier ) . '" target="_blank">' .
-                        $this->raw() . '</a>';
+                : Linker::e(
+                      str_replace( '$1', $this->raw(), $identifier ),
+                      empty( $text ) ? $this->raw() : $text
+                  );
             
         }
         
