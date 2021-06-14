@@ -237,6 +237,7 @@
                     ],
                     'superconductivity' => [
                         'format' => 'i18n',
+                        'empty' => 'no',
                         'link' => true
                     ],
                     'critical_temp' => [
@@ -264,59 +265,72 @@
                     ],
                     'acid_base' => [
                         'format' => 'i18n',
+                        'empty' => 'unknown',
                         'link' => true
                     ],
                     'basicity' => [
                         'format' => 'i18n',
+                        'empty' => 'unknown',
                         'link' => true
                     ],
                     'isotopes' => [
-                        'format' => 'num'
+                        'format' => 'num',
+                        'empty' => 0
                     ]
                 ],
                 'electronegativity' => [
                     'pauling' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'allen' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'mulliken' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'sanderson' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'allred_rochow' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'ghosh_gupta' => [
                         'format' => 'physical',
                         'unit' => 'eV',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'pearson' => [
                         'format' => 'physical',
                         'unit' => 'eV',
+                        'empty' => 'undefined',
                         'link' => true
                     ]
                 ],
                 'hardness' => [
                     'mohs' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'vickers' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ],
                     'brinell' => [
                         'format' => 'exp',
+                        'empty' => 'undefined',
                         'link' => true
                     ]
                 ],
@@ -419,7 +433,7 @@
                             : $lng->msg( $key ) ) . '</th>' .
                         '<td>' . ( $propres->rows == 0
                             ? $lng->msg( empty( $params['empty'] )
-                                ? 'undefined'
+                                ? '&ndash;'
                                 : $params['empty'] )
                             : implode( $proplines ) ) . '</td>' .
                     '</tr>';

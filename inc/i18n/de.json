@@ -8,7 +8,7 @@
     "@": "bei",
     "yes": "ja",
     "no": "nein",
-    "undefined": "&ndash;",
+    "undefined": "nicht definiert",
     "unknown": "unbekannt",
     "temp-K": "Kelvin",
     "temp-C": "Grad Celsius",
