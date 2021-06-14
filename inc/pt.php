@@ -6,7 +6,7 @@
     
     /* SETTINGS ----------------------------------------------------- */
     
-    $_IP = 'http://localhost/periodictable/';
+    $_IP = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/periodictable/';
     $_LNG = 'de';
     
     $db_host = 'localhost';

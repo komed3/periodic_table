@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Work Sans';
+    src: url( './../fonts/WorkSans-Regular.woff2' ) format('woff2');
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url( './../fonts/Oswald-Regular.woff2' ) format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url( './../fonts/SourceCodePro-Regular.woff2' ) format('woff2');
+}
+
+:root {
+    --site-bg: #f5f6f7;
+}
+
+html {
+    background: var( --site-bg );
+}
+
+body {
+    margin: 0;
+    font-family: 'Work Sans', 'Arial', sans-serif;
+}

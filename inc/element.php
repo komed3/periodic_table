@@ -11,6 +11,7 @@
         public $period;
         
         public $description;
+        public $image;
         
         function __construct(
             $element
@@ -37,6 +38,7 @@
             $this->group = $e->e_group;
             $this->period = $e->e_period;
             $this->description = $e->e_desc;
+            $this->image = $e->e_img;
             
         }
         
@@ -58,6 +60,14 @@
             
         }
         
+        public function get_image() {
+            
+            global $_IP;
+            
+            return empty( $this->image ) ? '' : '<img src="' . $_IP . 'res/images/' . $this->image . '" />';
+            
+        }
+        
         public function get_prop(
             string $prop,
             $default = null
@@ -73,6 +83,22 @@
         ) {
             
             return new Property( $this, $prop . '_ref', $default );
+            
+        }
+        
+        public function get_next(
+            int $n = 1
+        ) {
+            
+            return new Element( $this->ID + $n );
+            
+        }
+        
+        public function get_prev(
+            int $n = 1
+        ) {
+            
+            return new Element( $this->ID - $n );
             
         }
         

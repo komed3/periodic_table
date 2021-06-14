@@ -37,6 +37,22 @@
             
         }
         
+        public function p(
+            string $page,
+            string $url,
+            string $text,
+            $params = []
+        ) {
+            
+            global $lng;
+            
+            return Linker::i(
+                $lng->msg( $page . '-page' ) . '/' . $url,
+                $text, $params
+            );
+            
+        }
+        
         public function e(
             string $url,
             string $text,

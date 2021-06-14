@@ -91,7 +91,7 @@
         
         public function output() {
             
-            global $lng, $sTime;
+            global $lng, $_IP, $sTime;
             
             $status = [];
             
@@ -121,11 +121,14 @@
                     '<meta name="robots" content="index, follow">' .
                     '<meta name="description" content="' . $this->description . '">' .
                     '<meta name="keywords" content="' . implode( ', ', $this->keywords ) . '">' .
+                    '<link rel="stylesheet" href="' . $_IP . 'res/css/pt.css" />' .
                 '</head>' .
                 '<body class="' . implode( ' ', $this->classes ) . '">' .
-                    $this->get_header() .
-                    $this->get_content() .
-                    $this->get_footer() .
+                    '<div class="container">' .
+                        $this->get_header() .
+                        $this->get_content() .
+                        $this->get_footer() .
+                    '</div>' .
                 '</body>' .
                 '<!--' . PHP_EOL . implode( PHP_EOL, $status ) . PHP_EOL . '-->' .
             '</html>';
