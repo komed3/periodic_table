@@ -363,7 +363,14 @@
                     ]
                 ],
                 'GHS' => [
-                    'GHS%' => [],
+                    'GHS%' => [
+                        'format' => 'img',
+                        'classes' => [ 'pictogram' ]
+                    ],
+                    'CDG%' => [
+                        'format' => 'img',
+                        'classes' => [ 'pictogram' ]
+                    ],
                     'H' => [],
                     'EUH' => [],
                     'P' => []
@@ -440,6 +447,13 @@
                                 $val = $lng->msg(
                                     ( empty( $params['prefix'] ) ? '' : $params['prefix'] ) .
                                     $prop->val->raw()
+                                );
+                                break;
+                            
+                            case 'img':
+                                $val = ( new Formatter( $prop->key->raw() . '.png' ) )->img(
+                                    $lng->msg( $prop->key->raw() ),
+                                    empty( $params['classes'] ) ? [] : $params['classes']
                                 );
                                 break;
                             

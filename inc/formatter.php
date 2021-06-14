@@ -225,6 +225,20 @@
             
         }
         
+        public function img(
+            $caption = null,
+            $classes = []
+        ) {
+            
+            global $_IP;
+            
+            return '<figure class="' . implode( ' ', $classes ) . '">' .
+                '<img src="' . $_IP . 'res/images/' . $this->raw() . '" title="' . $caption . '" />' .
+                ( !empty( $caption ) ? '<figcaption>' . $caption . '</figcaption>' : '' ) .
+            '</figure>';
+            
+        }
+        
     }
     
 ?>
