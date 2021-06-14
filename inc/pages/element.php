@@ -75,7 +75,8 @@
                         'format' => 'i18n',
                         'prefix' => 'block-',
                         'link' => true
-                    ]
+                    ],
+                    'term_symbol' => []
                 ],
                 'registration' => [
                     'CAS' => [
@@ -92,7 +93,8 @@
                     'ATC' => [
                         'format' => 'exlink',
                         'identifier' => 'https://www.whocc.no/atc_ddd_index/?code=$1'
-                    ]
+                    ],
+                    'InChI' => []
                 ],
                 'frequencies' => [
                     'mf_earth' => [
@@ -201,6 +203,12 @@
                         'format' => 'temp'
                     ],
                     'sublimation' => [
+                        'format' => 'temp'
+                    ],
+                    'triple' => [
+                        'format' => 'temp'
+                    ],
+                    'debye_temp' => [
                         'format' => 'temp'
                     ],
                     'vaporization_enthalpy' => [
