@@ -15,26 +15,27 @@
             
             $this->add_classes( 'element' );
             
+            $this->add_header(
+                '<prev>' .
+                    ( ( $prev = $e->get_prev() )->is_element()
+                        ? Linker::p( 'element', $prev->get_name(), $prev->get_symbol(), [
+                            'title' => $prev->get_name()
+                        ] ) : '' ) .
+                '</prev>' .
+                '<element>' .
+                    $e->get_symbol() .
+                    $e->get_name() .
+                '</element>' .
+                '<next>' .
+                    ( ( $next = $e->get_next() )->is_element()
+                        ? Linker::p( 'element', $next->get_name(), $next->get_symbol(), [
+                            'title' => $next->get_name()
+                        ] ) : '' ) .
+                '</next>'
+            );
+            
             $this->add_content(
                 '<article>' .
-                    '<h1>' .
-                        '<prev>' .
-                            ( ( $prev = $e->get_prev() )->is_element()
-                                ? Linker::p( 'element', $prev->get_name(), $prev->get_symbol(), [
-                                    'title' => $prev->get_name()
-                                ] ) : '' ) .
-                        '</prev>' .
-                        '<element>' .
-                            $e->get_symbol() .
-                            $e->get_name() .
-                        '</element>' .
-                        '<next>' .
-                            ( ( $next = $e->get_next() )->is_element()
-                                ? Linker::p( 'element', $next->get_name(), $next->get_symbol(), [
-                                    'title' => $next->get_name()
-                                ] ) : '' ) .
-                        '</next>' .
-                    '</h1>' .
                     '<p class="description">' .
                         $e->get_image() .
                         ( new Formatter( $e->description ) )->str() .
@@ -451,7 +452,7 @@
                                 break;
                             
                             case 'img':
-                                $val = ( new Formatter( $prop->key->raw() . '.png' ) )->img(
+                                $val = ( new Formatter( 'pictograms/' . $prop->key->raw() . '.svg' ) )->img(
                                     $lng->msg( $prop->key->raw() ),
                                     empty( $params['classes'] ) ? [] : $params['classes']
                                 );

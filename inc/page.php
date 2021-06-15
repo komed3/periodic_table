@@ -5,6 +5,9 @@
         private $title;
         private $content = '';
         
+        private $header = '';
+        private $footer = '';
+        
         private $description = '';
         private $keywords = [];
         
@@ -59,6 +62,14 @@
             
         }
         
+        public function add_header(
+            string $text
+        ) {
+            
+            $this->header .= $text;
+            
+        }
+        
         public function add_content(
             string $text
         ) {
@@ -67,11 +78,28 @@
             
         }
         
+        public function get_nav(
+            string $name
+        ) {
+            
+            return '<nav class="' . $name . '"></nav>';
+            
+        }
+        
         public function get_header() {
             
             global $lng;
             
-            return '<header></header>';
+            return '<header>' .
+                $this->get_nav( 'main' ) .
+                '<div class="headline">' .
+                    '<div class="nav-button">' .
+                        '<a href="#" id="nav_header_open" class="icon">menu</a>' .
+                        '<a href="#" id="nav_header_close" class="icon">close</a>' .
+                    '</div>' .
+                    '<h1>' . $this->header . '</h1>' .
+                '</div>' .
+            '</header>';
             
         }
         
