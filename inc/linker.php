@@ -62,7 +62,8 @@
             return Linker::builder(
                 $url, $text,
                 array_merge( [
-                    'target' => '_blank'
+                    'target' => '_blank',
+                    'class' => 'external'
                 ], $params )
             );
             

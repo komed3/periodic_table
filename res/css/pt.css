@@ -86,6 +86,16 @@ sub, sup {
     font-feature-settings: 'liga';
 }
 
+/* SYMBOL */
+
+symbol {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.9em;
+}
+symbol sub {
+    font-size: 0.6em;
+}
+
 /* PROPERTY */
 
 property:not(.pf-img) {
@@ -118,11 +128,10 @@ property comment::after {
 
 property .pictogram {
     display: inline-block;
-    width: 90px;
-    margin: 10px;
+    width: 110px;
+    margin: 6px;
     text-align: center;
     vertical-align: top;
-    overflow: hidden;
 }
 
 property .pictogram img {
@@ -168,17 +177,17 @@ header h1 .nav-button #nav_header_close {
 
 header h1 element {
     flex: auto;
-    padding: 0 0.5em;
+    padding: 0 0.75em;
 }
 
 header h1 element symbol {
-    padding-right: 0.3em;
+    padding-right: 0.5em;
 }
 
 header h1 prev,
 header h1 next {
-    flex: 0 0 80px;
-    padding: 0 0.3em;
+    flex: 0 auto;
+    padding: 0 0.5em;
     text-align: center;
 }
 
@@ -202,7 +211,7 @@ main {
 
 main p {
     margin: 0 0 2em 0;
-    font-size: 1.1em;
+    font-size: 1.4em;
 }
 
 /* PROPS */

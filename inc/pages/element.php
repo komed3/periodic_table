@@ -16,16 +16,16 @@
             $this->add_classes( 'element' );
             
             $this->add_header(
+                '<element>' .
+                    $e->get_symbol() .
+                    $e->get_name() .
+                '</element>' .
                 ( ( $prev = $e->get_prev() )->is_element()
                     ? '<prev>' .
                           Linker::p( 'element', $prev->get_slug(), $prev->get_symbol(), [
                               'title' => $prev->get_name()
                           ] ) .
                       '</prev>' : '' ) .
-                '<element>' .
-                    $e->get_symbol() .
-                    $e->get_name() .
-                '</element>' .
                 ( ( $next = $e->get_next() )->is_element()
                     ? '<next>' .
                           Linker::p( 'element', $next->get_slug(), $next->get_symbol(), [
@@ -63,7 +63,8 @@
                     'name_en' => [],
                     'age' => [
                         'format' => 'i18n',
-                        'link' => true
+                        'link' => true,
+                        'empty' => 'unknown'
                     ],
                     'discovery' => [
                         'format' => 'datetime',
@@ -102,20 +103,26 @@
                 'registration' => [
                     'CAS' => [
                         'format' => 'exlink',
-                        'identifier' => 'https://commonchemistry.cas.org/detail?cas_rn=$1'
+                        'identifier' => 'https://commonchemistry.cas.org/detail?cas_rn=$1',
+                        'empty' => false
                     ],
                     'EG' => [
-                        'format' => 'exlink'
+                        'format' => 'exlink',
+                        'empty' => false
                     ],
                     'ECHA' => [
                         'format' => 'exlink',
-                        'identifier' => 'https://echa.europa.eu/substance-information/-/substanceinfo/$1'
+                        'identifier' => 'https://echa.europa.eu/substance-information/-/substanceinfo/$1',
+                        'empty' => false
                     ],
                     'ATC' => [
                         'format' => 'exlink',
-                        'identifier' => 'https://www.whocc.no/atc_ddd_index/?code=$1'
+                        'identifier' => 'https://www.whocc.no/atc_ddd_index/?code=$1',
+                        'empty' => false
                     ],
-                    'InChI' => []
+                    'InChI' => [
+                        'empty' => false
+                    ]
                 ],
                 'frequencies' => [
                     'mf_earth' => [
@@ -366,15 +373,23 @@
                 'GHS' => [
                     'GHS%' => [
                         'format' => 'img',
-                        'classes' => [ 'pictogram' ]
+                        'classes' => [ 'pictogram' ],
+                        'empty' => 'none'
                     ],
                     'CDG%' => [
                         'format' => 'img',
-                        'classes' => [ 'pictogram' ]
+                        'classes' => [ 'pictogram' ],
+                        'empty' => 'none'
                     ],
-                    'H' => [],
-                    'EUH' => [],
-                    'P' => []
+                    'H' => [
+                        'empty' => 'none'
+                    ],
+                    'EUH' => [
+                        'empty' => 'none'
+                    ],
+                    'P' => [
+                        'empty' => 'none'
+                    ]
                 ]
             ] as $section => $props ) {
                 
@@ -383,6 +398,9 @@
                 foreach( $props as $key => $params ) {
                     
                     $propres = $e->get_prop( $key );
+                    
+                    if( $propres->rows == 0 && isset( $params['empty'] ) && !$params['empty'] )
+                        continue;
                     
                     $proplines = [];
                     
