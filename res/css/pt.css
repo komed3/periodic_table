@@ -1,3 +1,5 @@
+/* FONTS */
+
 @font-face {
     font-family: 'Work Sans';
     font-style: normal;
@@ -26,8 +28,16 @@
     src: url( './../fonts/MaterialIcons-Regular.woff2' ) format('woff2');
 }
 
+/* GENERAL */
+
 :root {
     --site-bg: #f5f6f7;
+    --light-gray: #e5e6e7;
+    --link-color: #225577;
+    --link-highlight: var( --link-color );
+    --phase-solid: #000000;
+    --phase-liquid: #225577;
+    --phase-gas: #772222;
 }
 
 html {
@@ -37,6 +47,25 @@ html {
 body {
     margin: 0;
     font-family: 'Work Sans', 'Arial', sans-serif;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+a:link,
+a:visited {
+    text-decoration: inherit;
+    color: var( --link-color );
+}
+
+a:hover {
+    color: var( --link-highlight );
+}
+
+sub, sup {
+    font-size: 0.75em;
 }
 
 .icon {
@@ -57,6 +86,148 @@ body {
     font-feature-settings: 'liga';
 }
 
-figure.pictogram img {
+/* PROPERTY */
+
+property:not(.pf-img) {
+    display: block;
+}
+
+property value unit,
+property ref,
+property temp K,
+property temp C,
+property temp unit {
+    display: inline-block;
+    margin-left: 0.3em;
+}
+
+property comment {
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+property temp C::before,
+property comment::before {
+    content: '(';
+}
+
+property temp C::after,
+property comment::after {
+    content: ')';
+}
+
+property .pictogram {
+    display: inline-block;
+    width: 90px;
+    margin: 10px;
+    text-align: center;
+    vertical-align: top;
+    overflow: hidden;
+}
+
+property .pictogram img {
     width: 80px;
+}
+
+property .pictogram figcaption {
+    font-size: 0.6em;
+}
+
+/* HEADER */
+
+header h1 {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1em 10px 2em 10px;
+    height: 60px;
+    font-size: 2em;
+    overflow: hidden;
+}
+
+header h1 .nav-button {
+    flex: 0 0 60px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    background: var( --light-gray );
+}
+
+header h1 .nav-button a {
+    flex: auto;
+    text-align: center;
+    font-size: 36px !important;
+}
+
+header h1 .nav-button #nav_header_close {
+    display: none;
+}
+
+header h1 element {
+    flex: auto;
+    padding: 0 0.5em;
+}
+
+header h1 element symbol {
+    padding-right: 0.3em;
+}
+
+header h1 prev,
+header h1 next {
+    flex: 0 0 80px;
+    padding: 0 0.3em;
+    text-align: center;
+}
+
+header h1 prev a,
+header h1 next a {
+    display: block;
+}
+
+/* FOOTER */
+
+footer {
+    margin: 2em 10px;
+    opacity: 0.8;
+}
+
+/* MAIN */
+
+main {
+    padding: 10px;
+}
+
+main p {
+    margin: 0 0 2em 0;
+    font-size: 1.1em;
+}
+
+/* PROPS */
+
+table.props {
+    margin: -6px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 6px;
+}
+
+table.props tr th,
+table.props tr td {
+    padding: 10px 14px;
+    line-height: 1.4;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+table.props tr th {
+    background: var( --light-gray );
+}
+
+table.props tr.headline th {
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8em;
 }

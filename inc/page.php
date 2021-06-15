@@ -5,6 +5,11 @@
         private $title;
         private $content = '';
         
+        private $nav = [
+            'main' => [],
+            'footer' => []
+        ];
+        
         private $header = '';
         private $footer = '';
         
@@ -92,13 +97,13 @@
             
             return '<header>' .
                 $this->get_nav( 'main' ) .
-                '<div class="headline">' .
+                '<h1>' .
                     '<div class="nav-button">' .
                         '<a href="#" id="nav_header_open" class="icon">menu</a>' .
                         '<a href="#" id="nav_header_close" class="icon">close</a>' .
                     '</div>' .
-                    '<h1>' . $this->header . '</h1>' .
-                '</div>' .
+                    $this->header .
+                '</h1>' .
             '</header>';
             
         }

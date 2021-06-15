@@ -27,7 +27,7 @@
     
     /* URL ---------------------------------------------------------- */
     
-    $url = array_slice( explode( '/', $_SERVER[ 'REQUEST_URI' ] ), 2 );
+    $url = array_map( 'urldecode', array_slice( explode( '/', $_SERVER[ 'REQUEST_URI' ] ), 2 ) );
     
     /* 404 ---------------------------------------------------------- */
     

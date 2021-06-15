@@ -16,22 +16,22 @@
             $this->add_classes( 'element' );
             
             $this->add_header(
-                '<prev>' .
-                    ( ( $prev = $e->get_prev() )->is_element()
-                        ? Linker::p( 'element', $prev->get_name(), $prev->get_symbol(), [
-                            'title' => $prev->get_name()
-                        ] ) : '' ) .
-                '</prev>' .
+                ( ( $prev = $e->get_prev() )->is_element()
+                    ? '<prev>' .
+                          Linker::p( 'element', $prev->get_slug(), $prev->get_symbol(), [
+                              'title' => $prev->get_name()
+                          ] ) .
+                      '</prev>' : '' ) .
                 '<element>' .
                     $e->get_symbol() .
                     $e->get_name() .
                 '</element>' .
-                '<next>' .
-                    ( ( $next = $e->get_next() )->is_element()
-                        ? Linker::p( 'element', $next->get_name(), $next->get_symbol(), [
-                            'title' => $next->get_name()
-                        ] ) : '' ) .
-                '</next>'
+                ( ( $next = $e->get_next() )->is_element()
+                    ? '<next>' .
+                          Linker::p( 'element', $next->get_slug(), $next->get_symbol(), [
+                              'title' => $next->get_name()
+                          ] ) .
+                      '</next>' : '' )
             );
             
             $this->add_content(

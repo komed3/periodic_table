@@ -48,6 +48,12 @@
             
         }
         
+        public function get_slug() {
+            
+            return urlencode( str_replace( ' ', '_', trim( $this->name ) ) );
+            
+        }
+        
         public function get_symbol() {
             
             return '<symbol>' . ( new Formatter( '{' . $this->ID . '}' . $this->symbol ) )->str() . '</symbol>';
