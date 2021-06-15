@@ -35,9 +35,7 @@
             
             foreach( $this->nav as $section => $links ) {
                 
-                $nav_content .= '<li>' .
-                    '<h3>' . $lng->msg( $section ) . '</h3>' .
-                    '<ul>';
+                $nav_content .= '<h2>' . $lng->msg( $section ) . '</h2><ul class="nav">';
                 
                 foreach( $links as $link ) {
                     
@@ -50,7 +48,7 @@
                     
                 }
                 
-                $nav_content .= '</ul></li>';
+                $nav_content .= '</ul>';
                 
             }
             
@@ -64,9 +62,7 @@
             
             $this->add_content(
                 '<article>' .
-                    '<ul class="navigation">' .
-                        $nav_content .
-                    '</ul>' .
+                    $nav_content .
                 '</article>'
             );
             

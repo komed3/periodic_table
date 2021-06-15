@@ -101,7 +101,15 @@
             
             global $lng;
             
-            return '<footer>' . $lng->msg( 'credits', date( 'Y' ) ) . '</footer>';
+            return '<footer>' .
+                '<p class="credits">' . $lng->msg( 'credits', date( 'Y' ) ) . '</p>' .
+                '<ul class="nav">' .
+                    '<li>' . Linker::i( $lng->msg( 'imprint' ), $lng->msg( 'imprint' ) ) . '</li>' .
+                    '<li>' . Linker::i( $lng->msg( 'privacy' ), $lng->msg( 'privacy' ) ) . '</li>' .
+                    '<li>' . Linker::e( 'https://github.com/komed3/periodic_table', $lng->msg( 'github' ) ) . '</li>' .
+                    '<li>' . Linker::i( 'sitemap.xml', $lng->msg( 'sitemap' ) ) . '</li>' .
+                '</ul>' .
+            '</footer>';
             
         }
         

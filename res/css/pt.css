@@ -32,6 +32,7 @@
 
 :root {
     --site-bg: #f5f6f7;
+    --color: #111111;
     --light-gray: #e5e6e7;
     --link-color: #225577;
     --link-highlight: var( --link-color );
@@ -41,6 +42,7 @@
 }
 
 html {
+    color: var( --color );
     background: var( --site-bg );
 }
 
@@ -52,6 +54,11 @@ body {
 .container {
     margin: 0 auto;
     max-width: 1200px;
+}
+
+h2 {
+    margin: 1.2em 0;
+    font-size: 1.4em;
 }
 
 a:link,
@@ -199,15 +206,32 @@ header h1 div next a {
 /* FOOTER */
 
 footer {
-    margin: 2em 10px;
+    margin: 4em 10px 6em 10px;
     opacity: 0.8;
 }
 
-footer a:link,
-footer a:visited,
-footer a:hover {
+footer .credits {
+    margin: 0 0 0.5em 0;
+}
+
+footer .credits a:link,
+footer .credits a:visited,
+footer .credits a:hover {
     text-decoration: underline;
     color: inherit;
+}
+
+footer .nav {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+footer .nav li {
+    margin-right: 10px;
+    font-size: 0.8em;
 }
 
 /* MAIN */
@@ -219,6 +243,21 @@ main {
 main p {
     margin: 0 0 2em 0;
     font-size: 1.4em;
+}
+
+main ul.nav {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    column-count: 3;
+}
+
+main ul.nav li a:hover {
+    text-decoration: underline;
+}
+
+main aside {
+    margin-top: 4em;
 }
 
 /* PROPS */
@@ -246,4 +285,87 @@ table.props tr.headline th {
     text-transform: uppercase;
     font-family: 'Oswald', sans-serif;
     font-size: 1.8em;
+}
+
+/* TABLE */
+
+table.table a:link,
+table.table a:visited,
+table.table a:hover {
+    color: inherit;
+}
+
+table.table.set .element.actinide {
+    background: #f3dff3;
+}
+
+table.table.set .element.alkalimetal {
+    background-color: #ffc1aa;
+}
+
+table.table.set .element.alkalineearthmetal {
+    background-color: #ffd8aa;
+}
+
+table.table.set .element.halogen {
+    background-color: #eeeebb;
+}
+
+table.table.set .element.lanthanide {
+    background-color: #f3dff3;
+}
+
+table.table.set .element.metal {
+    background-color: #e2e2e2;
+}
+
+table.table.set .element.metalloid {
+    background-color: #eed6bf;
+}
+
+table.table.set .element.noblegas {
+    background-color: #d7eefd;
+}
+
+table.table.set .element.nonmetal {
+    background-color: #baeeab;
+}
+
+table.table.set .element.transitionmetal {
+    background-color: #fad4d4;
+}
+
+table.table.set .element.undefined {
+    background-color: #ffffff;
+}
+
+table.table.m-table {
+    margin: -4px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+    table-layout: fixed;
+}
+
+table.table.m-table a {
+    position: relative;
+    display: block;
+}
+
+table.table.m-table a::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+table.table.m-table a span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 0.8em;
+    transform: translate( -50%, -50% );
+}
+
+table.table.m-table .element.current {
+    outline: 1px solid var( --color );
 }

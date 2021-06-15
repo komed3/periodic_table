@@ -34,6 +34,9 @@
                       '</next>' : '' )
             );
             
+            $mTable = new mTable();
+            $mTable->set_current( $e );
+            
             $this->add_content(
                 '<article>' .
                     '<p class="description">' .
@@ -41,7 +44,10 @@
                         ( new Formatter( $e->description ) )->str() .
                     '</p>' .
                     $this->get_sections( $e ) .
-                '</article>'
+                '</article>' .
+                '<aside>' .
+                    $mTable->output() .
+                '</aside>'
             );
             
         }
