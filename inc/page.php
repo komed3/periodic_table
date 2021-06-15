@@ -5,34 +5,6 @@
         private $title;
         private $content = '';
         
-        private $nav = [
-            'main' => [
-                'table' => [
-                    'set', 'group', 'period', 'block', 'age', 'crystal_system',
-                    'magnetism', 'superconductivity', 'radioactivity',
-                    'metal', 'goldschmidt', 'acid_base', 'basicity'
-                ],
-                'trend' => [
-                    'heavy_metal', 'magnetic_susceptibility', 'density',
-                    'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
-                    'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs',
-                    'vickers', 'brinell'
-                ],
-                'interactive' => [
-                    'phase', 'discovery'
-                ],
-                'property' => [
-                    'radioactive', 'natural', 'native', 'vital', 'clean',
-                    'stable', 'noble', 'semiconductor', 'light', 'heavy',
-                    'rare', 'platinum', 'refractory', 'mendeleev', 
-                ],
-                'tool' => [
-                    'list', 'nuclide_table', 'molar_calculator'
-                ]
-            ],
-            'footer' => []
-        ];
-        
         private $header = '';
         private $footer = '';
         
@@ -106,58 +78,14 @@
             
         }
         
-        public function get_nav(
-            string $name
-        ) {
-            
-            global $lng;
-            
-            $nav_content = '';
-            
-            foreach( $this->nav[ $name ] as $section => $links ) {
-                
-                $nav_content .= '<li>' .
-                    '<h3>' .
-                        Linker::i(
-                            $lng->msg( $section ),
-                            ucfirst( $lng->msg( $section ) )
-                        ) .
-                    '</h3>' .
-                    '<ul>';
-                
-                foreach( $links as $link ) {
-                    
-                    $nav_content .= '<li>' .
-                        Linker::i(
-                            $lng->msg( $link ),
-                            ucfirst( $lng->msg( $link ) )
-                        ) .
-                    '</li>';
-                    
-                }
-                
-                $nav_content .= '</ul></li>';
-                
-            }
-            
-            return '<nav class="' . $name . '">' .
-                '<div class="nav-button">' .
-                    '<i id="nav_' . $name . '_open" class="icon nav-open">menu</i>' .
-                    '<i id="nav_' . $name . '_close" class="icon nav-close">close</i>' .
-                '</div>' .
-                '<ul class="navigation">' . $nav_content . '</ul>' .
-            '</nav>';
-            
-        }
-        
         public function get_header() {
             
             global $lng;
             
             return '<header>' .
                 '<h1>' .
-                    $this->get_nav( 'main' ) .
-                    $this->header .
+                    Linker::i( $lng->msg( 'menu' ), 'menu', [ 'class' => 'menu icon' ] ) .
+                    '<div>' . $this->header . '</div>' .
                 '</h1>' .
             '</header>';
             

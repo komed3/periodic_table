@@ -44,10 +44,10 @@
             $params = []
         ) {
             
-            global $lng;
+            global $_IP, $lng;
             
-            return Linker::i(
-                urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $lng->msg( $page . '-page' ) ) ) . '/' .
+            return Linker::builder(
+                $_IP . urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $lng->msg( $page . '-page' ) ) ) . '/' .
                 urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $url ) ),
                 $text, $params
             );
