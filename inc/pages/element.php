@@ -374,12 +374,12 @@
                     'GHS%' => [
                         'format' => 'img',
                         'classes' => [ 'pictogram' ],
-                        'empty' => 'none'
+                        'empty' => false
                     ],
                     'CDG%' => [
                         'format' => 'img',
                         'classes' => [ 'pictogram' ],
-                        'empty' => 'none'
+                        'empty' => false
                     ],
                     'H' => [
                         'empty' => 'none'
@@ -389,6 +389,9 @@
                     ],
                     'P' => [
                         'empty' => 'none'
+                    ],
+                    'toxicity' => [
+                        'empty' => false
                     ]
                 ]
             ] as $section => $props ) {
@@ -500,6 +503,9 @@
                     '</tr>';
                     
                 }
+                
+                if( count( $proplist ) == 0 )
+                    continue;
                 
                 $sections[] = '<tr id="' . $section . '" class="headline">' .
                     '<th colspan="2">' . $lng->msg( 'section-' . $section ) . '</th>' .

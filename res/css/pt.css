@@ -169,6 +169,7 @@ header h1 .nav-button a {
     flex: auto;
     text-align: center;
     font-size: 36px !important;
+    color: inherit;
 }
 
 header h1 .nav-button #nav_header_close {
