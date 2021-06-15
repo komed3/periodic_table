@@ -144,36 +144,18 @@ property .pictogram figcaption {
 
 /* HEADER */
 
+header {
+    margin: 1em 10px 2em 10px;
+}
+
 header h1 {
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
     align-items: center;
-    margin: 1em 10px 2em 10px;
+    margin: 0;
     height: 60px;
     font-size: 2em;
-    overflow: hidden;
-}
-
-header h1 .nav-button {
-    flex: 0 0 60px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    background: var( --light-gray );
-}
-
-header h1 .nav-button a {
-    flex: auto;
-    text-align: center;
-    font-size: 36px !important;
-    color: inherit;
-}
-
-header h1 .nav-button #nav_header_close {
-    display: none;
 }
 
 header h1 element {
@@ -195,6 +177,82 @@ header h1 next {
 header h1 prev a,
 header h1 next a {
     display: block;
+}
+
+header nav.main {
+    position: relative;
+    display: block;
+}
+
+header nav.main .nav-button {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 60px;
+    background: var( --light-gray );
+}
+
+header nav.main .nav-button i {
+    display: none;
+    flex: auto;
+    text-align: center;
+    font-size: 36px !important;
+    color: inherit;
+    cursor: pointer;
+}
+
+header nav.main:not(:hover) .nav-button .nav-open {
+    display: block;
+}
+
+header nav.main:hover .nav-button .nav-close {
+    display: block;
+}
+
+header nav.main .navigation {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    font-size: 0.5em;
+    font-weight: normal;
+    padding: 20px 30px;
+    background: var( --light-gray );
+    box-shadow: 3px 3px 4px #ababab;
+    z-index: 99;
+    transition: 280ms all 120ms ease-out;
+}
+
+header nav.main:hover ul.navigation {
+    display: block;
+}
+
+header nav.main ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav.main ul li {
+    white-space: nowrap;
+}
+
+header nav.main > ul {
+    column-count: 3;
+    column-gap: 30px;
+}
+
+header nav.main > ul li h3 {
+    margin: 0 0 4px 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1em;
+    text-transform: uppercase;
+}
+
+header nav.main > ul li:not(:first-child) h3 {
+    margin-top: 10px;
 }
 
 /* FOOTER */

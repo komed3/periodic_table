@@ -218,7 +218,8 @@
                     ],
                     'density' => [
                         'format' => 'physical',
-                        'unit' => 'g·m<−3>'
+                        'unit' => 'g·m<−3>',
+                        'link' => true
                     ],
                     'molar_volume' => [
                         'format' => 'physical',
@@ -289,7 +290,8 @@
                         'format' => 'str'
                     ],
                     'metal' => [
-                        'format' => 'i18n'
+                        'format' => 'i18n',
+                        'link' => true
                     ],
                     'goldschmidt' => [
                         'format' => 'i18n',
@@ -297,7 +299,8 @@
                     ],
                     'potential' => [
                         'format' => 'physical',
-                        'unit' => 'V'
+                        'unit' => 'V',
+                        'link' => true
                     ],
                     'acid_base' => [
                         'format' => 'i18n',

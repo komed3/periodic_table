@@ -6,7 +6,30 @@
         private $content = '';
         
         private $nav = [
-            'main' => [],
+            'main' => [
+                'table' => [
+                    'set', 'group', 'period', 'block', 'age', 'crystal_system',
+                    'magnetism', 'superconductivity', 'radioactivity',
+                    'metal', 'goldschmidt', 'acid_base', 'basicity'
+                ],
+                'trend' => [
+                    'heavy_metal', 'magnetic_susceptibility', 'density',
+                    'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
+                    'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs',
+                    'vickers', 'brinell'
+                ],
+                'interactive' => [
+                    'phase', 'discovery'
+                ],
+                'property' => [
+                    'radioactive', 'natural', 'native', 'vital', 'clean',
+                    'stable', 'noble', 'semiconductor', 'light', 'heavy',
+                    'rare', 'platinum', 'refractory', 'mendeleev', 
+                ],
+                'tool' => [
+                    'list', 'nuclide_table', 'molar_calculator'
+                ]
+            ],
             'footer' => []
         ];
         
@@ -87,7 +110,43 @@
             string $name
         ) {
             
-            return '<nav class="' . $name . '"></nav>';
+            global $lng;
+            
+            $nav_content = '';
+            
+            foreach( $this->nav[ $name ] as $section => $links ) {
+                
+                $nav_content .= '<li>' .
+                    '<h3>' .
+                        Linker::i(
+                            $lng->msg( $section ),
+                            ucfirst( $lng->msg( $section ) )
+                        ) .
+                    '</h3>' .
+                    '<ul>';
+                
+                foreach( $links as $link ) {
+                    
+                    $nav_content .= '<li>' .
+                        Linker::i(
+                            $lng->msg( $link ),
+                            ucfirst( $lng->msg( $link ) )
+                        ) .
+                    '</li>';
+                    
+                }
+                
+                $nav_content .= '</ul></li>';
+                
+            }
+            
+            return '<nav class="' . $name . '">' .
+                '<div class="nav-button">' .
+                    '<i id="nav_' . $name . '_open" class="icon nav-open">menu</i>' .
+                    '<i id="nav_' . $name . '_close" class="icon nav-close">close</i>' .
+                '</div>' .
+                '<ul class="navigation">' . $nav_content . '</ul>' .
+            '</nav>';
             
         }
         
@@ -96,12 +155,8 @@
             global $lng;
             
             return '<header>' .
-                $this->get_nav( 'main' ) .
                 '<h1>' .
-                    '<div class="nav-button">' .
-                        '<a href="#" id="nav_header_open" class="icon">menu</a>' .
-                        '<a href="#" id="nav_header_close" class="icon">close</a>' .
-                    '</div>' .
+                    $this->get_nav( 'main' ) .
                     $this->header .
                 '</h1>' .
             '</header>';
@@ -154,6 +209,13 @@
                     '<meta name="robots" content="index, follow">' .
                     '<meta name="description" content="' . $this->description . '">' .
                     '<meta name="keywords" content="' . implode( ', ', $this->keywords ) . '">' .
+                    '<link rel="shortcut icon" type="image/x-icon" href="' . $_IP . 'res/images/favicon.png" />' .
+                    '<link rel="shortcut icon" href="' . $_IP . 'res/images/favicon.ico">' .
+                    '<link rel="icon" type="image/png" href="' . $_IP . 'res/images/favicon.png" sizes="32x32">' .
+                    '<link rel="icon" type="image/png" href="' . $_IP . 'res/images/favicon.png" sizes="96x96">' .
+                    '<link rel="apple-touch-icon" sizes="180x180" href="' . $_IP . 'res/images/favicon.png">' .
+                    '<meta name="msapplication-TileColor" content="#ffffff">' .
+                    '<meta name="msapplication-TileImage" content="' . $_IP . 'res/images/favicon.png">' .
                     '<link rel="stylesheet" href="' . $_IP . 'res/css/pt.css" />' .
                 '</head>' .
                 '<body class="' . implode( ' ', $this->classes ) . '">' .

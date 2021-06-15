@@ -31,7 +31,7 @@
             global $_IP;
             
             return Linker::builder(
-                $_IP . $url, $text,
+                $_IP . urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $url ) ), $text,
                 array_merge( [], $params )
             );
             
@@ -47,7 +47,8 @@
             global $lng;
             
             return Linker::i(
-                $lng->msg( $page . '-page' ) . '/' . $url,
+                urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $lng->msg( $page . '-page' ) ) ) . '/' .
+                urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $url ) ),
                 $text, $params
             );
             

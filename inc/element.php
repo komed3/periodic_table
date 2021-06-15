@@ -50,7 +50,7 @@
         
         public function get_slug() {
             
-            return urlencode( str_replace( ' ', '_', trim( $this->name ) ) );
+            return str_replace( ' ', '_', trim( $this->name ) );
             
         }
         
