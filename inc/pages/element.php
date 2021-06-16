@@ -91,9 +91,11 @@
                     ],
                     'group' => [
                         'format' => 'i18n',
-                        'prefix' => 'group-',
+                        'prefix' => 'group-name-',
                         'link' => true
                     ],
+                    'CAS_group' => [],
+                    'IUPAC_group' => [],
                     'period' => [
                         'format' => 'i18n',
                         'prefix' => 'period-',
@@ -132,30 +134,37 @@
                 ],
                 'frequencies' => [
                     'mf_earth' => [
-                        'format' => 'pct'
+                        'format' => 'pct',
+                        'empty' => false
                     ],
                     'freq_solar' => [
-                        'format' => 'exp'
+                        'format' => 'exp',
+                        'empty' => false
                     ],
                     'freq_earth' => [
                         'format' => 'physical',
-                        'unit' => 'ppmw'
+                        'unit' => 'ppmw',
+                        'empty' => false
                     ],
                     'freq_bios' => [
                         'format' => 'physical',
-                        'unit' => 'ppmw'
+                        'unit' => 'ppmw',
+                        'empty' => false
                     ],
                     'freq_cover' => [
                         'format' => 'physical',
-                        'unit' => 'ppmw'
+                        'unit' => 'ppmw',
+                        'empty' => false
                     ],
                     'freq_ocean' => [
                         'format' => 'physical',
-                        'unit' => 'ppmw'
+                        'unit' => 'ppmw',
+                        'empty' => false
                     ],
                     'freq_body' => [
                         'format' => 'physical',
-                        'unit' => 'mol'
+                        'unit' => 'mol',
+                        'empty' => false
                     ]
                 ],
                 'atomic' => [
