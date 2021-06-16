@@ -273,6 +273,9 @@ main {
 
 main p {
     margin: 0 0 2em 0;
+}
+
+main p.description {
     font-size: 1.4em;
 }
 
@@ -344,6 +347,25 @@ form.search-bar button {
     font-size: 40px;
     background: var( --light-gray );
     cursor: pointer;
+}
+
+/* LIST */
+
+ul.list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul.list li {
+    margin-bottom: 0.8em;
+    font-size: 1.2em;
+}
+
+ul.list li b {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.75em;
 }
 
 /* TABLE */

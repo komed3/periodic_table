@@ -26,6 +26,13 @@
         $page = new Menu_Page();
         print $page->output();
         
+    } else if( $pagestr == mb_strtolower( $lng->msg( 'imprint' ) ) ) {
+        
+        require_once __DIR__ . '/pages/imprint.php';
+        
+        $page = new Imprint_Page();
+        print $page->output();
+        
     } else {
         
         get404();
