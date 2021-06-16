@@ -385,7 +385,7 @@
                         'classes' => [ 'pictogram' ],
                         'empty' => false
                     ],
-                    'CDG%' => [
+                    'ADR%' => [
                         'format' => 'img',
                         'classes' => [ 'pictogram' ],
                         'empty' => false

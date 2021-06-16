@@ -56,7 +56,11 @@
         
         public function get_symbol() {
             
-            return '<symbol>' . ( new Formatter( '{' . $this->ID . '}' . $this->symbol ) )->str() . '</symbol>';
+            return '<symbol>' .
+                '<an>' . $this->ID . '</an>' .
+                '<mn>&nbsp;</mn>' .
+                '<cs>' . $this->symbol . '</cs>' .
+            '</symbol>';
             
         }
         

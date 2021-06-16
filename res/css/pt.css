@@ -79,7 +79,6 @@ sub, sup {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 24px;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -96,11 +95,32 @@ sub, sup {
 /* SYMBOL */
 
 symbol {
+    display: inline-grid;
+    margin-top: -0.3em;
+    grid-template-areas:
+        'mn cs'
+        'an cs';
+    justify-items: end;
+    align-items: center;
+    column-gap: 0.1em;
+    row-gap: 0.2em;
+    vertical-align: middle;
+    line-height: 1;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.9em;
 }
-symbol sub {
-    font-size: 0.6em;
+
+symbol mn {
+    grid-area: mn;
+    font-size: 0.5em;
+}
+
+symbol an {
+    grid-area: an;
+    font-size: 0.5em;
+}
+
+symbol cs {
+    grid-area: cs;
 }
 
 /* PROPERTY */
@@ -166,7 +186,7 @@ header h1 {
 }
 
 header .menu {
-    width: 70px;
+    flex: 0 0 70px;
     padding: 12px 0;
     text-align: center;
     font-size: 36px;
@@ -185,6 +205,7 @@ header h1 > div {
 
 header h1 div element {
     flex: auto;
+    vertical-align: middle;
 }
 
 header h1 div element symbol {
