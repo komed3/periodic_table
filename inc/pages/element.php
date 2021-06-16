@@ -73,8 +73,6 @@
                         'empty' => 'unknown'
                     ],
                     'discovery' => [
-                        'format' => 'datetime',
-                        'dtf' => 'Y',
                         'empty' => 'unknown',
                         'link' => true
                     ],
