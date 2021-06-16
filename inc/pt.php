@@ -27,16 +27,35 @@
     require_once __DIR__ . '/table.php';
     require_once __DIR__ . '/mtable.php';
     
-    /* URL ---------------------------------------------------------- */
-    
-    $url = array_map( 'urldecode', array_slice( explode( '/', $_SERVER[ 'REQUEST_URI' ] ), 2 ) );
-    
-    /* 404 ---------------------------------------------------------- */
+    /* FUNCTIONS ---------------------------------------------------- */
     
     function get404() {
         
         
         
     }
+    
+    function getSearchBar() {
+        
+        global $_IP, $lng;
+        
+        return '<form action="' . $_IP . $lng->msg( 'search-page' ) . '" method="get" autocomplete="on" class="search-bar">' .
+            '<input type="text" name="q" value="' .
+                ( empty( $_GET['q'] ) ? '' : $_GET['q'] ) . '" placeholder="' .
+                $lng->msg( 'search-placeholder' ) . '" />' .
+            '<button type="submit" class="icon">search</button>' .
+        '</form>';
+        
+    }
+    
+    /* URL ---------------------------------------------------------- */
+    
+    $url = array_map(
+        'urldecode',
+        array_slice(
+            explode( '/', $_SERVER[ 'REQUEST_URI' ] ),
+            2
+        )
+    );
     
 ?>

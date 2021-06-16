@@ -58,7 +58,10 @@
             
             $this->add_classes( 'menu' );
             
-            $this->add_header( $lng->msg( 'menu' ) );
+            $this->add_header(
+                '<div>' . $lng->msg( 'menu' ) . '</div>' .
+                getSearchBar()
+            );
             
             $this->add_content(
                 '<article>' .
