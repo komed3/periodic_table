@@ -140,6 +140,10 @@ property temp unit {
     margin-left: 0.3em;
 }
 
+property temp > :first-child {
+    margin-left: 0;
+}
+
 property comment {
     display: inline-block;
     margin-left: 0.5em;
@@ -450,4 +454,15 @@ table.table.m-table a span {
 
 table.table.m-table .element.current {
     outline: 1px solid var( --color );
+}
+
+/* ERROR */
+
+.error-404 article {
+    margin: 4em 3em;
+}
+
+.error-404 article p {
+    text-align: center;
+    font-size: 2em;
 }

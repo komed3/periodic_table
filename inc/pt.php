@@ -31,7 +31,10 @@
     
     function get404() {
         
+        require_once __DIR__ . '/pages/404.php';
         
+        $page = new Error_Page();
+        print $page->output();
         
     }
     
