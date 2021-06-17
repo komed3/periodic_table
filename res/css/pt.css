@@ -133,6 +133,7 @@ property:not(.pf-img) {
 
 property value unit,
 property ref,
+property ref temp,
 property temp K,
 property temp C,
 property temp unit {
