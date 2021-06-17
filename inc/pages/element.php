@@ -230,6 +230,10 @@
                         'format' => 'i18n',
                         'link' => true
                     ],
+                    'bravais' => [
+                        'format' => 'i18n',
+                        'link' => true
+                    ],
                     'magnetism' => [
                         'format' => 'i18n',
                         'link' => true
