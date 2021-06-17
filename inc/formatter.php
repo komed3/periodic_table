@@ -34,7 +34,10 @@
                         preg_replace(
                             '/\<(.+)\>/U',
                             '<sup>$1</sup>',
-                            trim( $this->v )
+                            str_replace(
+                                '~', '&nbsp;',
+                                trim( $this->v )
+                            )
                         )
                     )
                 )

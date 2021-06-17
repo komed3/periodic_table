@@ -105,6 +105,7 @@
                 '<ul class="nav">' .
                     '<li>' . Linker::i( $lng->msg( 'imprint' ), $lng->msg( 'imprint' ) ) . '</li>' .
                     '<li>' . Linker::i( $lng->msg( 'privacy' ), $lng->msg( 'privacy' ) ) . '</li>' .
+                    '<li>' . Linker::i( $lng->msg( 'glossary' ), $lng->msg( 'glossary' ) ) . '</li>' .
                     '<li>' . Linker::i( 'api.php', $lng->msg( 'API' ) ) . '</li>' .
                     '<li>' . Linker::e( $_GITHUB, $lng->msg( 'github' ) ) . '</li>' .
                     '<li>' . Linker::i( 'sitemap.xml', $lng->msg( 'sitemap' ) ) . '</li>' .

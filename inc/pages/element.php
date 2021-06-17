@@ -206,6 +206,12 @@
                     'electron_affinity' => [
                         'format' => 'physical',
                         'unit' => 'eV'
+                    ],
+                    'quantum_efficiency' => [
+                        'format' => 'exp'
+                    ],
+                    'coster_kronig' => [
+                        'format' => 'exp'
                     ]
                 ],
                 'ionization' => [
@@ -232,6 +238,10 @@
                         'format' => 'exp',
                         'link' => true
                     ],
+                    'curie_temp' => [
+                        'format' => 'temp',
+                        'empty' => false
+                    ],
                     'density' => [
                         'format' => 'physical',
                         'unit' => 'g·m<−3>',
@@ -240,6 +250,21 @@
                     'molar_volume' => [
                         'format' => 'physical',
                         'unit' => 'm<3>·mol<−1>'
+                    ],
+                    'young_modulus' => [
+                        'format' => 'physical',
+                        'unit' => 'GPa'
+                    ],
+                    'bulk_modulus' => [
+                        'format' => 'physical',
+                        'unit' => 'GPa'
+                    ],
+                    'compressibility' => [
+                        'format' => 'physical',
+                        'unit' => 'GPa'
+                    ],
+                    'poisson' => [
+                        'format' => 'exp'
                     ],
                     'melting' => [
                         'format' => 'temp'
@@ -280,13 +305,17 @@
                         'format' => 'physical',
                         'unit' => 'J·kg<−1>·K<−1>'
                     ],
+                    'thermal_conductivity' => [
+                        'format' => 'physical',
+                        'unit' => 'W·m<−1>·K<−1>'
+                    ],
                     'electrical_conductivity' => [
                         'format' => 'physical',
                         'unit' => 'A·V<−1>·m<−1>'
                     ],
-                    'thermal_conductivity' => [
+                    'resistance' => [
                         'format' => 'physical',
-                        'unit' => 'W·m<−1>·K<−1>'
+                        'unit' => 'Ωm'
                     ],
                     'superconductivity' => [
                         'format' => 'i18n',
