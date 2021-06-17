@@ -203,13 +203,16 @@
                         'unit' => 'pm'
                     ],
                     'configuration' => [],
-                    'ionization' => [
-                        'format' => 'physical',
-                        'unit' => 'eV'
-                    ],
                     'electron_affinity' => [
                         'format' => 'physical',
                         'unit' => 'eV'
+                    ]
+                ],
+                'ionization' => [
+                    'ionization%' => [
+                        'format' => 'physical',
+                        'unit' => 'eV',
+                        'empty' => false
                     ]
                 ],
                 'physical' => [
