@@ -373,6 +373,29 @@ ul.list li b {
     font-size: 0.75em;
 }
 
+/* GLOSSARY */
+
+dl.glossary dt {
+    font-weight: bold;
+}
+
+dl.glossary dt .wiki {
+    display: inline-block;
+    margin-left: 1em;
+    font-size: 0.8em;
+    font-weight: normal;
+    font-style: italic;
+}
+
+dl.glossary dt .wiki a {
+    display: inline-block;
+    margin-left: 0.25em;
+}
+
+dl.glossary dd {
+    margin-bottom: 1em;
+}
+
 /* TABLE */
 
 table.table a:link,

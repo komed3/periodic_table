@@ -26,6 +26,13 @@
         $page = new Menu_Page();
         print $page->output();
         
+    } else if( $pagestr == mb_strtolower( $lng->msg( 'glossary' ) ) ) {
+        
+        require_once __DIR__ . '/pages/glossary.php';
+        
+        $page = new Glossary_Page();
+        print $page->output();
+        
     } else if( $pagestr == mb_strtolower( $lng->msg( 'imprint' ) ) ) {
         
         require_once __DIR__ . '/pages/imprint.php';

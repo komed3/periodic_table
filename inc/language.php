@@ -10,13 +10,13 @@
             string $lngcode = ''
         ) {
             
-            $this->setLanguage();
+            $this->set_language();
             
-            $this->loadMsg();
+            $this->load_msg();
             
         }
         
-        private function setLanguage(
+        public function set_language(
             string $lngcode = ''
         ) {
             
@@ -33,7 +33,9 @@
             
         }
         
-        private function loadMsg() {
+        public function load_msg() {
+            
+            $this->msg = [];
             
             foreach(
                 json_decode(
@@ -77,6 +79,20 @@
                 return $translation;
                 
             } else return $default;
+            
+        }
+        
+        public function is_defined(
+            string $key
+        ) {
+            
+            return array_key_exists( $key, $this->msg );
+            
+        }
+        
+        public function get_msg() {
+            
+            return $this->msg;
             
         }
         
