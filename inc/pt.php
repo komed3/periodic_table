@@ -7,6 +7,7 @@
     /* SETTINGS ----------------------------------------------------- */
     
     $_IP = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'] . '/periodictable/';
+    $_GITHUB = 'https://github.com/komed3/periodic_table';
     $_LNG = 'de';
     
     $db_host = 'localhost';

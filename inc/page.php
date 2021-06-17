@@ -98,7 +98,7 @@
         
         public function get_footer() {
             
-            global $lng;
+            global $lng, $_GITHUB;
             
             return '<footer>' .
                 '<p class="credits">' . $lng->msg( 'credits', date( 'Y' ) ) . '</p>' .
@@ -106,7 +106,7 @@
                     '<li>' . Linker::i( $lng->msg( 'imprint' ), $lng->msg( 'imprint' ) ) . '</li>' .
                     '<li>' . Linker::i( $lng->msg( 'privacy' ), $lng->msg( 'privacy' ) ) . '</li>' .
                     '<li>' . Linker::i( 'api.php', $lng->msg( 'API' ) ) . '</li>' .
-                    '<li>' . Linker::e( 'https://github.com/komed3/periodic_table', $lng->msg( 'github' ) ) . '</li>' .
+                    '<li>' . Linker::e( $_GITHUB, $lng->msg( 'github' ) ) . '</li>' .
                     '<li>' . Linker::i( 'sitemap.xml', $lng->msg( 'sitemap' ) ) . '</li>' .
                     '<li>' . Linker::e( 'https://paypal.me/komed3', $lng->msg( 'donate' ) ) . '</li>' .
                 '</ul>' .

@@ -4,7 +4,7 @@
         
         function __construct() {
             
-            global $lng;
+            global $lng, $_GITHUB;
             
             $this->set_title( $lng->msg( 'imprint' ) );
             
@@ -29,7 +29,7 @@
                         '</li>' .
                         '<li>' .
                             '<b>' . $lng->msg( 'github' ) . '</b>' .
-                            '<span>' . Linker::e( 'https://github.com/komed3/periodic_table', 'komed3/periodic_table' ) . '</span>' .
+                            '<span>' . Linker::e( $_GITHUB, 'komed3/periodic_table' ) . '</span>' .
                         '</li>' .
                     '</ul>' .
                     '<h2>' . $lng->msg( 'disclaimer' ) . '</h2>' .

@@ -33,6 +33,13 @@
         $page = new Imprint_Page();
         print $page->output();
         
+    } else if( $pagestr == mb_strtolower( $lng->msg( 'privacy' ) ) ) {
+        
+        require_once __DIR__ . '/pages/privacy.php';
+        
+        $page = new Privacy_Page();
+        print $page->output();
+        
     } else {
         
         get404();

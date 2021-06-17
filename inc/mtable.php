@@ -51,7 +51,12 @@
                                 
                             } else $set = 'undefined';
                             
-                            $this->table .= '<td class="element ' . $set . ( $e->ID == $this->current->ID ? ' current' : '' ) . '">' .
+                            $this->table .= '<td class="element ' . $set . (
+                                $this->current instanceof Element &&
+                                $e->ID == $this->current->ID
+                                    ? ' current'
+                                    : ''
+                            ) . '">' .
                                 Linker::p(
                                     'element',
                                     $e->get_slug(),

@@ -66,7 +66,10 @@
             $this->add_content(
                 '<article>' .
                     $nav_content .
-                '</article>'
+                '</article>' .
+                '<aside>' .
+                    ( new mTable() )->output() .
+                '</aside>'
             );
             
         }
