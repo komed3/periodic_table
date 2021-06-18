@@ -19,6 +19,7 @@
         ];
         
         private $fields = [];
+        private $table;
         
         public $maxP = 7;
         public $maxG = 18;
@@ -28,52 +29,25 @@
         
         function __construct() {
             
-            $this->fetch_fields();
+            $this->fetch_elements();
             
         }
         
-        private function fetch_fields() {
-            
-            for( $p = 1; $p <= $this->maxP; $p++ ) {
-                
-                for( $g = 1; $g <= $this->maxG; $g++ ) {
-                    
-                    $this->fields[ $p ][ $g ] = $this->fetch_elements( $p, $g );
-                    
-                }
-                
-            }
-            
-        }
-        
-        private function fetch_elements(
-            int $period,
-            int $group
-        ) {
+        private function fetch_elements() {
             
             global $db;
             
-            $elements = [];
-            
-            $res = $db->query('
-                SELECT      ID
+            $elements = $db->query('
+                SELECT      ID, e_period, e_group
                 FROM        ' . $db->prefix . 'element
-                WHERE       e_period = "' . $period . '"
-                AND         e_group = "' . $group . '"
                 ORDER BY    ID ASC
             ');
             
-            if( $res->num_rows > 0 ) {
+            while( $element = $elements->fetch_object() ) {
                 
-                while( $row = $res->fetch_object() ) {
-                    
-                    $elements[] = new Element( $row->ID );
-                    
-                }
+                $this->fields[ $element->e_period ][ $element->e_group ][] = new Element( $element->ID );
                 
             }
-            
-            return $elements;
             
         }
         
@@ -103,13 +77,29 @@
         
         public function output() {
             
+            if( empty( $this->table ) || strlen( $this->table ) == 0 )
+                $this->build();
             
+            return $this->table;
             
         }
         
         public function get_legend() {
             
             
+            
+        }
+        
+        public function get_field(
+            int $period,
+            int $group
+        ) {
+            
+            if( array_key_exists( $period, $this->fields ) &&
+                array_key_exists( $group, $this->fields[ $period ] ) )
+                return $this->fields[ $period ][ $group ];
+            
+            return null;
             
         }
         
