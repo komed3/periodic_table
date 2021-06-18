@@ -8,7 +8,7 @@
             
             $exGroups = [];
             
-            $this->table .= '<table border="1" class="table ' . $this->property . '">';
+            $this->table .= '<table class="table ' . $this->property . '">';
             
             for( $p = 1; $p <= $this->maxP; $p++ ) {
                 
@@ -30,11 +30,11 @@
                             
                         }
                         
-                        if( $g == 3 && count( $field ) < 2 ) {
-                            
-                            $this->table .= '<td class="empty" colspan="14">&nbsp;</td>';
-                            
-                        }
+                    }
+                    
+                    if( $g == 3 && ( empty( $field ) || count( $field ) < 2 ) ) {
+                        
+                        $this->table .= '<td class="empty" colspan="14">&nbsp;</td>';
                         
                     }
                                        
@@ -47,10 +47,5 @@
         }
         
     }
-    
-    $lt = new Long_Table();
-    print $lt->output();
-    
-    exit;
     
 ?>

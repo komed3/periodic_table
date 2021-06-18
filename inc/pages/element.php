@@ -34,8 +34,8 @@
                       '</next>' : '' )
             );
             
-            $mTable = new mTable();
-            $mTable->set_current( $e );
+            $long_table = new Long_Table();
+            $long_table->set_current( $e );
             
             $this->add_content(
                 '<article>' .
@@ -46,7 +46,7 @@
                     $this->get_sections( $e ) .
                 '</article>' .
                 '<aside>' .
-                    $mTable->output() .
+                    $long_table->output() .
                 '</aside>'
             );
             
