@@ -48,6 +48,14 @@
             
         }
         
+        public function is_equal(
+            Element $e
+        ) {
+            
+            return ( $this->ID === $e->ID );
+            
+        }
+        
         public function get_slug() {
             
             return str_replace( ' ', '_', trim( $this->name ) );

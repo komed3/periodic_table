@@ -19,7 +19,7 @@
         ];
         
         private $fields = [];
-        private $table;
+        private $table = '';
         
         public $maxP = 7;
         public $maxG = 18;
@@ -71,7 +71,58 @@
         
         public function build() {
             
+            global $lng;
             
+            $this->table .= '<table class="table ' . $this->property . '">';
+            
+            for( $p = 1; $p <= $this->maxP; $p++ ) {
+                
+                $this->table .= '<tr>';
+                
+                for( $g = 1; $g <= $this->maxG; $g++ ) {
+                    
+                    $field = $this->get_field( $p, $g );
+                    
+                    if( empty( $field ) ) {
+                        
+                        $this->table .= '<td class="empty">&nbsp;</td>';
+                        
+                    } else if( count( $field ) > 1 ) {
+                        
+                        $e = $field[0];
+                        
+                        $this->table .= '<td class="empty placeholder" period="' . $p . '" group="' . $g . '">' .
+                            $e->symbol .
+                        '</td>';
+                        
+                    } else {
+                        
+                        $e = $field[0];
+                        
+                        $this->table .= '<td class="element ' .
+                                ( !empty( $this->current ) &&
+                                  $this->current instanceof Element &&
+                                  $this->current->is_element() &&
+                                  $this->current->is_equal( $e )
+                                      ? 'current'
+                                      : '' ) . '" period="' . $p . '" group="' . $g . '" id="' .
+                                $e->ID . '" title="' . $e->name . '" >' .
+                            Linker::p(
+                                $lng->msg( 'element' ),
+                                $e->get_slug(),
+                                $e->get_symbol()
+                            ) .
+                        '</td>';
+                        
+                    }
+                    
+                }
+                
+                $this->table .= '</tr>';
+                
+            }
+            
+            $this->table .= '</table>';
             
         }
         
