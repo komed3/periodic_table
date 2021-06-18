@@ -73,7 +73,8 @@
             Element $e
         ) {
             
-            $this->current = $e;
+            if( $e->is_element() )
+                $this->current = $e;
             
         }
         
