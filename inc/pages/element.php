@@ -313,6 +313,14 @@
                         'format' => 'physical',
                         'unit' => 'W·m<−1>·K<−1>'
                     ],
+                    'thermal_diffusivity' => [
+                        'format' => 'physical',
+                        'unit' => 'mm<2>·s<-1>'
+                    ],
+                    'thermal_expansion' => [
+                        'format' => 'physical',
+                        'unit' => 'μm·m<-1>·K<-1>'
+                    ],
                     'electrical_conductivity' => [
                         'format' => 'physical',
                         'unit' => 'A·V<−1>·m<−1>'
@@ -320,6 +328,18 @@
                     'resistance' => [
                         'format' => 'physical',
                         'unit' => 'Ωm'
+                    ],
+                    'formation_enthalpy' => [
+                        'format' => 'physical',
+                        'unit' => 'kJ·mol<-1>'
+                    ],
+                    'gibbs_energy' => [
+                        'format' => 'physical',
+                        'unit' => 'kJ·mol<-1>'
+                    ],
+                    'standard_entropy' => [
+                        'format' => 'physical',
+                        'unit' => 'J·mol<-1>·K<-1>'
                     ],
                     'superconductivity' => [
                         'format' => 'i18n',
@@ -544,14 +564,26 @@
                     }
                     
                     $proplist[] = '<tr class="property p-' . $key . '">' .
-                        '<th>' . ( !empty( $params['link'] ) && $params['link']
-                            ? Linker::i( $lng->msg( $key ), $lng->msg( $key ) )
-                            : $lng->msg( $key ) ) . '</th>' .
-                        '<td>' . ( $propres->rows == 0
-                            ? $lng->msg( empty( $params['empty'] )
-                                ? '&ndash;'
-                                : $params['empty'] )
-                            : implode( $proplines ) ) . '</td>' .
+                        '<th>' .
+                            ( !empty( $params['link'] ) && $params['link']
+                                ? Linker::i( $lng->msg( $key ), $lng->msg( $key ) )
+                                : $lng->msg( $key )
+                            ) . ( $lng->is_defined( $key . '_glossary' )
+                                ? Linker::i( $lng->msg( 'glossary' ), 'help', [
+                                      'class' => 'icon glossary',
+                                      'title' => $lng->msg( $key . '_glossary' )
+                                  ], $key )
+                                : ''
+                            ) .
+                        '</th>' .
+                        '<td>' .
+                            ( $propres->rows == 0
+                                ? $lng->msg( empty( $params['empty'] )
+                                    ? '&ndash;'
+                                    : $params['empty'] )
+                                : implode( $proplines )
+                            ) .
+                        '</td>' .
                     '</tr>';
                     
                 }

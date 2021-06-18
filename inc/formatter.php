@@ -152,7 +152,7 @@
             
             return '<value class="physical">' .
                 $this->exp( $digits ) . ( !empty( $unit )
-                    ? '<unit title="' . $lng->defmsg( 'unit-' . $unit, $unit ) . '">' .
+                    ? '<unit>' .
                           ( new Formatter( $unit ) )->str() .
                       '</unit>' : '' ) .
             '</value>';

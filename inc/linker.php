@@ -25,13 +25,19 @@
         public function i(
             string $url,
             string $text,
-            $params = []
+            $params = [],
+            $anchor = null
         ) {
             
             global $_IP;
             
             return Linker::builder(
-                $_IP . urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $url ) ), $text,
+                $_IP . urlencode( str_replace(
+                    [ ' ', '&shy;' ],
+                    [ '_', '' ],
+                    $url
+                ) ) . ( !empty( $anchor ) ? '#' . $anchor : '' ),
+                $text,
                 array_merge( [], $params )
             );
             

@@ -73,6 +73,18 @@ a:hover {
     color: var( --link-highlight );
 }
 
+a.glossary:link,
+a.glossary:visited,
+a.glossary:hover {
+    display: inline-block;
+    margin-left: 0.4em;
+    vertical-align: top;
+    text-decoration: none;
+    font-size: 0.8em;
+    color: var( --color );
+    opacity: 0.5;
+}
+
 sub, sup {
     font-size: 0.75em;
 }

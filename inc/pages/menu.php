@@ -5,7 +5,7 @@
         private $nav = [
             'table' => [
                 'set', 'group', 'period', 'block', 'age', 'crystal_system',
-                'magnetism', 'superconductivity', 'radioactivity',
+                'bravais', 'magnetism', 'superconductivity', 'radioactivity',
                 'metal', 'goldschmidt', 'acid_base', 'basicity'
             ],
             'trend' => [
