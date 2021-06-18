@@ -68,7 +68,7 @@
                     $nav_content .
                 '</article>' .
                 '<aside>' .
-                    ( new mTable() )->output() .
+                    ( new Long_Table() )->output() .
                 '</aside>'
             );
             
