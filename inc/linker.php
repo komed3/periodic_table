@@ -16,7 +16,9 @@
                 
             }
             
-            return '<a href="' . str_replace( ' ', '_', trim( $url ) ) . '" ' . implode( '', $plist ) . '>' .
+            return '<a href="' .
+                str_replace( ' ', '_', trim( $url ) ) . '" ' .
+                implode( '', $plist ) . '>' .
                 trim( $text ) .
             '</a>';
             
@@ -36,9 +38,11 @@
                     [ ' ', '&shy;' ],
                     [ '_', '' ],
                     $url
-                ) ) . ( !empty( $anchor ) ? '#' . $anchor : '' ),
+                ) ) . ( !empty( $anchor )
+                    ? '#' . $anchor
+                    : '' ),
                 $text,
-                array_merge( [], $params )
+                $params
             );
             
         }
@@ -47,15 +51,26 @@
             string $page,
             string $url,
             string $text,
-            $params = []
+            $params = [],
+            $anchor = null
         ) {
             
             global $_IP, $lng;
             
             return Linker::builder(
-                $_IP . urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $lng->msg( $page . '-page' ) ) ) . '/' .
-                urlencode( str_replace( [ ' ', '&shy;' ], [ '_', '' ], $url ) ),
-                $text, $params
+                $_IP . urlencode( str_replace(
+                    [ ' ', '&shy;' ],
+                    [ '_', '' ],
+                    $lng->msg( $page . '-page' )
+                ) ) . '/' . urlencode( str_replace(
+                    [ ' ', '&shy;' ],
+                    [ '_', '' ],
+                    $url
+                ) ) . ( !empty( $anchor )
+                    ? '#' . $anchor
+                    : '' ),
+                $text,
+                $params
             );
             
         }
@@ -67,7 +82,8 @@
         ) {
             
             return Linker::builder(
-                $url, $text,
+                $url,
+                $text,
                 array_merge( [
                     'target' => '_blank',
                     'class' => 'external'

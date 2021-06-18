@@ -31,13 +31,13 @@
 /* GENERAL */
 
 :root {
-    --site-bg: #f5f6f7;
+    --site-bg: #fafbfc;
     --color: #111111;
     --bgcolor: #fdfdfd;
-    --light-gray: #e5e6e7;
-    --link-color: #225577;
+    --light-gray: #eaebec;
+    --link-color: #4477aa;
     --link-highlight: var( --link-color );
-    --phase-solid: #000000;
+    --phase-solid: #111111;
     --phase-liquid: #225577;
     --phase-gas: #772222;
 }
@@ -76,8 +76,6 @@ a:hover {
 a.glossary:link,
 a.glossary:visited,
 a.glossary:hover {
-    display: inline-block;
-    margin-left: 0.4em;
     vertical-align: top;
     text-decoration: none;
     font-size: 0.8em;

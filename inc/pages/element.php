@@ -569,7 +569,7 @@
                                 ? Linker::i( $lng->msg( $key ), $lng->msg( $key ) )
                                 : $lng->msg( $key )
                             ) . ( $lng->is_defined( $key . '_glossary' )
-                                ? Linker::i( $lng->msg( 'glossary' ), 'help', [
+                                ? '&nbsp;' . Linker::i( $lng->msg( 'glossary' ), 'help', [
                                       'class' => 'icon glossary',
                                       'title' => $lng->msg( $key . '_glossary' )
                                   ], $key )
