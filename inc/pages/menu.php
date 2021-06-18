@@ -20,7 +20,7 @@
             'property' => [
                 'radioactive', 'natural', 'native', 'vital', 'clean',
                 'stable', 'noble', 'semiconductor', 'light', 'heavy',
-                'rare', 'platinum', 'refractory', 'mendeleev', 
+                'rare', 'platinum', 'refractory', 'mendeleev'
             ],
             'tool' => [
                 'list', 'nuclide_table', 'molar_calculator'

@@ -2,13 +2,29 @@
     
     class Table {
         
-        private $maxP = 7;
-        private $maxG = 18;
+        private $allowed_props = [
+            'set', 'group', 'period', 'block', 'age', 'crystall_structure',
+            'bravais', 'magnetism', 'superconductivity', 'radioactivity',
+            'metal', 'goldschmidt', 'acid_base', 'basicity',
+            
+            'heavy_metal', 'magnetic_susceptibility', 'density', 'potential',
+            'pauling', 'allen', 'mulliken', 'sanderson', 'allred_rochow',
+            'ghosh_gupta', 'pearson', 'mohs', 'vickers', 'brinell',
+            
+            'phase', 'discovery',
+            
+            'radioactive', 'natural', 'native', 'vital', 'clean', 'stable',
+            'noble', 'semiconductor', 'light', 'heavy', 'rare', 'platinum',
+            'refractory', 'mendeleev'
+        ];
         
         private $fields = [];
         
-        private $property = 'set';
-        private $current = null;
+        public $maxP = 7;
+        public $maxG = 18;
+        
+        public $property = 'set';
+        public $current = null;
         
         function __construct() {
             
@@ -65,7 +81,8 @@
             string $prop
         ) {
             
-            $this->property = $prop;
+            if( in_array( $prop, $this->allowed_props ) )
+                $this->property = $prop;
             
         }
         
@@ -75,6 +92,24 @@
             
             if( $e->is_element() )
                 $this->current = $e;
+            
+        }
+        
+        public function build() {
+            
+            
+            
+        }
+        
+        public function output() {
+            
+            
+            
+        }
+        
+        public function get_legend() {
+            
+            
             
         }
         
