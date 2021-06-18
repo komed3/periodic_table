@@ -51,6 +51,31 @@
             
         }
         
+        private function add_element(
+            int $p,
+            int $g,
+            Element $e
+        ) {
+            
+            global $lng;
+            
+            $this->table .= '<td class="element ' .
+                    ( !empty( $this->current ) &&
+                        $this->current instanceof Element &&
+                        $this->current->is_element() &&
+                        $this->current->is_equal( $e )
+                            ? 'current'
+                            : '' ) . '" period="' . $p . '" group="' . $g . '" id="' .
+                    $e->ID . '" title="' . $e->name . '" >' .
+                Linker::p(
+                    $lng->msg( 'element' ),
+                    $e->get_slug(),
+                    $e->get_symbol()
+                ) .
+            '</td>';
+            
+        }
+        
         public function set_property(
             string $prop
         ) {
@@ -73,6 +98,8 @@
             
             global $lng;
             
+            $exGroups = [];
+            
             $this->table .= '<table class="table ' . $this->property . '">';
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
@@ -83,11 +110,11 @@
                     
                     if( $p == 0 || $g == 0 ) {
                         
-                        $this->table .= '<td class="header">' .
+                        $this->table .= '<th class="header">' .
                             $lng->defmsg( ( $p == 0 )
                                 ? 'group-' . $g
                                 : 'period-' . $p, '&nbsp;' ) .
-                        '</td>';
+                        '</th>';
                         
                     } else {
                         
@@ -101,33 +128,46 @@
                             
                             $e = $field[0];
                             
+                            $exGroups[ $e->ID ] = [
+                                'fields' => $field,
+                                'p' => $p,
+                                'g' => $g
+                            ];
+                            
                             $this->table .= '<td class="empty placeholder" period="' . $p . '" group="' . $g . '">' .
                                 $e->symbol .
                             '</td>';
                             
                         } else {
                             
-                            $e = $field[0];
-                            
-                            $this->table .= '<td class="element ' .
-                                    ( !empty( $this->current ) &&
-                                      $this->current instanceof Element &&
-                                      $this->current->is_element() &&
-                                      $this->current->is_equal( $e )
-                                          ? 'current'
-                                          : '' ) . '" period="' . $p . '" group="' . $g . '" id="' .
-                                    $e->ID . '" title="' . $e->name . '" >' .
-                                Linker::p(
-                                    $lng->msg( 'element' ),
-                                    $e->get_slug(),
-                                    $e->get_symbol()
-                                ) .
-                            '</td>';
+                            $this->add_element( $p, $g, $field[0] );
                             
                         }
                         
                     }
                                        
+                }
+                
+                $this->table .= '</tr>';
+                
+            }
+            
+            # add external groups
+            
+            $this->table .= '<tr><td class="empty" colspan="' . $this->maxG . '"></td></tr>';
+            
+            foreach( $exGroups as $element => $group ) {
+                
+                $this->table .= '<tr>' .
+                    '<th>&nbsp;</th>' .
+                    '<th class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
+                        ( new Element( $element ) )->get_name() .
+                    '</th>';
+                
+                foreach( $group['fields'] as $e ) {
+                    
+                    $this->add_element( $group['p'], $group['g'], $e );
+                    
                 }
                 
                 $this->table .= '</tr>';
