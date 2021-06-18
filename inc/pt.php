@@ -26,7 +26,7 @@
     require_once __DIR__ . '/property.php';
     require_once __DIR__ . '/element.php';
     require_once __DIR__ . '/table.php';
-    require_once __DIR__ . '/mtable.php';
+    require_once __DIR__ . '/longtable.php';
     
     /* FUNCTIONS ---------------------------------------------------- */
     

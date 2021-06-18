@@ -78,9 +78,10 @@ a.glossary:visited,
 a.glossary:hover {
     vertical-align: top;
     text-decoration: none;
-    font-size: 0.8em;
+    line-height: 1;
+    font-size: 0.7em;
     color: var( --color );
-    opacity: 0.5;
+    opacity: 0.25;
 }
 
 sub, sup {

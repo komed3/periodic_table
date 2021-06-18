@@ -2,7 +2,7 @@
     
     class Table {
         
-        private $allowed_props = [
+        protected $allowed_props = [
             'set', 'group', 'period', 'block', 'age', 'crystall_structure',
             'bravais', 'magnetism', 'superconductivity', 'radioactivity',
             'metal', 'goldschmidt', 'acid_base', 'basicity',
@@ -18,8 +18,8 @@
             'refractory', 'mendeleev'
         ];
         
-        private $fields = [];
-        private $table = '';
+        protected $fields = [];
+        protected $table = '';
         
         public $maxP = 7;
         public $maxG = 18;
@@ -33,7 +33,7 @@
             
         }
         
-        private function fetch_elements() {
+        protected function fetch_elements() {
             
             global $db;
             
@@ -51,7 +51,7 @@
             
         }
         
-        private function add_element(
+        protected function add_element(
             int $p,
             int $g,
             Element $e
