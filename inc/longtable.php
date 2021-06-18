@@ -8,7 +8,7 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="table ' . $this->property . '">';
+            $this->table .= '<table class="table long-table ' . $this->property . '">';
             
             for( $p = 1; $p <= $this->maxP; $p++ ) {
                 
@@ -43,6 +43,8 @@
                 $this->table .= '</tr>';
                 
             }
+            
+            $this->table .= '</table>';
             
         }
         
