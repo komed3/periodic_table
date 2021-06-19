@@ -36,6 +36,7 @@
     --bgcolor: #fdfdfd;
     --light-gray: #eaebec;
     --mid-gray: #cacbcc;
+    --highlight: #ffcc77;
     --link-color: #4477aa;
     --link-highlight: var( --link-color );
     --phase-solid: #111111;
@@ -505,11 +506,15 @@ table.table tr.empty-row > * {
 
 /* TABLE -> COLOR SCHEME -> GENERAL */
 
+table.table.property .element[prop="1"] {
+    background: var( --highlight );
+}
+
 table.table .element[current] {
     outline: 1px solid var( --color );
 }
 
-table.table .element[radioactive] overlay {
+table.table.set .element[radioactive] overlay {
     background: repeating-linear-gradient(
         -45deg,
         var( --bgcolor ),

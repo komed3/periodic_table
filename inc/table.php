@@ -52,13 +52,17 @@
                 
                 default:
                     return [];
-                    break;
                 
                 case 'classification':
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
                         ? [ $this->property => $prop->p[0]->val->raw() ]
                         : [];
-                    break;
+                
+                case 'property':
+                    return [
+                        $this->property => ( $prop = $e->bool_prop( $this->property ) ),
+                        'prop' => intval( $prop )
+                    ];
                 
             }
             
@@ -168,7 +172,10 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="' . implode( ' ', $this->classes ) . ' ' . $this->property . '">';
+            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
+                $this->type,
+                $this->property
+            ] ) ) . '">';
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 
