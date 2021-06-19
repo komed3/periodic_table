@@ -100,9 +100,9 @@
             string $value
         ) {
             
-            return array_search( $value, array_map(
+            return array_search( mb_strtolower( $value ), array_map(
                 function( $val ) {
-                    return str_replace( '&shy;', '', $val );
+                    return mb_strtolower( str_replace( '&shy;', '', $val ) );
                 },
                 $this->msg
             ) );

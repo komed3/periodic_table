@@ -79,19 +79,12 @@
             $classes = [ 'element' ];
             $attr = [];
             
-            $phase = $e->get_prop( 'phase' )->p[0]->val->raw();
-            
             foreach( array_merge( [
                 'id' => $e->ID,
                 'period' => $p,
                 'group' => $g,
-                'title' =>
-                    $lng->msg(
-                        'table-element-title',
-                        $e->get_name(),
-                        $lng->msg( $phase )
-                    ),
-                'phase' => $phase,
+                'title' => $e->get_name(),
+                'phase' => $e->get_prop( 'phase' )->p[0]->val->raw(),
                 'radioactive' => $e->is_radioactive(),
                 'current' =>
                     !empty( $this->current ) &&
