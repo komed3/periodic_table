@@ -409,6 +409,16 @@ dl.glossary dd {
 
 /* TABLE */
 
+table.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 table.table a:link,
 table.table a:visited,
 table.table a:hover {
@@ -428,11 +438,15 @@ table.table a symbol {
     position: absolute;
     top: 50%;
     left: 50%;
+    display: block;
+    margin-top: 0;
+    font-size: 2em;
     transform: translate( -50%, -50% );
 }
 
 table.table .element {
     background: var( --light-gray );
+    overflow: hidden;
 }
 
 table.table .element.current {
@@ -485,19 +499,43 @@ table.table.set .element.undefined {
     background-color: #ffffff;
 }
 
+/* TABLE -> FULL PAGE TABLE */
+
+.table-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+table.table.full-page {
+    width: 75%;
+    height: auto;
+    border-spacing: 0.4vw;
+    font-size: 1vw;
+}
+
+table.table.full-page .element {
+    width: calc( 100% / 18 );
+}
+
 /* TABLE -> LONG TABLE */
 
 table.table.long-table {
     margin: -4px;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 4px;
     table-layout: fixed;
 }
 
 table.table.long-table symbol {
-    display: block;
-    margin-top: 0;
     font-family: 'Work Sans', sans-serif;
     font-size: 0.8em;
 }

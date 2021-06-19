@@ -8,7 +8,9 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="table long-table ' . $this->property . '">';
+            $this->add_classes( 'long-table' );
+            
+            $this->table .= '<table class="' . implode( ' ', $this->classes ) . ' ' . $this->property . '">';
             
             for( $p = 1; $p <= $this->maxP; $p++ ) {
                 

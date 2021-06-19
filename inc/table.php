@@ -21,6 +21,8 @@
         protected $fields = [];
         protected $table = '';
         
+        protected $classes = [ 'table' ];
+        
         public $maxP = 7;
         public $maxG = 18;
         
@@ -94,13 +96,25 @@
             
         }
         
+        public function add_classes(
+            string ... $classes
+        ) {
+            
+            foreach( $classes as $class ) {
+                
+                $this->classes[] = $class;
+                
+            }
+            
+        }
+        
         public function build() {
             
             global $lng;
             
             $exGroups = [];
             
-            $this->table .= '<table class="table ' . $this->property . '">';
+            $this->table .= '<table class="' . implode( ' ', $this->classes ) . ' ' . $this->property . '">';
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 
@@ -154,7 +168,7 @@
             
             # add external groups
             
-            $this->table .= '<tr><td class="empty" colspan="' . $this->maxG . '"></td></tr>';
+            $this->table .= '<tr class="empty-row"><td class="empty" colspan="' . $this->maxG . '"></td></tr>';
             
             foreach( $exGroups as $element => $group ) {
                 
