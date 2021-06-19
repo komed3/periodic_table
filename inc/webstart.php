@@ -56,7 +56,20 @@
         
     } else {
         
-        get404();
+        $table = new Table();
+        
+        if( $table->is_allowed( $prop = $lng->get_key( str_replace( '_', ' ', $url[0] ) ) ) ) {
+            
+            require_once __DIR__ . '/pages/table.php';
+            
+            $page = new Table_Page( $prop );
+            print $page->output();
+            
+        } else {
+            
+            get404();
+            
+        }
         
     }
     

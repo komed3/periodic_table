@@ -3,25 +3,6 @@
     class Menu_Page extends Page {
         
         private $nav = [
-            'table' => [
-                'set', 'group', 'period', 'block', 'age', 'crystal_system',
-                'bravais', 'magnetism', 'superconductivity', 'radioactivity',
-                'metal', 'goldschmidt', 'acid_base', 'basicity'
-            ],
-            'trend' => [
-                'heavy_metal', 'magnetic_susceptibility', 'density',
-                'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
-                'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs',
-                'vickers', 'brinell'
-            ],
-            'interactive' => [
-                'phase', 'discovery'
-            ],
-            'property' => [
-                'radioactive', 'natural', 'native', 'vital', 'clean',
-                'stable', 'noble', 'semiconductor', 'light', 'heavy',
-                'rare', 'platinum', 'refractory', 'mendeleev'
-            ],
             'tool' => [
                 'list', 'nuclide_table', 'molar_calculator'
             ]
@@ -29,11 +10,11 @@
         
         function __construct() {
             
-            global $lng;
+            global $lng, $_props;
             
             $nav_content = '';
             
-            foreach( $this->nav as $section => $links ) {
+            foreach( array_merge( $_props, $this->nav ) as $section => $links ) {
                 
                 $nav_content .= '<h2>' . $lng->msg( $section ) . '</h2><ul class="nav">';
                 

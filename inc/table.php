@@ -2,21 +2,7 @@
     
     class Table {
         
-        protected $allowed_props = [
-            'set', 'group', 'period', 'block', 'age', 'crystall_structure',
-            'bravais', 'magnetism', 'superconductivity', 'radioactivity',
-            'metal', 'goldschmidt', 'acid_base', 'basicity',
-            
-            'heavy_metal', 'magnetic_susceptibility', 'density', 'potential',
-            'pauling', 'allen', 'mulliken', 'sanderson', 'allred_rochow',
-            'ghosh_gupta', 'pearson', 'mohs', 'vickers', 'brinell',
-            
-            'phase', 'discovery',
-            
-            'radioactive', 'natural', 'native', 'vital', 'clean', 'stable',
-            'noble', 'semiconductor', 'light', 'heavy', 'rare', 'platinum',
-            'refractory', 'mendeleev'
-        ];
+        protected $allowed_props;
         
         protected $fields = [];
         protected $table = '';
@@ -26,10 +12,15 @@
         public $maxP = 7;
         public $maxG = 18;
         
+        public $type = 'classification';
         public $property = 'set';
         public $current = null;
         
         function __construct() {
+            
+            global $_props;
+            
+            $this->allowed_props = $_props;
             
             $this->fetch_elements();
             
@@ -53,6 +44,30 @@
             
         }
         
+        protected function get_prop(
+            Element $e
+        ) {
+            
+            switch( $this->type ) {
+                
+                default:
+                    return [];
+                
+                case 'classification':
+                    return ( $prop = $e->get_prop( $this->property ) )->rows > 0
+                        ? [ $this->property => $prop->p[0]->val->raw() ]
+                        : [];
+                
+                case 'property':
+                    return [
+                        $this->property => ( $prop = $e->bool_prop( $this->property ) ),
+                        'prop' => intval( $prop )
+                    ];
+                
+            }
+            
+        }
+        
         protected function add_element(
             int $p,
             int $g,
@@ -61,14 +76,31 @@
             
             global $lng;
             
-            $this->table .= '<td class="element ' .
-                    ( !empty( $this->current ) &&
-                        $this->current instanceof Element &&
-                        $this->current->is_element() &&
-                        $this->current->is_equal( $e )
-                            ? 'current'
-                            : '' ) . '" period="' . $p . '" group="' . $g . '" id="' .
-                    $e->ID . '" title="' . $e->name . '" >' .
+            $classes = [ 'element' ];
+            $attr = [];
+            
+            foreach( array_merge( [
+                'id' => $e->ID,
+                'period' => $p,
+                'group' => $g,
+                'title' => $e->get_name(),
+                'phase' => $e->get_prop( 'phase' )->p[0]->val->raw(),
+                'radioactive' => $e->is_radioactive(),
+                'current' =>
+                    !empty( $this->current ) &&
+                    $this->current instanceof Element &&
+                    $this->current->is_element() &&
+                    $this->current->is_equal( $e )
+            ], $this->get_prop( $e ) ) as $key => $val ) {
+                
+                $attr[] = $val == false ? null
+                    : $key . ( is_bool( $val ) ? '' : '="' . $val . '"' );
+                
+            }
+            
+            $this->table .= '<td class="element" ' .
+                    implode( ' ', array_filter( $attr ) ) . '>' .
+                '<overlay></overlay>' .
                 Linker::p(
                     $lng->msg( 'element' ),
                     $e->get_slug(),
@@ -78,12 +110,31 @@
             
         }
         
+        public function is_allowed(
+            string $prop
+        ) {
+            
+            foreach( $this->allowed_props as $type => $group ) {
+                
+                if( in_array( $prop, $group ) )
+                    return $type;
+                
+            }
+            
+            return false;
+            
+        }
+        
         public function set_property(
             string $prop
         ) {
             
-            if( in_array( $prop, $this->allowed_props ) )
+            if( ( $type = $this->is_allowed( $prop ) ) !== false ) {
+                
+                $this->type = $type;
                 $this->property = $prop;
+                
+            }
             
         }
         
@@ -114,7 +165,10 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="' . implode( ' ', $this->classes ) . ' ' . $this->property . '">';
+            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
+                $this->type,
+                $this->property
+            ] ) ) . '">';
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 
@@ -125,9 +179,9 @@
                     if( $p == 0 || $g == 0 ) {
                         
                         $this->table .= '<th class="header">' .
-                            $lng->defmsg( ( $p == 0 )
+                            strtoupper( $lng->defmsg( ( $p == 0 )
                                 ? 'group-' . $g
-                                : 'period-' . $p, '&nbsp;' ) .
+                                : 'period-' . $p, '' ) ) .
                         '</th>';
                         
                     } else {
@@ -175,7 +229,7 @@
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
                     '<td class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
-                        ( new Element( $element ) )->get_name() .
+                        $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 
                 foreach( $group['fields'] as $e ) {

@@ -96,6 +96,19 @@
             
         }
         
+        public function get_key(
+            string $value
+        ) {
+            
+            return array_search( mb_strtolower( $value ), array_map(
+                function( $val ) {
+                    return mb_strtolower( str_replace( '&shy;', '', $val ) );
+                },
+                $this->msg
+            ) );
+            
+        }
+        
     }
     
     $lng = new Language();

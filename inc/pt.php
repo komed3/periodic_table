@@ -16,6 +16,28 @@
     $db_name = 'periodictable';
     $db_prfx = '';
     
+    $_props = [
+        'classification' => [
+            'set', 'group', 'period', 'block', 'age', 'crystal_system',
+            'bravais', 'magnetism', 'superconductivity', 'radioactivity',
+            'metal', 'goldschmidt', 'acid_base', 'basicity'
+        ],
+        'trend' => [
+            'heavy_metal', 'magnetic_susceptibility', 'density',
+            'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
+            'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs',
+            'vickers', 'brinell'
+        ],
+        'interactive' => [
+            'phase', 'discovery'
+        ],
+        'property' => [
+            'radioactive', 'natural', 'native', 'vital', 'clean',
+            'stable', 'noble', 'semiconductor', 'light', 'heavy',
+            'rare', 'platinum', 'refractory', 'mendeleev'
+        ]
+    ];
+    
     /* INCLUDES ----------------------------------------------------- */
     
     require_once __DIR__ . '/database.php';

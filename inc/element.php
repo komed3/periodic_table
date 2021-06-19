@@ -104,6 +104,20 @@
             
         }
         
+        public function bool_prop(
+            string $prop
+        ) {
+            
+            return ( $this->get_prop( $prop )->rows > 0 );
+            
+        }
+        
+        public function is_radioactive() {
+            
+            return $this->bool_prop( 'radioactive' );
+            
+        }
+        
         public function get_next(
             int $n = 1
         ) {
