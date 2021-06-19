@@ -59,8 +59,8 @@
             global $db;
             
             $this->range = array_map( 'doubleval', $db->query('
-                SELECT  MIN( p_value ) AS min,
-                        MAX( p_value ) AS max
+                SELECT  MIN( CONVERT( p_value, decimal( 65, 38 ) ) ) AS min,
+                        MAX( CONVERT( p_value, decimal( 65, 38 ) ) ) AS max
                 FROM    property
                 WHERE   p_key = "' . $this->property . '"
             ')->fetch_assoc() );
