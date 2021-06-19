@@ -14,6 +14,7 @@
         
         public $type = 'classification';
         public $property = 'set';
+        public $range = null;
         public $current = null;
         
         function __construct() {
@@ -44,6 +45,31 @@
             
         }
         
+        protected function get_range() {
+            
+            global $db;
+            
+            $this->range = array_map( 'doubleval', $db->query('
+                SELECT  MIN( p_value ) AS min,
+                        MAX( p_value ) AS max
+                FROM    property
+                WHERE   p_key = "' . $this->property . '"
+            ')->fetch_assoc() );
+            
+        }
+        
+        protected function calc_range(
+            $value
+        ) {
+            
+            if( $this->type == 'trend' && empty( $this->range ) )
+                $this->get_range();
+            
+            return ceil( ( $value - $this->range['min'] ) /
+                abs( $this->range['max'] - $this->range['min'] ) * 9 ) + 1;
+            
+        }
+        
         protected function get_prop(
             Element $e
         ) {
@@ -56,6 +82,11 @@
                 case 'classification':
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
                         ? [ $this->property => $prop->p[0]->val->raw() ]
+                        : [];
+                
+                case 'trend':
+                    return ( $prop = $e->get_prop( $this->property ) )->rows > 0
+                        ? [ $this->property => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
                         : [];
                 
                 case 'property':
