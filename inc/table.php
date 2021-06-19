@@ -3,6 +3,22 @@
     class Table {
         
         protected $allowed_props;
+        protected $trend_schemes = [
+            'allen' => 'fire',
+            'allred_rochow' => 'fire',
+            'brinell' => 'green',
+            'density' => 'green',
+            'ghosh_gupta' => 'fire',
+            'heavy_metal' => 'ice',
+            'magnetic_susceptibility' => 'ice',
+            'mohs' => 'green',
+            'mulliken' => 'fire',
+            'pauling' => 'fire',
+            'pearson' => 'fire',
+            'potential' => 'ice',
+            'sanderson' => 'fire',
+            'vickers' => 'green'
+        ];
         
         protected $fields = [];
         protected $table = '';
@@ -14,6 +30,7 @@
         
         public $type = 'classification';
         public $property = 'set';
+        public $range = null;
         public $current = null;
         
         function __construct() {
@@ -44,6 +61,31 @@
             
         }
         
+        protected function get_range() {
+            
+            global $db;
+            
+            $this->range = array_map( 'doubleval', $db->query('
+                SELECT  MIN( CONVERT( p_value, decimal( 65, 38 ) ) ) AS min,
+                        MAX( CONVERT( p_value, decimal( 65, 38 ) ) ) AS max
+                FROM    property
+                WHERE   p_key = "' . $this->property . '"
+            ')->fetch_assoc() );
+            
+        }
+        
+        protected function calc_range(
+            $value
+        ) {
+            
+            if( $this->type == 'trend' && empty( $this->range ) )
+                $this->get_range();
+            
+            return ceil( ( $value - $this->range['min'] ) /
+                abs( $this->range['max'] - $this->range['min'] ) * 9 );
+            
+        }
+        
         protected function get_prop(
             Element $e
         ) {
@@ -56,6 +98,11 @@
                 case 'classification':
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
                         ? [ $this->property => $prop->p[0]->val->raw() ]
+                        : [];
+                
+                case 'trend':
+                    return ( $prop = $e->get_prop( $this->property ) )->rows > 0
+                        ? [ 'trend' => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
                         : [];
                 
                 case 'property':
@@ -107,6 +154,18 @@
                     $e->get_symbol()
                 ) .
             '</td>';
+            
+        }
+        
+        protected function open_table() {
+            
+            if( $this->type == 'trend' && array_key_exists( $this->property, $this->trend_schemes ) )
+                $this->add_classes( $this->trend_schemes[ $this->property ] );
+            
+            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
+                $this->type,
+                $this->property
+            ] ) ) . '">';
             
         }
         
@@ -165,10 +224,7 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
-                $this->type,
-                $this->property
-            ] ) ) . '">';
+            $this->open_table();
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 

@@ -74,14 +74,16 @@
         
     }
     
-    /* URL ---------------------------------------------------------- */
+    /* URL / QUERY -------------------------------------------------- */
     
     $url = array_map(
         'urldecode',
         array_slice(
-            explode( '/', $_SERVER[ 'REQUEST_URI' ] ),
+            explode( '/', explode( '?', $_SERVER[ 'REQUEST_URI' ] )[0] ),
             2
         )
     );
+    
+    $args = $_REQUEST;
     
 ?>
