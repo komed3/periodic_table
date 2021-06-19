@@ -984,6 +984,86 @@ table.table.trend.fire .element[trend="9"] {
     background: #ff2b00;
 }
 
+table.table.trend.ice .element[trend="0"] {
+    background: #eafbfb;
+}
+
+table.table.trend.ice .element[trend="1"] {
+    background: #cbe7e7;
+}
+
+table.table.trend.ice .element[trend="2"] {
+    background: #bcdddc;
+}
+
+table.table.trend.ice .element[trend="3"] {
+    background: #aed2d2;
+}
+
+table.table.trend.ice .element[trend="4"] {
+    background: #93bebe;
+}
+
+table.table.trend.ice .element[trend="5"] {
+    background: #87b4b3;
+}
+
+table.table.trend.ice .element[trend="6"] {
+    background: #7baaa9;
+}
+
+table.table.trend.ice .element[trend="7"] {
+    background: #6fa09f;
+}
+
+table.table.trend.ice .element[trend="8"] {
+    background: #649595;
+}
+
+table.table.trend.ice .element[trend="9"] {
+    background: #5a8b8a;
+}
+
+table.table.trend.green .element[trend="0"] {
+    background: #d8f2c7;
+}
+
+table.table.trend.green .element[trend="1"] {
+    background: #bedbb0;
+}
+
+table.table.trend.green .element[trend="2"] {
+    background: #b1d0a5;
+}
+
+table.table.trend.green .element[trend="3"] {
+    background: #97b98e;
+}
+
+table.table.trend.green .element[trend="4"] {
+    background: #8bae83;
+}
+
+table.table.trend.green .element[trend="5"] {
+    background: #7ea278;
+}
+
+table.table.trend.green .element[trend="6"] {
+    background: #71976c;
+}
+
+table.table.trend.green .element[trend="7"] {
+    background: #648b61;
+}
+
+table.table.trend.green .element[trend="8"] {
+    background: #578056;
+}
+
+table.table.trend.green .element[trend="9"] {
+    background: #4a744a;
+}
+
 /* TABLE -> FULL PAGE TABLE */
 
 .table-container {

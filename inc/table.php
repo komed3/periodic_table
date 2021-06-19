@@ -4,13 +4,20 @@
         
         protected $allowed_props;
         protected $trend_schemes = [
-            'pauling' => 'fire',
             'allen' => 'fire',
-            'mulliken' => 'fire',
-            'sanderson' => 'fire',
             'allred_rochow' => 'fire',
+            'brinell' => 'green',
+            'density' => 'green',
             'ghosh_gupta' => 'fire',
-            'pearson' => 'fire'
+            'heavy_metal' => 'ice',
+            'magnetic_susceptibility' => 'ice',
+            'mohs' => 'green',
+            'mulliken' => 'fire',
+            'pauling' => 'fire',
+            'pearson' => 'fire',
+            'potential' => 'ice',
+            'sanderson' => 'fire',
+            'vickers' => 'green'
         ];
         
         protected $fields = [];
