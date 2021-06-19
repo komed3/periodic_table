@@ -36,7 +36,11 @@
             string $description
         ) {
             
-            $this->description = implode( ' ', array_slice( explode( ' ', $description ), 0, 30 ) ) . ' …';
+            $words = explode( ' ', $description );
+            
+            $this->description = count( $words ) > 30
+                ? implode( ' ', array_slice( $words, 0, 30 ) ) . ' …'
+                : $description;
             
         }
         
