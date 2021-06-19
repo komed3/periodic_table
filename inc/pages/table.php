@@ -8,13 +8,16 @@
             string $property = 'set'
         ) {
             
-            global $lng;
+            global $lng, $args;
             
             $this->property = $property;
             
             $table = new Table();
             $table->set_property( $this->property );
             $table->add_classes( 'full-page' );
+            
+            if( !empty( $args['e'] ) )
+                $table->set_current( new Element( $args['e'] ) );
             
             $this->show_header = false;
             $this->show_footer = false;
