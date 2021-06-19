@@ -80,7 +80,7 @@
             ] as $key => $val ) {
                 
                 $attr[] = $val == false ? null
-                    : $key . ( is_string( $val ) ? '="' . $val . '"' : '' );
+                    : $key . ( is_bool( $val ) ? '' : '="' . $val . '"' );
                 
             }
             

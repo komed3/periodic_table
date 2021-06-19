@@ -41,6 +41,7 @@
     --phase-solid: #111111;
     --phase-liquid: #225577;
     --phase-gas: #772222;
+    --phase-artificial: #665533;
 }
 
 html {
@@ -528,6 +529,10 @@ table.table.set .element[phase="liquid"] symbol cs {
 
 table.table.set .element[phase="gas"] symbol cs {
     color: var( --phase-gas );
+}
+
+table.table.set .element[phase="artificial"] symbol cs {
+    color: var( --phase-artificial );
 }
 
 /* TABLE -> COLOR SCHEME */
