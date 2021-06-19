@@ -110,6 +110,8 @@
     "debye_temp": "Debye-Temperatur",
     "debye_temp_glossary": "Die Debye-Temperatur ist ein materialabhängiger Parameter und ein Maß für die Größe der vorkommenden Phononenfrequenzen in einem Material.",
     "debye_temp_wiki": "Debye-Temperatur",
+    "default-description": "Interaktives Periodensystem der Elemente mit atomaren, chemischen und physikalischen Angaben.",
+    "default-keywords": "Periodensystem, Periodensystem der Elemente, PSE, PSdE, chemische Elemente, Elementetabelle",
     "density": "Dichte",
     "density_glossary": "Die Dichte ist der Quotient aus der Masse eines Körpers und seinem Volumen.",
     "density_wiki": "Dichte",

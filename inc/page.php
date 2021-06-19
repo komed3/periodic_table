@@ -2,15 +2,18 @@
     
     class Page {
         
-        private $title;
-        private $content = '';
+        protected $title;
+        protected $content = '';
         
-        private $header = '';
+        protected $header = '';
         
-        private $description = '';
-        private $keywords = [];
+        protected $description = '';
+        protected $keywords = [];
         
-        private $classes = [ 'pt' ];
+        protected $classes = [ 'pt' ];
+        
+        public $show_header = true;
+        public $show_footer = true;
         
         function __construct() {
             
@@ -41,7 +44,7 @@
             string ... $keywords
         ) {
             
-            foreach( $keywords as $keyword ) {
+            foreach( array_filter( $keywords ) as $keyword ) {
                 
                 $this->keywords[] = $keyword;
                 
@@ -81,6 +84,9 @@
             
             global $lng;
             
+            if( !$this->show_header )
+                return '';
+            
             return '<header>' .
                 '<h1>' .
                     Linker::i( $lng->msg( 'menu' ), 'menu', [ 'class' => 'menu icon' ] ) .
@@ -100,6 +106,9 @@
             
             global $lng, $_GITHUB;
             
+            if( !$this->show_footer )
+                return '';
+            
             return '<footer>' .
                 '<p class="credits">' . $lng->msg( 'credits', date( 'Y' ) ) . '</p>' .
                 '<ul class="nav">' .
@@ -118,6 +127,11 @@
         public function output() {
             
             global $lng, $_IP, $sTime;
+            
+            $this->add_keywords( $lng->defmsg( 'default-keywords', '' ) );
+            
+            if( strlen( $this->description ) == 0 )
+                $this->set_description( $lng->defmsg( 'default-description', '' ) );
             
             $status = [];
             
@@ -139,7 +153,6 @@
             '<html lang="' . $lng->lngcode . '">' .
                 '<head>' .
                     '<title>' . $this->title . '</title>' .
-                    '<meta charset="utf-8">' .
                     '<meta http-equiv="content-type" content="text/html;charset=utf-8" />' .
                     '<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">' .
                     '<meta name="author" content="komed3 (Paul Koehler)" />' .
