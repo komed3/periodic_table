@@ -501,7 +501,9 @@ table.table tr.empty-row > * {
     height: 1vh;
 }
 
-/* TABLE -> GENERAL */
+/* TABLE -> COLOR SCHEME */
+
+/* TABLE -> COLOR SCHEME -> GENERAL */
 
 table.table .element[current] {
     outline: 1px solid var( --color );
@@ -517,7 +519,7 @@ table.table .element[radioactive] overlay {
     );
 }
 
-/* TABLE -> PHASES */
+/* TABLE -> COLOR SCHEME -> PHASES */
 
 table.table.set .element[phase="solid"] symbol cs {
     color: var( --phase-solid );
@@ -535,49 +537,49 @@ table.table.set .element[phase="artificial"] symbol cs {
     color: var( --phase-artificial );
 }
 
-/* TABLE -> COLOR SCHEME */
+/* TABLE -> COLOR SCHEME -> PROPERTIES */
 
-table.table.set .element.actinide {
+table.table.set .element[set="actinide"] {
     background: #f3dff3;
 }
 
-table.table.set .element.alkalimetal {
+table.table.set .element[set="alkalimetal"] {
     background-color: #ffc1aa;
 }
 
-table.table.set .element.alkalineearthmetal {
+table.table.set .element[set="alkalineearthmetal"] {
     background-color: #ffd8aa;
 }
 
-table.table.set .element.halogen {
+table.table.set .element[set="halogen"] {
     background-color: #eeeebb;
 }
 
-table.table.set .element.lanthanide {
+table.table.set .element[set="lanthanide"] {
     background-color: #f3dff3;
 }
 
-table.table.set .element.metal {
+table.table.set .element[set="metal"] {
     background-color: #e2e2e2;
 }
 
-table.table.set .element.metalloid {
+table.table.set .element[set="metalloid"] {
     background-color: #eed6bf;
 }
 
-table.table.set .element.noblegas {
+table.table.set .element[set="noblegas"] {
     background-color: #d7eefd;
 }
 
-table.table.set .element.nonmetal {
+table.table.set .element[set="nonmetal"] {
     background-color: #baeeab;
 }
 
-table.table.set .element.transitionmetal {
+table.table.set .element[set="transitionmetal"] {
     background-color: #fad4d4;
 }
 
-table.table.set .element.undefined {
+table.table.set .element[set="undefined"] {
     background-color: #ffffff;
 }
 

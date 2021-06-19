@@ -2,21 +2,7 @@
     
     class Table {
         
-        protected $allowed_props = [
-            'set', 'group', 'period', 'block', 'age', 'crystall_structure',
-            'bravais', 'magnetism', 'superconductivity', 'radioactivity',
-            'metal', 'goldschmidt', 'acid_base', 'basicity',
-            
-            'heavy_metal', 'magnetic_susceptibility', 'density', 'potential',
-            'pauling', 'allen', 'mulliken', 'sanderson', 'allred_rochow',
-            'ghosh_gupta', 'pearson', 'mohs', 'vickers', 'brinell',
-            
-            'phase', 'discovery',
-            
-            'radioactive', 'natural', 'native', 'vital', 'clean', 'stable',
-            'noble', 'semiconductor', 'light', 'heavy', 'rare', 'platinum',
-            'refractory', 'mendeleev'
-        ];
+        protected $allowed_props;
         
         protected $fields = [];
         protected $table = '';
@@ -26,10 +12,15 @@
         public $maxP = 7;
         public $maxG = 18;
         
+        public $type = 'classification';
         public $property = 'set';
         public $current = null;
         
         function __construct() {
+            
+            global $_props;
+            
+            $this->allowed_props = $_props;
             
             $this->fetch_elements();
             
@@ -53,6 +44,26 @@
             
         }
         
+        protected function get_prop(
+            Element $e
+        ) {
+            
+            switch( $this->type ) {
+                
+                default:
+                    return [];
+                    break;
+                
+                case 'classification':
+                    return ( $prop = $e->get_prop( $this->property ) )->rows > 0
+                        ? [ $this->property => $prop->p[0]->val->raw() ]
+                        : [];
+                    break;
+                
+            }
+            
+        }
+        
         protected function add_element(
             int $p,
             int $g,
@@ -62,22 +73,28 @@
             global $lng;
             
             $classes = [ 'element' ];
-            
             $attr = [];
             
-            foreach( [
+            $phase = $e->get_prop( 'phase' )->p[0]->val->raw();
+            
+            foreach( array_merge( [
                 'id' => $e->ID,
                 'period' => $p,
                 'group' => $g,
-                'title' => $e->get_name(),
-                'phase' => $e->get_prop( 'phase' )->p[0]->val->raw(),
+                'title' =>
+                    $lng->msg(
+                        'table-element-title',
+                        $e->get_name(),
+                        $lng->msg( $phase )
+                    ),
+                'phase' => $phase,
                 'radioactive' => $e->is_radioactive(),
                 'current' =>
                     !empty( $this->current ) &&
                     $this->current instanceof Element &&
                     $this->current->is_element() &&
                     $this->current->is_equal( $e )
-            ] as $key => $val ) {
+            ], $this->get_prop( $e ) ) as $key => $val ) {
                 
                 $attr[] = $val == false ? null
                     : $key . ( is_bool( $val ) ? '' : '="' . $val . '"' );
@@ -96,12 +113,31 @@
             
         }
         
+        public function is_allowed(
+            string $prop
+        ) {
+            
+            foreach( $this->allowed_props as $type => $group ) {
+                
+                if( in_array( $prop, $group ) )
+                    return $type;
+                
+            }
+            
+            return false;
+            
+        }
+        
         public function set_property(
             string $prop
         ) {
             
-            if( in_array( $prop, $this->allowed_props ) )
+            if( ( $type = $this->is_allowed( $prop ) ) !== false ) {
+                
+                $this->type = $type;
                 $this->property = $prop;
+                
+            }
             
         }
         
