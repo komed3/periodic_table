@@ -174,9 +174,9 @@
                 
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
-                    '<th class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
+                    '<td class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
                         ( new Element( $element ) )->get_name() .
-                    '</th>';
+                    '</td>';
                 
                 foreach( $group['fields'] as $e ) {
                     

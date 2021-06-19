@@ -35,6 +35,7 @@
     --color: #111111;
     --bgcolor: #fdfdfd;
     --light-gray: #eaebec;
+    --mid-gray: #cacbcc;
     --link-color: #4477aa;
     --link-highlight: var( --link-color );
     --phase-solid: #111111;
@@ -451,6 +452,25 @@ table.table .element {
 
 table.table .element.current {
     outline: 1px solid var( --color );
+}
+
+table.table .header {
+    text-align: center;
+    font-size: 70%;
+    font-weight: bold;
+    color: var( --mid-gray );
+}
+
+table.table .placeholder {
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.7vw;
+    color: var( --mid-gray );
+}
+
+table.table tr.empty-row > * {
+    height: 1vh;
 }
 
 /* TABLE -> COLOR SCHEME */
