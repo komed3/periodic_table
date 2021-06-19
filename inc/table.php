@@ -61,14 +61,32 @@
             
             global $lng;
             
-            $this->table .= '<td class="element ' .
-                    ( !empty( $this->current ) &&
-                        $this->current instanceof Element &&
-                        $this->current->is_element() &&
-                        $this->current->is_equal( $e )
-                            ? 'current'
-                            : '' ) . '" period="' . $p . '" group="' . $g . '" id="' .
-                    $e->ID . '" title="' . $e->name . '" >' .
+            $classes = [ 'element' ];
+            
+            $attr = [];
+            
+            foreach( [
+                'id' => $e->ID,
+                'period' => $p,
+                'group' => $g,
+                'title' => $e->get_name(),
+                'phase' => $e->get_prop( 'phase' )->p[0]->val->raw(),
+                'radioactive' => $e->is_radioactive(),
+                'current' =>
+                    !empty( $this->current ) &&
+                    $this->current instanceof Element &&
+                    $this->current->is_element() &&
+                    $this->current->is_equal( $e )
+            ] as $key => $val ) {
+                
+                $attr[] = $val == false ? null
+                    : $key . ( is_string( $val ) ? '="' . $val . '"' : '' );
+                
+            }
+            
+            $this->table .= '<td class="element" ' .
+                    implode( ' ', array_filter( $attr ) ) . '>' .
+                '<overlay></overlay>' .
                 Linker::p(
                     $lng->msg( 'element' ),
                     $e->get_slug(),

@@ -420,28 +420,34 @@ table.table {
     user-select: none;
 }
 
-table.table a:link,
-table.table a:visited,
-table.table a:hover {
+table.table .element {
+    position: relative;
+    background: var( --light-gray );
+    overflow: hidden;
+}
+
+table.table .element overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+table.table .element a:link,
+table.table .element a:visited,
+table.table .element a:hover {
     position: relative;
     display: block;
     color: inherit;
     text-decoration: none;
 }
 
-table.table a::before {
+table.table .element a::before {
     content: '';
     display: block;
     padding-top: 100%;
-}
-
-table.table .element {
-    background: var( --light-gray );
-    overflow: hidden;
-}
-
-table.table .element.current {
-    outline: 1px solid var( --color );
 }
 
 table.table .element symbol {
@@ -452,6 +458,7 @@ table.table .element symbol {
     width: 100%;
     height: 100%;
     margin-top: 0;
+    z-index: 1;
 }
 
 table.table .element symbol mn {
@@ -491,6 +498,36 @@ table.table .placeholder {
 
 table.table tr.empty-row > * {
     height: 1vh;
+}
+
+/* TABLE -> GENERAL */
+
+table.table .element[current] {
+    outline: 1px solid var( --color );
+}
+
+table.table .element[radioactive] overlay {
+    background: repeating-linear-gradient(
+        -45deg,
+        var( --bgcolor ),
+        var( --bgcolor ) 10%,
+        transparent 10%,
+        transparent 20%
+    );
+}
+
+/* TABLE -> PHASES */
+
+table.table.set .element[phase="solid"] symbol cs {
+    color: var( --phase-solid );
+}
+
+table.table.set .element[phase="liquid"] symbol cs {
+    color: var( --phase-liquid );
+}
+
+table.table.set .element[phase="gas"] symbol cs {
+    color: var( --phase-gas );
 }
 
 /* TABLE -> COLOR SCHEME */
