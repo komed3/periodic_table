@@ -537,7 +537,8 @@ table.table.basicity .element:not([basicity]),
 table.table.goldschmidt .element:not([goldschmidt]),
 table.table.crystal_system .element:not([crystal_system]),
 table.table.bravais .element:not([bravais]),
-table.table.superconductivity .element:not([superconductivity]) {
+table.table.superconductivity .element:not([superconductivity]),
+table.table.trend .element:not([trend]) {
     background: var( --bgcolor );
 }
 
@@ -939,6 +940,48 @@ table.table.superconductivity .element[superconductivity="normal"] {
 
 table.table.superconductivity .element[superconductivity="special"] {
 	background: #eecc00;
+}
+
+/* TABLE -> COLOR SCHEME -> TRENDS */
+
+table.table.trend.fire .element[trend="0"] {
+    background: #ffea00;
+}
+
+table.table.trend.fire .element[trend="1"] {
+    background: #ffd500;
+}
+
+table.table.trend.fire .element[trend="2"] {
+    background: #ffbf00;
+}
+
+table.table.trend.fire .element[trend="3"] {
+    background: #ffaa00;
+}
+
+table.table.trend.fire .element[trend="4"] {
+    background: #ff9500;
+}
+
+table.table.trend.fire .element[trend="5"] {
+    background: #ff8000;
+}
+
+table.table.trend.fire .element[trend="6"] {
+    background: #ff6a00;
+}
+
+table.table.trend.fire .element[trend="7"] {
+    background: #ff5500;
+}
+
+table.table.trend.fire .element[trend="8"] {
+    background: #ff4000;
+}
+
+table.table.trend.fire .element[trend="9"] {
+    background: #ff2b00;
 }
 
 /* TABLE -> FULL PAGE TABLE */

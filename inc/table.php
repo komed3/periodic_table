@@ -3,6 +3,15 @@
     class Table {
         
         protected $allowed_props;
+        protected $trend_schemes = [
+            'pauling' => 'fire',
+            'allen' => 'fire',
+            'mulliken' => 'fire',
+            'sanderson' => 'fire',
+            'allred_rochow' => 'fire',
+            'ghosh_gupta' => 'fire',
+            'pearson' => 'fire'
+        ];
         
         protected $fields = [];
         protected $table = '';
@@ -66,7 +75,7 @@
                 $this->get_range();
             
             return ceil( ( $value - $this->range['min'] ) /
-                abs( $this->range['max'] - $this->range['min'] ) * 9 ) + 1;
+                abs( $this->range['max'] - $this->range['min'] ) * 9 );
             
         }
         
@@ -86,7 +95,7 @@
                 
                 case 'trend':
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
-                        ? [ $this->property => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
+                        ? [ 'trend' => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
                         : [];
                 
                 case 'property':
@@ -138,6 +147,18 @@
                     $e->get_symbol()
                 ) .
             '</td>';
+            
+        }
+        
+        protected function open_table() {
+            
+            if( $this->type == 'trend' && array_key_exists( $this->property, $this->trend_schemes ) )
+                $this->add_classes( $this->trend_schemes[ $this->property ] );
+            
+            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
+                $this->type,
+                $this->property
+            ] ) ) . '">';
             
         }
         
@@ -196,10 +217,7 @@
             
             $exGroups = [];
             
-            $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
-                $this->type,
-                $this->property
-            ] ) ) . '">';
+            $this->open_table();
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 

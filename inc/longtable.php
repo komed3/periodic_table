@@ -10,7 +10,7 @@
             
             $this->add_classes( 'long-table' );
             
-            $this->table .= '<table class="' . implode( ' ', $this->classes ) . ' ' . $this->property . '">';
+            $this->open_table();
             
             for( $p = 1; $p <= $this->maxP; $p++ ) {
                 
