@@ -125,9 +125,9 @@
                     if( $p == 0 || $g == 0 ) {
                         
                         $this->table .= '<th class="header">' .
-                            $lng->defmsg( ( $p == 0 )
+                            strtoupper( $lng->defmsg( ( $p == 0 )
                                 ? 'group-' . $g
-                                : 'period-' . $p, '&nbsp;' ) .
+                                : 'period-' . $p, '' ) ) .
                         '</th>';
                         
                     } else {
@@ -175,7 +175,7 @@
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
                     '<td class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
-                        ( new Element( $element ) )->get_name() .
+                        $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 
                 foreach( $group['fields'] as $e ) {
