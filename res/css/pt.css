@@ -31,9 +31,9 @@
 /* GENERAL */
 
 :root {
-    --site-bg: #fafbfc;
+    --site-bg: #f5f6f7;
     --color: #111111;
-    --bgcolor: #fdfdfd;
+    --bgcolor: #fefefe;
     --light-gray: #eaebec;
     --mid-gray: #cacbcc;
     --highlight: #ffcc77;
@@ -524,6 +524,23 @@ table.table.set .element[radioactive] overlay {
     );
 }
 
+table.table.set .element:not([set]),
+table.table.group .element:not([group]),
+table.table.period .element:not([period]),
+table.table.block .element:not([block]),
+table.table.age .element:not([age]),
+table.table.metal .element:not([metal]),
+table.table.radioactivity .element:not([radioactivity]),
+table.table.magnetism .element:not([magnetism]),
+table.table.acid_base .element:not([acid_base]),
+table.table.basicity .element:not([basicity]),
+table.table.goldschmidt .element:not([goldschmidt]),
+table.table.crystal_system .element:not([crystal_system]),
+table.table.bravais .element:not([bravais]),
+table.table.superconductivity .element:not([superconductivity]) {
+    background: var( --bgcolor );
+}
+
 /* TABLE -> COLOR SCHEME -> PHASES */
 
 table.table.set .element[phase="solid"] symbol cs {
@@ -549,43 +566,379 @@ table.table.set .element[set="actinide"] {
 }
 
 table.table.set .element[set="alkalimetal"] {
-    background-color: #ffc1aa;
+    background: #ffc1aa;
 }
 
 table.table.set .element[set="alkalineearthmetal"] {
-    background-color: #ffd8aa;
+    background: #ffd8aa;
 }
 
 table.table.set .element[set="halogen"] {
-    background-color: #eeeebb;
+    background: #eeeebb;
 }
 
 table.table.set .element[set="lanthanide"] {
-    background-color: #f3dff3;
+    background: #f3dff3;
 }
 
 table.table.set .element[set="metal"] {
-    background-color: #e2e2e2;
+    background: #e2e2e2;
 }
 
 table.table.set .element[set="metalloid"] {
-    background-color: #eed6bf;
+    background: #eed6bf;
 }
 
 table.table.set .element[set="noblegas"] {
-    background-color: #d7eefd;
+    background: #d7eefd;
 }
 
 table.table.set .element[set="nonmetal"] {
-    background-color: #baeeab;
+    background: #baeeab;
 }
 
 table.table.set .element[set="transitionmetal"] {
-    background-color: #fad4d4;
+    background: #fad4d4;
 }
 
-table.table.set .element[set="undefined"] {
-    background-color: #ffffff;
+table.table.group .element[group="1"] {
+	background: #b6d0a4;
+}
+
+table.table.group .element[group="2"] {
+	background: #b1cc9e;
+}
+
+table.table.group .element[group="3"] {
+	background: #abc797;
+}
+
+table.table.group .element[group="4"] {
+	background: #a6c391;
+}
+
+table.table.group .element[group="5"] {
+	background: #a0be8c;
+}
+
+table.table.group .element[group="6"] {
+	background: #9bb986;
+}
+
+table.table.group .element[group="7"] {
+	background: #96b580;
+}
+
+table.table.group .element[group="8"] {
+	background: #91b07a;
+}
+
+table.table.group .element[group="9"] {
+	background: #8bac74;
+}
+
+table.table.group .element[group="10"] {
+	background: #86a86e;
+}
+
+table.table.group .element[group="11"] {
+	background: #81a368;
+}
+
+table.table.group .element[group="12"] {
+	background: #7b9f63;
+}
+
+table.table.group .element[group="13"] {
+	background: #769a5d;
+}
+
+table.table.group .element[group="14"] {
+	background: #719657;
+}
+
+table.table.group .element[group="15"] {
+	background: #6c9152;
+}
+
+table.table.group .element[group="16"] {
+	background: #678d4c;
+}
+
+table.table.group .element[group="17"] {
+	background: #618946;
+}
+
+table.table.group .element[group="18"] {
+	background: #5c8441;
+}
+
+table.table.period .element[period="1"] {
+	background: #e5c1e4;
+}
+
+table.table.period .element[period="2"] {
+	background: #ddb5db;
+}
+
+table.table.period .element[period="3"] {
+	background: #d4a9d2;
+}
+
+table.table.period .element[period="4"] {
+	background: #cc9ec9;
+}
+
+table.table.period .element[period="5"] {
+	background: #c492c1;
+}
+
+table.table.period .element[period="6"] {
+	background: #bc87b8;
+}
+
+table.table.period .element[period="7"] {
+	background: #b47caf;
+}
+
+table.table.block .element[block="s"] {
+	background: #aaccee;
+}
+
+table.table.block .element[block="p"] {
+	background: #bbeebb;
+}
+
+table.table.block .element[block="d"] {
+	background: #eeeebb;
+}
+
+table.table.block .element[block="f"] {
+	background: #eecccc;
+}
+
+table.table.block .element[block="g"] {
+	background: #ccaacc;
+}
+
+table.table.age .element[age="antiquity"] {
+	background: #ffbbbb;
+}
+
+table.table.age .element[age="enlightenment"] {
+	background: #bbbbff;
+}
+
+table.table.age .element[age="revolution"] {
+	background: #bbffbb;
+}
+
+table.table.age .element[age="classifying"] {
+	background: #bbffff;
+}
+
+table.table.age .element[age="quantum"] {
+	background: #ffcc99;
+}
+
+table.table.age .element[age="synthesis"] {
+	background: #ffffbb;
+}
+
+table.table.age .element[age="recent-synthesis"] {
+	background: #ffbbff;
+}
+
+table.table.metal .element[metal="metal"] {
+	background: #b6cbff;
+}
+
+table.table.metal .element[metal="metalloid"] {
+	background: #ccc9ef;
+}
+
+table.table.metal .element[metal="nonmetal"] {
+	background: #eed4ee;
+}
+
+table.table.radioactivity .element[radioactivity="stable"] {
+	background: #99ffff;
+}
+
+table.table.radioactivity .element[radioactivity="slightly-radioactive"] {
+	background: #99ff99;
+}
+
+table.table.radioactivity .element[radioactivity="significantly-radioactive"] {
+	background: #ffff99;
+}
+
+table.table.radioactivity .element[radioactivity="radioactive"] {
+	background: #ffcc77;
+}
+
+table.table.radioactivity .element[radioactivity="highly-radioactive"] {
+	background: #ff9999;
+}
+
+table.table.radioactivity .element[radioactivity="extremely-radioactive"] {
+	background: #ff99ff;
+}
+
+table.table.magnetism .element[magnetism="diamagnetism"] {
+	background: #d3e4e4;
+}
+
+table.table.magnetism .element[magnetism="ferromagnetism"] {
+	background: #abcecd;
+}
+
+table.table.magnetism .element[magnetism="paramagnetism"] {
+	background: #82b8b7;
+}
+
+table.table.acid_base .element[acid_base="basic"] {
+	background: #bbddff;
+}
+
+table.table.acid_base .element[acid_base="amphoteric"] {
+	background: #ffff99;
+}
+
+table.table.acid_base .element[acid_base="acidic"] {
+	background: #ffbbbb;
+}
+
+table.table.basicity .element[basicity="strongly-alkaline"] {
+	background: #7fbef7;
+}
+
+table.table.basicity .element[basicity="alkaline"] {
+	background: #90c7ec;
+}
+
+table.table.basicity .element[basicity="moderately-alkaline"] {
+	background: #9ed2e1;
+}
+
+table.table.basicity .element[basicity="slightly-alkaline"] {
+	background: #aadcd6;
+}
+
+table.table.basicity .element[basicity="amphoterism"] {
+	background: #b5e6ca;
+}
+
+table.table.basicity .element[basicity="neutral"] {
+	background: #bef1be;
+}
+
+table.table.basicity .element[basicity="slightly-acidic"] {
+	background: #d4dbb5;
+}
+
+table.table.basicity .element[basicity="moderately-acidic"] {
+	background: #e5c5ac;
+}
+
+table.table.basicity .element[basicity="acidic"] {
+	background: #f3ada3;
+}
+
+table.table.basicity .element[basicity="strongly-acidic"] {
+	background: #ff949a;
+}
+
+table.table.goldschmidt .element[goldschmidt="lithophile"] {
+	background: #ffcc77;
+}
+
+table.table.goldschmidt .element[goldschmidt="siderophile"] {
+	background: #ffaaaa;
+}
+
+table.table.goldschmidt .element[goldschmidt="chalcophile"] {
+	background: #ffff88;
+}
+
+table.table.goldschmidt .element[goldschmidt="atmophile"] {
+	background: #aaffff;
+}
+
+table.table.goldschmidt .element[goldschmidt="synthetic"] {
+	background: var( --bgcolor );
+}
+
+table.table.crystal_system .element[crystal_system="BCC"] {
+	background: #ffdd88;
+}
+
+table.table.crystal_system .element[crystal_system="FCC"] {
+	background: #ffbb88;
+}
+
+table.table.crystal_system .element[crystal_system="HCP"] {
+	background: #ffcccc;
+}
+
+table.table.crystal_system .element[crystal_system="DHCP"] {
+	background: #ff8888;
+}
+
+table.table.crystal_system .element[crystal_system="ORTH"] {
+	background: #bbeebb;
+}
+
+table.table.crystal_system .element[crystal_system="TETR"] {
+	background: #ffffcc;
+}
+
+table.table.crystal_system .element[crystal_system="RHO"] {
+	background: #bbccff;
+}
+
+table.table.crystal_system .element[crystal_system="HEX"] {
+	background: #ccbb88;
+}
+
+table.table.crystal_system .element[crystal_system="SC"] {
+	background: #ffccff;
+}
+
+table.table.crystal_system .element[crystal_system="DC"] {
+	background: #cccccc;
+}
+
+table.table.crystal_system .element[crystal_system="MON"] {
+	background: #bbffff;
+}
+
+table.table.bravais .element[bravais="BCC"] {
+	background: #ffcbcb;
+}
+
+table.table.bravais .element[bravais="FCC"] {
+	background: #ffebad;
+}
+
+table.table.bravais .element[bravais="HCP"] {
+	background: #b9ffc5;
+}
+
+table.table.bravais .element[bravais="unusual"] {
+	background: #ffff40;
+}
+
+table.table.bravais .element[bravais="nonmetal"] {
+	background: #b3b7ff;
+}
+
+table.table.superconductivity .element[superconductivity="normal"] {
+	background: #bbee33;
+}
+
+table.table.superconductivity .element[superconductivity="special"] {
+	background: #eecc00;
 }
 
 /* TABLE -> FULL PAGE TABLE */
