@@ -284,6 +284,20 @@ footer .nav li {
     font-size: 0.8em;
 }
 
+body.table footer {
+    position: fixed;
+    right: 2vh;
+    bottom: 1.5vh;
+    margin: 0;
+    font-size: 0.8em;
+}
+body.table footer .credits {
+    margin: 0;
+}
+body.table footer .nav {
+    display: none;
+}
+
 /* MAIN */
 
 main {

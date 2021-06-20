@@ -20,7 +20,6 @@
                 $table->set_current( new Element( $args['e'] ) );
             
             $this->show_header = false;
-            $this->show_footer = false;
             
             $this->add_keywords( $lng->msg( $this->property ) );
             
