@@ -223,13 +223,23 @@
             
         }
         
+        public function get_legend() {
+            
+            
+            
+        }
+        
         public function build() {
             
             global $lng;
             
             $exGroups = [];
             
+            # open table
+            
             $this->open_table();
+            
+            # walk through periods and groups
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 
@@ -283,7 +293,9 @@
             
             # add external groups
             
-            $this->table .= '<tr class="empty-row"><td class="empty" colspan="' . $this->maxG . '"></td></tr>';
+            $this->table .= '<tr class="empty-row">' .
+                '<td class="empty" colspan="' . ( $this->maxG + 1 ) . '">&nbsp;</td>' .
+            '</tr>';
             
             foreach( $exGroups as $element => $group ) {
                 
@@ -303,6 +315,20 @@
                 
             }
             
+            # add legend
+            
+            $this->table .= '<tr class="empty-row">' .
+                '<td class="empty" colspan="' . ( $this->maxG + 1 ) . '">&nbsp;</td>' .
+            '</tr>' .
+            '<tr>' .
+                '<th>&nbsp;</th>' .
+                '<td class="legend" colspan="' . $this->maxG . '">' .
+                    $this->get_legend() .
+                '</td>' .
+            '</tr>';
+            
+            # close table
+            
             $this->table .= '</table>';
             
         }
@@ -313,12 +339,6 @@
                 $this->build();
             
             return $this->table;
-            
-        }
-        
-        public function get_legend() {
-            
-            
             
         }
         

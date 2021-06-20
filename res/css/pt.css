@@ -499,7 +499,8 @@ table.table .placeholder {
 }
 
 table.table tr.empty-row > * {
-    height: 1vh;
+    line-height: 1;
+    font-size: 1vh;
 }
 
 /* TABLE -> COLOR SCHEME */
