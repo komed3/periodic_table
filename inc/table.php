@@ -4,21 +4,21 @@
         
         protected $allowed_props;
         protected $trend_schemes = [
-            'allen' => 'fire',
-            'allred_rochow' => 'fire',
-            'brinell' => 'green',
-            'density' => 'green',
-            'electron_affinity' => 'fire',
-            'ghosh_gupta' => 'fire',
-            'heavy_metal' => 'ice',
-            'magnetic_susceptibility' => 'ice',
-            'mohs' => 'green',
-            'mulliken' => 'fire',
-            'pauling' => 'fire',
-            'pearson' => 'fire',
-            'potential' => 'ice',
-            'sanderson' => 'fire',
-            'vickers' => 'green'
+            'allen' => [ 'fire' ],
+            'allred_rochow' => [ 'fire' ],
+            'brinell' => [ 'green' ],
+            'density' => [ 'green' ],
+            'electron_affinity' => [ 'fire' ],
+            'ghosh_gupta' => [ 'fire' ],
+            'heavy_metal' => [ 'ice' ],
+            'magnetic_susceptibility' => [ 'ice', true ],
+            'mohs' => [ 'green' ],
+            'mulliken' => [ 'fire' ],
+            'pauling' => [ 'fire' ],
+            'pearson' => [ 'fire' ],
+            'potential' => [ 'ice', true ],
+            'sanderson' => [ 'fire' ],
+            'vickers' => [ 'green' ]
         ];
         
         protected $fields = [];
@@ -82,8 +82,12 @@
             if( $this->type == 'trend' && empty( $this->range ) )
                 $this->get_range();
             
-            return ceil( ( $value - $this->range['min'] ) /
-                abs( $this->range['max'] - $this->range['min'] ) * 9 );
+            return ( isset( $this->trend_schemes[ $this->property ][1] ) &&
+                     $this->trend_schemes[ $this->property ][1] )
+                ? ceil( abs( $value ) /
+                    abs( $this->range[ $value < 0 ? 'min' : 'max' ] ) * 9 )
+                : ceil( ( $value - $this->range['min'] ) /
+                    abs( $this->range['max'] - $this->range['min'] ) * 9 );
             
         }
         
@@ -161,7 +165,7 @@
         protected function open_table() {
             
             if( $this->type == 'trend' && array_key_exists( $this->property, $this->trend_schemes ) )
-                $this->add_classes( $this->trend_schemes[ $this->property ] );
+                $this->add_classes( $this->trend_schemes[ $this->property ][0] );
             
             $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
                 $this->type,
