@@ -239,8 +239,6 @@
         
         public function get_legend() {
             
-            global $lng;
-            
             switch( $this->type ) {
                 
                 default:
@@ -248,14 +246,13 @@
                 
                 case 'trend':
                     return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
-                        '<label>' . $lng->msg( $this->property ) . '</label>' .
                         '<bar></bar>' .
-                        '<val pos="0">' .
+                        '<val start>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? '0'
                                 : ( new Formatter( $this->range['min'] ) )->exp() ) .
                         '</val>' .
-                        '<val pos="9">' .
+                        '<val end>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
                                 : '' ) .
@@ -339,7 +336,7 @@
                 
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
-                    '<td class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
+                    '<td class="label ex-group" colspan="' . ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
                         $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 
@@ -360,7 +357,10 @@
             '</tr>' .
             '<tr>' .
                 '<th>&nbsp;</th>' .
-                '<td class="legend" colspan="' . $this->maxG . '">' .
+                '<td class="label legend" colspan="' . $label . '">' .
+                    $lng->msg( $this->property ) .
+                '</td>' .
+                '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
                     $this->get_legend() .
                 '</td>' .
             '</tr>';

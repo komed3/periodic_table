@@ -499,6 +499,11 @@ table.table .placeholder {
     color: var( --mid-gray );
 }
 
+table.table .label.legend {
+    vertical-align: top;
+    font-weight: bold;
+}
+
 table.table tr.empty-row > * {
     line-height: 1;
     font-size: 1vh;
@@ -1120,35 +1125,29 @@ table.table.long-table .element symbol cs {
 
 trend {
     display: grid;
-    grid-template-columns: 20% repeat( 10, 8% );
+    grid-template-columns: 10% 80% 10%;
     grid-template-rows: repeat( 2, auto );
     grid-gap: 0;
     justify-items: center;
     grid-template-areas:
-        'label bar bar bar bar bar bar bar bar bar bar'
-        'label vp0 vp1 vp2 vp3 vp4 vp5 vp6 vp7 vp8 vp9'
+        'bar   bar    bar'
+        'start middle end'
     ;
     line-height: 1;
-    font-size: 0.86rem;
-}
-
-trend label {
-    grid-area: label;
-    justify-self: start;
-    font-weight: bold;
+    font-size: 0.72vw;
 }
 
 trend bar {
     grid-area: bar;
     justify-self: stretch;
-    height: 0.86rem;
+    height: 10px;
     background: var( --light-gray );
-    border-radius: 0.43rem;
+    border-radius: 5px;
 }
 
 trend val {
     position: relative;
-    padding-top: 8px;
+    padding-top: 0.5vw;
 }
 
 trend val::after {
@@ -1157,48 +1156,20 @@ trend val::after {
     top: 0;
     left: calc( 50% - 0.5px );
     width: 1px;
-    height: 6px;
+    height: 0.4vw;
     background: var( --color );
 }
 
-trend val[pos="0"] {
-    grid-area: vp0;
+trend val[start] {
+    grid-area: start;
 }
 
-trend val[pos="1"] {
-    grid-area: vp1;
+trend val[middle] {
+    grid-area: middle;
 }
 
-trend val[pos="2"] {
-    grid-area: vp2;
-}
-
-trend val[pos="3"] {
-    grid-area: vp3;
-}
-
-trend val[pos="4"] {
-    grid-area: vp4;
-}
-
-trend val[pos="5"] {
-    grid-area: vp5;
-}
-
-trend val[pos="6"] {
-    grid-area: vp6;
-}
-
-trend val[pos="7"] {
-    grid-area: vp7;
-}
-
-trend val[pos="8"] {
-    grid-area: vp8;
-}
-
-trend val[pos="9"] {
-    grid-area: vp9;
+trend val[end] {
+    grid-area: end;
 }
 
 /* LEGEND -> TREND -> SCHEMES */
