@@ -32,6 +32,7 @@
         public $type = 'classification';
         public $property = 'set';
         public $scheme = [];
+        public $props = [];
         public $range = null;
         
         public $current = null;
@@ -158,12 +159,17 @@
                     $this->current instanceof Element &&
                     $this->current->is_element() &&
                     $this->current->is_equal( $e )
-            ], $this->get_prop( $e ) ) as $key => $val ) {
+            ], ( $prop = $this->get_prop( $e ) ) ) as $key => $val ) {
                 
                 $attr[] = $val == false ? null
                     : $key . ( is_bool( $val ) ? '' : '="' . $val . '"' );
                 
             }
+            
+            $this->props = array_unique( array_merge(
+                $this->props,
+                array_values( $prop )
+            ) );
             
             $this->table .= '<td class="element" ' .
                     implode( ' ', array_filter( $attr ) ) . '>' .
@@ -185,6 +191,31 @@
                 $this->type,
                 $this->property
             ] ) ) . '">';
+            
+        }
+        
+        protected function build_legend(
+            array $entries = []
+        ) {
+            
+            global $lng;
+            
+            $legend = [];
+            
+            foreach( $entries as $entry ) {
+                
+                $legend[] = '<entry val="' . $entry . '">' .
+                    '<key></key>' .
+                    '<label>' .
+                        $lng->msg( $entry ) .
+                    '</label>' .
+                '</entry>';
+                
+            }
+            
+            return '<legend type="' . $this->type . '" property="' . $this->property . '">' .
+                implode( '', $legend ) .
+            '</legend>';
             
         }
         
@@ -242,7 +273,17 @@
             switch( $this->type ) {
                 
                 default:
-                    return ;
+                    return '';
+                
+                case 'classification':
+                    sort( $this->props, SORT_NATURAL | SORT_FLAG_CASE );
+                    
+                    return $this->build_legend(
+                        array_merge(
+                            $this->props,
+                            [ 'unknown' ]
+                        )
+                    );
                 
                 case 'trend':
                     return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
@@ -259,6 +300,11 @@
                             ( new Formatter( $this->range['max'] ) )->exp() .
                         '</val>' .
                     '</trend>';
+                
+                case 'property':
+                    return $this->build_legend(
+                        [ 'yes', 'no' ]
+                    );
                 
             }
             
