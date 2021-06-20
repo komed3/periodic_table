@@ -8,6 +8,7 @@
             'allred_rochow' => 'fire',
             'brinell' => 'green',
             'density' => 'green',
+            'electron_affinity' => 'fire',
             'ghosh_gupta' => 'fire',
             'heavy_metal' => 'ice',
             'magnetic_susceptibility' => 'ice',
