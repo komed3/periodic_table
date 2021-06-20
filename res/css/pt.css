@@ -410,10 +410,102 @@ dl.glossary dd {
     margin-bottom: 1em;
 }
 
+/* LEGEND */
+
+/* LEGEND -> GENERAL */
+
+legend {
+    display: flex;
+    flex-flow: row wrap;
+    margin-bottom: -0.75vh;
+    font-size: 0.72vw;
+}
+
+legend entry {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin: 0 1.6vh 0.75vh 0;
+}
+
+legend entry key {
+    width: 1.6vh;
+    height: 1.6vh;
+    margin-right: 0.6vh;
+    background: var( --light-gray );
+    border: 1px solid var( --color );
+}
+
+/* LEGEND -> TREND */
+
+trend {
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    grid-template-rows: repeat( 2, auto );
+    grid-gap: 0;
+    justify-items: center;
+    grid-template-areas:
+        'bar   bar    bar'
+        'start middle end'
+    ;
+    line-height: 1;
+    font-size: 0.72vw;
+}
+
+trend bar {
+    grid-area: bar;
+    justify-self: stretch;
+    height: 10px;
+    background: var( --light-gray );
+    border-radius: 5px;
+}
+
+trend val {
+    position: relative;
+    padding-top: 0.5vw;
+}
+
+trend val::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: calc( 50% - 0.5px );
+    width: 1px;
+    height: 0.4vw;
+    background: var( --color );
+}
+
+trend val[start] {
+    grid-area: start;
+}
+
+trend val[middle] {
+    grid-area: middle;
+}
+
+trend val[end] {
+    grid-area: end;
+}
+
+/* LEGEND -> TREND -> SCHEMES */
+
+trend[scheme="fire"] bar {
+    background: linear-gradient( to right, #ffea00, #ff2b00 );
+}
+
+trend[scheme="ice"] bar {
+    background: linear-gradient( to right, #eafbfb, #5a8b8a );
+}
+
+trend[scheme="green"] bar {
+    background: linear-gradient( to right, #d8f2c7, #4a744a );
+}
+
 /* TABLE */
 
 table.table {
     width: 100%;
+    font-size: 0.9em;
     border-collapse: separate;
     border-spacing: 4px;
     -webkit-user-select: none;
@@ -479,13 +571,13 @@ table.table .element symbol cs {
     position: absolute;
     bottom: 14%;
     right: 14%;
-    font-size: 1.8vw;
+    font-size: 1.6vw;
 }
 
 table.table .header {
     padding: 0.1em 0.2em;
     text-align: center;
-    font-size: 70%;
+    font-size: 75%;
     font-weight: bold;
     color: var( --mid-gray );
 }
@@ -494,19 +586,26 @@ table.table .placeholder {
     text-align: center;
     vertical-align: middle;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.7vw;
+    font-size: 1.6vw;
     color: var( --mid-gray );
 }
 
+table.table .label.legend {
+    vertical-align: top;
+    font-weight: bold;
+}
+
 table.table tr.empty-row > * {
-    height: 1vh;
+    line-height: 1;
+    font-size: 1vh;
 }
 
 /* TABLE -> COLOR SCHEME */
 
 /* TABLE -> COLOR SCHEME -> GENERAL */
 
-table.table.property .element[prop="1"] {
+table.table.property .element[prop="1"],
+legend entry[val="yes"] key {
     background: var( --highlight );
 }
 
@@ -538,7 +637,8 @@ table.table.goldschmidt .element:not([goldschmidt]),
 table.table.crystal_system .element:not([crystal_system]),
 table.table.bravais .element:not([bravais]),
 table.table.superconductivity .element:not([superconductivity]),
-table.table.trend .element:not([trend]) {
+table.table.trend .element:not([trend]),
+legend entry[val="unknown"] key {
     background: var( --bgcolor );
 }
 
@@ -562,383 +662,482 @@ table.table.set .element[phase="artificial"] symbol cs {
 
 /* TABLE -> COLOR SCHEME -> PROPERTIES */
 
-table.table.set .element[set="actinide"] {
+table.table.set .element[set="actinide"],
+legend[property="set"] entry[val="actinide"] key {
     background: #f3dff3;
 }
 
-table.table.set .element[set="alkalimetal"] {
+table.table.set .element[set="alkalimetal"],
+legend[property="set"] entry[val="alkalimetal"] key {
     background: #ffc1aa;
 }
 
-table.table.set .element[set="alkalineearthmetal"] {
+table.table.set .element[set="alkalineearthmetal"],
+legend[property="set"] entry[val="alkalineearthmetal"] key {
     background: #ffd8aa;
 }
 
-table.table.set .element[set="halogen"] {
+table.table.set .element[set="halogen"],
+legend[property="set"] entry[val="halogen"] key {
     background: #eeeebb;
 }
 
-table.table.set .element[set="lanthanide"] {
+table.table.set .element[set="lanthanide"],
+legend[property="set"] entry[val="lanthanide"] key {
     background: #f3dff3;
 }
 
-table.table.set .element[set="metal"] {
+table.table.set .element[set="metal"],
+legend[property="set"] entry[val="metal"] key {
     background: #e2e2e2;
 }
 
-table.table.set .element[set="metalloid"] {
+table.table.set .element[set="metalloid"],
+legend[property="set"] entry[val="metalloid"] key {
     background: #eed6bf;
 }
 
-table.table.set .element[set="noblegas"] {
+table.table.set .element[set="noblegas"],
+legend[property="set"] entry[val="noblegas"] key {
     background: #d7eefd;
 }
 
-table.table.set .element[set="nonmetal"] {
+table.table.set .element[set="nonmetal"],
+legend[property="set"] entry[val="nonmetal"] key {
     background: #baeeab;
 }
 
-table.table.set .element[set="transitionmetal"] {
+table.table.set .element[set="transitionmetal"],
+legend[property="set"] entry[val="transitionmetal"] key {
     background: #fad4d4;
 }
 
-table.table.group .element[group="1"] {
+table.table.group .element[group="1"],
+legend[property="group"] entry[val="1"] key {
 	background: #b6d0a4;
 }
 
-table.table.group .element[group="2"] {
+table.table.group .element[group="2"],
+legend[property="group"] entry[val="2"] key {
 	background: #b1cc9e;
 }
 
-table.table.group .element[group="3"] {
+table.table.group .element[group="3"],
+legend[property="group"] entry[val="3"] key {
 	background: #abc797;
 }
 
-table.table.group .element[group="4"] {
+table.table.group .element[group="4"],
+legend[property="group"] entry[val="4"] key {
 	background: #a6c391;
 }
 
-table.table.group .element[group="5"] {
+table.table.group .element[group="5"],
+legend[property="group"] entry[val="5"] key {
 	background: #a0be8c;
 }
 
-table.table.group .element[group="6"] {
+table.table.group .element[group="6"],
+legend[property="group"] entry[val="6"] key {
 	background: #9bb986;
 }
 
-table.table.group .element[group="7"] {
+table.table.group .element[group="7"],
+legend[property="group"] entry[val="7"] key {
 	background: #96b580;
 }
 
-table.table.group .element[group="8"] {
+table.table.group .element[group="8"],
+legend[property="group"] entry[val="8"] key {
 	background: #91b07a;
 }
 
-table.table.group .element[group="9"] {
+table.table.group .element[group="9"],
+legend[property="group"] entry[val="9"] key {
 	background: #8bac74;
 }
 
-table.table.group .element[group="10"] {
+table.table.group .element[group="10"],
+legend[property="group"] entry[val="10"] key {
 	background: #86a86e;
 }
 
-table.table.group .element[group="11"] {
+table.table.group .element[group="11"],
+legend[property="group"] entry[val="11"] key {
 	background: #81a368;
 }
 
-table.table.group .element[group="12"] {
+table.table.group .element[group="12"],
+legend[property="group"] entry[val="12"] key {
 	background: #7b9f63;
 }
 
-table.table.group .element[group="13"] {
+table.table.group .element[group="13"],
+legend[property="group"] entry[val="13"] key {
 	background: #769a5d;
 }
 
-table.table.group .element[group="14"] {
+table.table.group .element[group="14"],
+legend[property="group"] entry[val="14"] key {
 	background: #719657;
 }
 
-table.table.group .element[group="15"] {
+table.table.group .element[group="15"],
+legend[property="group"] entry[val="15"] key {
 	background: #6c9152;
 }
 
-table.table.group .element[group="16"] {
+table.table.group .element[group="16"],
+legend[property="group"] entry[val="16"] key {
 	background: #678d4c;
 }
 
-table.table.group .element[group="17"] {
+table.table.group .element[group="17"],
+legend[property="group"] entry[val="17"] key {
 	background: #618946;
 }
 
-table.table.group .element[group="18"] {
+table.table.group .element[group="18"],
+legend[property="group"] entry[val="18"] key {
 	background: #5c8441;
 }
 
-table.table.period .element[period="1"] {
+table.table.period .element[period="1"],
+legend[property="period"] entry[val="1"] key {
 	background: #e5c1e4;
 }
 
-table.table.period .element[period="2"] {
+table.table.period .element[period="2"],
+legend[property="period"] entry[val="2"] key {
 	background: #ddb5db;
 }
 
-table.table.period .element[period="3"] {
+table.table.period .element[period="3"],
+legend[property="period"] entry[val="3"] key {
 	background: #d4a9d2;
 }
 
-table.table.period .element[period="4"] {
+table.table.period .element[period="4"],
+legend[property="period"] entry[val="4"] key {
 	background: #cc9ec9;
 }
 
-table.table.period .element[period="5"] {
+table.table.period .element[period="5"],
+legend[property="period"] entry[val="5"] key {
 	background: #c492c1;
 }
 
-table.table.period .element[period="6"] {
+table.table.period .element[period="6"],
+legend[property="period"] entry[val="6"] key {
 	background: #bc87b8;
 }
 
-table.table.period .element[period="7"] {
+table.table.period .element[period="7"],
+legend[property="period"] entry[val="7"] key {
 	background: #b47caf;
 }
 
-table.table.block .element[block="s"] {
+table.table.block .element[block="s"],
+legend[property="block"] entry[val="s"] key {
 	background: #aaccee;
 }
 
-table.table.block .element[block="p"] {
+table.table.block .element[block="p"],
+legend[property="block"] entry[val="p"] key {
 	background: #bbeebb;
 }
 
-table.table.block .element[block="d"] {
+table.table.block .element[block="d"],
+legend[property="block"] entry[val="d"] key {
 	background: #eeeebb;
 }
 
-table.table.block .element[block="f"] {
+table.table.block .element[block="f"],
+legend[property="block"] entry[val="f"] key {
 	background: #eecccc;
 }
 
-table.table.block .element[block="g"] {
+table.table.block .element[block="g"],
+legend[property="block"] entry[val="g"] key {
 	background: #ccaacc;
 }
 
-table.table.age .element[age="antiquity"] {
+table.table.age .element[age="antiquity"],
+legend[property="age"] entry[val="antiquity"] key {
 	background: #ffbbbb;
 }
 
-table.table.age .element[age="enlightenment"] {
+table.table.age .element[age="enlightenment"],
+legend[property="age"] entry[val="enlightenment"] key {
 	background: #bbbbff;
 }
 
-table.table.age .element[age="revolution"] {
+table.table.age .element[age="revolution"],
+legend[property="age"] entry[val="revolution"] key {
 	background: #bbffbb;
 }
 
-table.table.age .element[age="classifying"] {
+table.table.age .element[age="classifying"],
+legend[property="age"] entry[val="classifying"] key {
 	background: #bbffff;
 }
 
-table.table.age .element[age="quantum"] {
+table.table.age .element[age="quantum"],
+legend[property="age"] entry[val="quantum"] key {
 	background: #ffcc99;
 }
 
-table.table.age .element[age="synthesis"] {
+table.table.age .element[age="synthesis"],
+legend[property="age"] entry[val="synthesis"] key {
 	background: #ffffbb;
 }
 
-table.table.age .element[age="recent-synthesis"] {
+table.table.age .element[age="recent-synthesis"],
+legend[property="age"] entry[val="recent-synthesis"] key {
 	background: #ffbbff;
 }
 
-table.table.metal .element[metal="metal"] {
+table.table.metal .element[metal="metal"],
+legend[property="metal"] entry[val="metal"] key {
 	background: #b6cbff;
 }
 
-table.table.metal .element[metal="metalloid"] {
+table.table.metal .element[metal="metalloid"],
+legend[property="metal"] entry[val="metalloid"] key {
 	background: #ccc9ef;
 }
 
-table.table.metal .element[metal="nonmetal"] {
+table.table.metal .element[metal="nonmetal"],
+legend[property="metal"] entry[val="nonmetal"] key {
 	background: #eed4ee;
 }
 
-table.table.radioactivity .element[radioactivity="stable"] {
+table.table.radioactivity .element[radioactivity="stable"],
+legend[property="radioactivity"] entry[val="stable"] key {
 	background: #99ffff;
 }
 
-table.table.radioactivity .element[radioactivity="slightly-radioactive"] {
+table.table.radioactivity .element[radioactivity="slightly-radioactive"],
+legend[property="radioactivity"] entry[val="slightly-radioactive"] key {
 	background: #99ff99;
 }
 
-table.table.radioactivity .element[radioactivity="significantly-radioactive"] {
+table.table.radioactivity .element[radioactivity="significantly-radioactive"],
+legend[property="radioactivity"] entry[val="significantly-radioactive"] key {
 	background: #ffff99;
 }
 
-table.table.radioactivity .element[radioactivity="radioactive"] {
+table.table.radioactivity .element[radioactivity="radioactive"],
+legend[property="radioactivity"] entry[val="radioactive"] key {
 	background: #ffcc77;
 }
 
-table.table.radioactivity .element[radioactivity="highly-radioactive"] {
+table.table.radioactivity .element[radioactivity="highly-radioactive"],
+legend[property="radioactivity"] entry[val="highly-radioactive"] key {
 	background: #ff9999;
 }
 
-table.table.radioactivity .element[radioactivity="extremely-radioactive"] {
+table.table.radioactivity .element[radioactivity="extremely-radioactive"],
+legend[property="radioactivity"] entry[val="extremely-radioactive"] key {
 	background: #ff99ff;
 }
 
-table.table.magnetism .element[magnetism="diamagnetism"] {
+table.table.magnetism .element[magnetism="diamagnetism"],
+legend[property="magnetism"] entry[val="diamagnetism"] key {
 	background: #d3e4e4;
 }
 
-table.table.magnetism .element[magnetism="ferromagnetism"] {
-	background: #abcecd;
+table.table.magnetism .element[magnetism="ferromagnetism"],
+legend[property="magnetism"] entry[val="ferromagnetism"] key {
+	background: #9fb6b6;
 }
 
-table.table.magnetism .element[magnetism="paramagnetism"] {
-	background: #82b8b7;
+table.table.magnetism .element[magnetism="paramagnetism"],
+legend[property="magnetism"] entry[val="paramagnetism"] key {
+	background: #5d8483;
 }
 
-table.table.acid_base .element[acid_base="basic"] {
+table.table.acid_base .element[acid_base="basic"],
+legend[property="acid_base"] entry[val="basic"] key {
 	background: #bbddff;
 }
 
-table.table.acid_base .element[acid_base="amphoteric"] {
+table.table.acid_base .element[acid_base="amphoteric"],
+legend[property="acid_base"] entry[val="amphoteric"] key {
 	background: #ffff99;
 }
 
-table.table.acid_base .element[acid_base="acidic"] {
+table.table.acid_base .element[acid_base="acidic"],
+legend[property="acid_base"] entry[val="acidic"] key {
 	background: #ffbbbb;
 }
 
-table.table.basicity .element[basicity="strongly-alkaline"] {
+table.table.basicity .element[basicity="strongly-alkaline"],
+legend[property="basicity"] entry[val="strongly-alkaline"] key {
 	background: #7fbef7;
 }
 
-table.table.basicity .element[basicity="alkaline"] {
+table.table.basicity .element[basicity="alkaline"],
+legend[property="basicity"] entry[val="alkaline"] key {
 	background: #90c7ec;
 }
 
-table.table.basicity .element[basicity="moderately-alkaline"] {
+table.table.basicity .element[basicity="moderately-alkaline"],
+legend[property="basicity"] entry[val="moderately-alkaline"] key {
 	background: #9ed2e1;
 }
 
-table.table.basicity .element[basicity="slightly-alkaline"] {
+table.table.basicity .element[basicity="slightly-alkaline"],
+legend[property="basicity"] entry[val="slightly-alkaline"] key {
 	background: #aadcd6;
 }
 
-table.table.basicity .element[basicity="amphoterism"] {
+table.table.basicity .element[basicity="amphoterism"],
+legend[property="basicity"] entry[val="amphoterism"] key {
 	background: #b5e6ca;
 }
 
-table.table.basicity .element[basicity="neutral"] {
+table.table.basicity .element[basicity="neutral"],
+legend[property="basicity"] entry[val="neutral"] key {
 	background: #bef1be;
 }
 
-table.table.basicity .element[basicity="slightly-acidic"] {
+table.table.basicity .element[basicity="slightly-acidic"],
+legend[property="basicity"] entry[val="slightly-acidic"] key {
 	background: #d4dbb5;
 }
 
-table.table.basicity .element[basicity="moderately-acidic"] {
+table.table.basicity .element[basicity="moderately-acidic"],
+legend[property="basicity"] entry[val="moderately-acidic"] key {
 	background: #e5c5ac;
 }
 
-table.table.basicity .element[basicity="acidic"] {
+table.table.basicity .element[basicity="acidic"],
+legend[property="basicity"] entry[val="acidic"] key {
 	background: #f3ada3;
 }
 
-table.table.basicity .element[basicity="strongly-acidic"] {
+table.table.basicity .element[basicity="strongly-acidic"],
+legend[property="basicity"] entry[val="strongly-acidic"] key {
 	background: #ff949a;
 }
 
-table.table.goldschmidt .element[goldschmidt="lithophile"] {
+table.table.goldschmidt .element[goldschmidt="lithophile"],
+legend[property="goldschmidt"] entry[val="lithophile"] key {
 	background: #ffcc77;
 }
 
-table.table.goldschmidt .element[goldschmidt="siderophile"] {
+table.table.goldschmidt .element[goldschmidt="siderophile"],
+legend[property="goldschmidt"] entry[val="siderophile"] key {
 	background: #ffaaaa;
 }
 
-table.table.goldschmidt .element[goldschmidt="chalcophile"] {
+table.table.goldschmidt .element[goldschmidt="chalcophile"],
+legend[property="goldschmidt"] entry[val="chalcophile"] key {
 	background: #ffff88;
 }
 
-table.table.goldschmidt .element[goldschmidt="atmophile"] {
+table.table.goldschmidt .element[goldschmidt="atmophile"],
+legend[property="goldschmidt"] entry[val="atmophile"] key {
 	background: #aaffff;
 }
 
-table.table.goldschmidt .element[goldschmidt="synthetic"] {
+table.table.goldschmidt .element[goldschmidt="synthetic"],
+legend[property="goldschmidt"] entry[val="synthetic"] key {
 	background: var( --bgcolor );
 }
 
-table.table.crystal_system .element[crystal_system="BCC"] {
+legend[property="goldschmidt"] entry[val="unknown"] {
+    display: none;
+}
+
+table.table.crystal_system .element[crystal_system="BCC"],
+legend[property="crystal_system"] entry[val="BCC"] key {
 	background: #ffdd88;
 }
 
-table.table.crystal_system .element[crystal_system="FCC"] {
+table.table.crystal_system .element[crystal_system="FCC"],
+legend[property="crystal_system"] entry[val="FCC"] key {
 	background: #ffbb88;
 }
 
-table.table.crystal_system .element[crystal_system="HCP"] {
+table.table.crystal_system .element[crystal_system="HCP"],
+legend[property="crystal_system"] entry[val="HCP"] key {
 	background: #ffcccc;
 }
 
-table.table.crystal_system .element[crystal_system="DHCP"] {
+table.table.crystal_system .element[crystal_system="DHCP"],
+legend[property="crystal_system"] entry[val="DHCP"] key {
 	background: #ff8888;
 }
 
-table.table.crystal_system .element[crystal_system="ORTH"] {
+table.table.crystal_system .element[crystal_system="ORTH"],
+legend[property="crystal_system"] entry[val="ORTH"] key {
 	background: #bbeebb;
 }
 
-table.table.crystal_system .element[crystal_system="TETR"] {
+table.table.crystal_system .element[crystal_system="TETR"],
+legend[property="crystal_system"] entry[val="TETR"] key {
 	background: #ffffcc;
 }
 
-table.table.crystal_system .element[crystal_system="RHO"] {
+table.table.crystal_system .element[crystal_system="RHO"],
+legend[property="crystal_system"] entry[val="RHO"] key {
 	background: #bbccff;
 }
 
-table.table.crystal_system .element[crystal_system="HEX"] {
+table.table.crystal_system .element[crystal_system="HEX"],
+legend[property="crystal_system"] entry[val="HEX"] key {
 	background: #ccbb88;
 }
 
-table.table.crystal_system .element[crystal_system="SC"] {
+table.table.crystal_system .element[crystal_system="SC"],
+legend[property="crystal_system"] entry[val="SC"] key {
 	background: #ffccff;
 }
 
-table.table.crystal_system .element[crystal_system="DC"] {
+table.table.crystal_system .element[crystal_system="DC"],
+legend[property="crystal_system"] entry[val="DC"] key {
 	background: #cccccc;
 }
 
-table.table.crystal_system .element[crystal_system="MON"] {
+table.table.crystal_system .element[crystal_system="MON"],
+legend[property="crystal_system"] entry[val="MON"] key {
 	background: #bbffff;
 }
 
-table.table.bravais .element[bravais="BCC"] {
+table.table.bravais .element[bravais="BCC"],
+legend[property="bravais"] entry[val="BCC"] key {
 	background: #ffcbcb;
 }
 
-table.table.bravais .element[bravais="FCC"] {
+table.table.bravais .element[bravais="FCC"],
+legend[property="bravais"] entry[val="FCC"] key {
 	background: #ffebad;
 }
 
-table.table.bravais .element[bravais="HCP"] {
+table.table.bravais .element[bravais="HCP"],
+legend[property="bravais"] entry[val="HCP"] key {
 	background: #b9ffc5;
 }
 
-table.table.bravais .element[bravais="unusual"] {
+table.table.bravais .element[bravais="unusual"],
+legend[property="bravais"] entry[val="unusual"] key {
 	background: #ffff40;
 }
 
-table.table.bravais .element[bravais="nonmetal"] {
+table.table.bravais .element[bravais="nonmetal"],
+legend[property="bravais"] entry[val="nonmetal"] key {
 	background: #b3b7ff;
 }
 
-table.table.superconductivity .element[superconductivity="normal"] {
+table.table.superconductivity .element[superconductivity="normal"],
+legend[property="superconductivity"] entry[val="normal"] key {
 	background: #bbee33;
 }
 
-table.table.superconductivity .element[superconductivity="special"] {
+table.table.superconductivity .element[superconductivity="special"],
+legend[property="superconductivity"] entry[val="special"] key {
 	background: #eecc00;
 }
 
@@ -1083,10 +1282,10 @@ table.table.trend.green .element[trend="9"] {
 }
 
 table.table.full-page {
-    width: 75%;
+    width: 70%;
     height: auto;
     border-spacing: 0.4vw;
-    font-size: 1vw;
+    font-size: 0.9vw;
 }
 
 table.table.full-page .element {

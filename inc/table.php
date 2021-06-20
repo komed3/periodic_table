@@ -4,21 +4,21 @@
         
         protected $allowed_props;
         protected $trend_schemes = [
-            'allen' => 'fire',
-            'allred_rochow' => 'fire',
-            'brinell' => 'green',
-            'density' => 'green',
-            'electron_affinity' => 'fire',
-            'ghosh_gupta' => 'fire',
-            'heavy_metal' => 'ice',
-            'magnetic_susceptibility' => 'ice',
-            'mohs' => 'green',
-            'mulliken' => 'fire',
-            'pauling' => 'fire',
-            'pearson' => 'fire',
-            'potential' => 'ice',
-            'sanderson' => 'fire',
-            'vickers' => 'green'
+            'allen' => [ 'fire' ],
+            'allred_rochow' => [ 'fire' ],
+            'brinell' => [ 'green' ],
+            'density' => [ 'green' ],
+            'electron_affinity' => [ 'fire' ],
+            'ghosh_gupta' => [ 'fire' ],
+            'heavy_metal' => [ 'ice' ],
+            'magnetic_susceptibility' => [ 'ice', true ],
+            'mohs' => [ 'green' ],
+            'mulliken' => [ 'fire' ],
+            'pauling' => [ 'fire' ],
+            'pearson' => [ 'fire' ],
+            'potential' => [ 'ice', true ],
+            'sanderson' => [ 'fire' ],
+            'vickers' => [ 'green' ]
         ];
         
         protected $fields = [];
@@ -31,7 +31,10 @@
         
         public $type = 'classification';
         public $property = 'set';
+        public $scheme = [];
+        public $props = [];
         public $range = null;
+        
         public $current = null;
         
         function __construct() {
@@ -56,7 +59,21 @@
             
             while( $element = $elements->fetch_object() ) {
                 
-                $this->fields[ $element->e_period ][ $element->e_group ][] = new Element( $element->ID );
+                $this->fields[ $element->e_period ][ $element->e_group ][] =
+                    new Element( $element->ID );
+                
+            }
+            
+        }
+        
+        protected function get_scheme() {
+            
+            if( $this->type == 'trend' &&
+                array_key_exists( $this->property, $this->trend_schemes ) ) {
+                
+                $this->scheme = $this->trend_schemes[ $this->property ];
+                
+                $this->add_classes( $this->scheme[0] );
                 
             }
             
@@ -82,8 +99,11 @@
             if( $this->type == 'trend' && empty( $this->range ) )
                 $this->get_range();
             
-            return ceil( ( $value - $this->range['min'] ) /
-                abs( $this->range['max'] - $this->range['min'] ) * 9 );
+            return ( count( $this->scheme ) == 2 && $this->scheme[1] )
+                ? ceil( abs( $value ) /
+                    abs( $this->range[ $value < 0 ? 'min' : 'max' ] ) * 9 )
+                : ceil( ( $value - $this->range['min'] ) /
+                    abs( $this->range['max'] - $this->range['min'] ) * 9 );
             
         }
         
@@ -139,12 +159,17 @@
                     $this->current instanceof Element &&
                     $this->current->is_element() &&
                     $this->current->is_equal( $e )
-            ], $this->get_prop( $e ) ) as $key => $val ) {
+            ], ( $prop = $this->get_prop( $e ) ) ) as $key => $val ) {
                 
                 $attr[] = $val == false ? null
                     : $key . ( is_bool( $val ) ? '' : '="' . $val . '"' );
                 
             }
+            
+            $this->props = array_unique( array_merge(
+                $this->props,
+                array_values( $prop )
+            ) );
             
             $this->table .= '<td class="element" ' .
                     implode( ' ', array_filter( $attr ) ) . '>' .
@@ -160,13 +185,37 @@
         
         protected function open_table() {
             
-            if( $this->type == 'trend' && array_key_exists( $this->property, $this->trend_schemes ) )
-                $this->add_classes( $this->trend_schemes[ $this->property ] );
+            $this->get_scheme();
             
             $this->table .= '<table class="' . implode( ' ', array_merge( $this->classes, [
                 $this->type,
                 $this->property
             ] ) ) . '">';
+            
+        }
+        
+        protected function build_legend(
+            array $entries = []
+        ) {
+            
+            global $lng;
+            
+            $legend = [];
+            
+            foreach( $entries as $entry ) {
+                
+                $legend[] = '<entry val="' . $entry . '">' .
+                    '<key></key>' .
+                    '<label>' .
+                        $lng->msg( $entry ) .
+                    '</label>' .
+                '</entry>';
+                
+            }
+            
+            return '<legend type="' . $this->type . '" property="' . $this->property . '">' .
+                implode( '', $legend ) .
+            '</legend>';
             
         }
         
@@ -219,13 +268,59 @@
             
         }
         
+        public function get_legend() {
+            
+            switch( $this->type ) {
+                
+                default:
+                    return '';
+                
+                case 'classification':
+                    sort( $this->props, SORT_NATURAL | SORT_FLAG_CASE );
+                    
+                    return $this->build_legend(
+                        array_merge(
+                            $this->props,
+                            [ 'unknown' ]
+                        )
+                    );
+                
+                case 'trend':
+                    return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
+                        '<bar></bar>' .
+                        '<val start>' .
+                            ( count( $this->scheme ) == 2 && $this->scheme[1]
+                                ? '0'
+                                : ( new Formatter( $this->range['min'] ) )->exp() ) .
+                        '</val>' .
+                        '<val end>' .
+                            ( count( $this->scheme ) == 2 && $this->scheme[1]
+                                ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
+                                : '' ) .
+                            ( new Formatter( $this->range['max'] ) )->exp() .
+                        '</val>' .
+                    '</trend>';
+                
+                case 'property':
+                    return $this->build_legend(
+                        [ 'yes', 'no' ]
+                    );
+                
+            }
+            
+        }
+        
         public function build() {
             
             global $lng;
             
             $exGroups = [];
             
+            # open table
+            
             $this->open_table();
+            
+            # walk through periods and groups
             
             for( $p = 0; $p <= $this->maxP; $p++ ) {
                 
@@ -279,13 +374,15 @@
             
             # add external groups
             
-            $this->table .= '<tr class="empty-row"><td class="empty" colspan="' . $this->maxG . '"></td></tr>';
+            $this->table .= '<tr class="empty-row">' .
+                '<td class="empty" colspan="' . ( $this->maxG + 1 ) . '">&nbsp;</td>' .
+            '</tr>';
             
             foreach( $exGroups as $element => $group ) {
                 
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
-                    '<td class="ex-group" colspan="' . ( $this->maxG - count( $group['fields'] ) ) . '">' .
+                    '<td class="label ex-group" colspan="' . ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
                         $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 
@@ -299,6 +396,23 @@
                 
             }
             
+            # add legend
+            
+            $this->table .= '<tr class="empty-row">' .
+                '<td class="empty" colspan="' . ( $this->maxG + 1 ) . '">&nbsp;</td>' .
+            '</tr>' .
+            '<tr>' .
+                '<th>&nbsp;</th>' .
+                '<td class="label legend" colspan="' . $label . '">' .
+                    $lng->msg( $this->property ) .
+                '</td>' .
+                '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
+                    $this->get_legend() .
+                '</td>' .
+            '</tr>';
+            
+            # close table
+            
             $this->table .= '</table>';
             
         }
@@ -309,12 +423,6 @@
                 $this->build();
             
             return $this->table;
-            
-        }
-        
-        public function get_legend() {
-            
-            
             
         }
         
