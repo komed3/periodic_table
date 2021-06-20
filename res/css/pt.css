@@ -499,10 +499,6 @@ table.table .placeholder {
     color: var( --mid-gray );
 }
 
-table.table .legend-header {
-    font-weight: bold;
-}
-
 table.table tr.empty-row > * {
     line-height: 1;
     font-size: 1vh;
@@ -1124,38 +1120,45 @@ table.table.long-table .element symbol cs {
 
 trend {
     display: grid;
-    grid-template-columns: repeat( 3, 10% );
+    grid-template-columns: 20% repeat( 10, 8% );
     grid-template-rows: repeat( 2, auto );
     grid-gap: 0;
     justify-items: center;
     grid-template-areas:
-        'bar bar bar bar bar bar bar bar bar bar'
-        'vp0 vp1 vp2 vp3 vp4 vp5 vp6 vp7 vp8 vp9'
+        'label bar bar bar bar bar bar bar bar bar bar'
+        'label vp0 vp1 vp2 vp3 vp4 vp5 vp6 vp7 vp8 vp9'
     ;
+    line-height: 1;
+    font-size: 0.86rem;
+}
+
+trend label {
+    grid-area: label;
+    justify-self: start;
+    font-weight: bold;
 }
 
 trend bar {
     grid-area: bar;
     justify-self: stretch;
-    height: 10px;
+    height: 0.86rem;
     background: var( --light-gray );
-    border-radius: 5px;
+    border-radius: 0.43rem;
 }
 
 trend val {
     position: relative;
-    padding-top: 5px;
-    font-size: 0.9rem;
+    padding-top: 8px;
 }
 
 trend val::after {
     content: '';
     position: absolute;
-    top: -10px;
-    left: calc( 50% - 1px );
-    width: 2px;
-    height: 18px;
-    background: var( --mid-gray );
+    top: 0;
+    left: calc( 50% - 0.5px );
+    width: 1px;
+    height: 6px;
+    background: var( --color );
 }
 
 trend val[pos="0"] {
@@ -1196,6 +1199,20 @@ trend val[pos="8"] {
 
 trend val[pos="9"] {
     grid-area: vp9;
+}
+
+/* LEGEND -> TREND -> SCHEMES */
+
+trend[scheme="fire"] bar {
+    background: linear-gradient( to right, #ffea00, #ff2b00 );
+}
+
+trend[scheme="ice"] bar {
+    background: linear-gradient( to right, #eafbfb, #5a8b8a );
+}
+
+trend[scheme="green"] bar {
+    background: linear-gradient( to right, #d8f2c7, #4a744a );
 }
 
 /* ERROR */
