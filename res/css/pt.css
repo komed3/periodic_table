@@ -291,9 +291,11 @@ body.table footer {
     margin: 0;
     font-size: 0.8em;
 }
+
 body.table footer .credits {
     margin: 0;
 }
+
 body.table footer .nav {
     display: none;
 }
