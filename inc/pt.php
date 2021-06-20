@@ -24,9 +24,9 @@
         ],
         'trend' => [
             'heavy_metal', 'magnetic_susceptibility', 'density',
-            'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
-            'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs',
-            'vickers', 'brinell'
+            'electron_affinity', 'potential', 'pauling', 'allen',
+            'mulliken', 'sanderson', 'allred_rochow', 'ghosh_gupta',
+            'pearson', 'mohs', 'vickers', 'brinell'
         ],
         'interactive' => [
             'phase', 'discovery'

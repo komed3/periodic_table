@@ -43,7 +43,7 @@
                         $e->get_image() .
                         ( new Formatter( $e->description ) )->str() .
                     '</p>' .
-                    $this->get_sections( $e ) .
+                    $this->get_sections( $e, $long_table ) .
                 '</article>' .
                 '<aside>' .
                     $long_table->output() .
@@ -53,7 +53,8 @@
         }
         
         private function get_sections(
-            Element $e
+            Element $e,
+            Table $t
         ) {
             
             global $lng;
@@ -69,12 +70,10 @@
                     'name_en' => [],
                     'age' => [
                         'format' => 'i18n',
-                        'link' => true,
                         'empty' => 'unknown'
                     ],
                     'discovery' => [
-                        'empty' => 'unknown',
-                        'link' => true
+                        'empty' => 'unknown'
                     ],
                     'discoverer' => [
                         'format' => 'exlink',
@@ -84,25 +83,21 @@
                 ],
                 'classification' => [
                     'set' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'group' => [
                         'format' => 'i18n',
-                        'prefix' => 'group-name-',
-                        'link' => true
+                        'prefix' => 'group-name-'
                     ],
                     'CAS_group' => [],
                     'IUPAC_group' => [],
                     'period' => [
                         'format' => 'i18n',
-                        'prefix' => 'period-',
-                        'link' => true
+                        'prefix' => 'period-'
                     ],
                     'block' => [
                         'format' => 'i18n',
-                        'prefix' => 'block-',
-                        'link' => true
+                        'prefix' => 'block-'
                     ],
                     'term_symbol' => []
                 ],
@@ -223,24 +218,19 @@
                 ],
                 'physical' => [
                     'phase' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'crystal_system' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'bravais' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'magnetism' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'magnetic_susceptibility' => [
-                        'format' => 'exp',
-                        'link' => true
+                        'format' => 'exp'
                     ],
                     'curie_temp' => [
                         'format' => 'temp',
@@ -248,8 +238,7 @@
                     ],
                     'density' => [
                         'format' => 'physical',
-                        'unit' => 'g·m<−3>',
-                        'link' => true
+                        'unit' => 'g·m<−3>'
                     ],
                     'molar_volume' => [
                         'format' => 'physical',
@@ -343,15 +332,13 @@
                     ],
                     'superconductivity' => [
                         'format' => 'i18n',
-                        'empty' => 'no',
-                        'link' => true
+                        'empty' => 'no'
                     ],
                     'critical_temp' => [
                         'format' => 'temp'
                     ],
                     'radioactivity' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ]
                 ],
                 'chemical' => [
@@ -359,27 +346,22 @@
                         'format' => 'str'
                     ],
                     'metal' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'goldschmidt' => [
-                        'format' => 'i18n',
-                        'link' => true
+                        'format' => 'i18n'
                     ],
                     'potential' => [
                         'format' => 'physical',
-                        'unit' => 'V',
-                        'link' => true
+                        'unit' => 'V'
                     ],
                     'acid_base' => [
                         'format' => 'i18n',
-                        'empty' => 'unknown',
-                        'link' => true
+                        'empty' => 'unknown'
                     ],
                     'basicity' => [
                         'format' => 'i18n',
-                        'empty' => 'unknown',
-                        'link' => true
+                        'empty' => 'unknown'
                     ],
                     'isotopes' => [
                         'format' => 'num',
@@ -389,57 +371,47 @@
                 'electronegativity' => [
                     'pauling' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'allen' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'mulliken' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'sanderson' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'allred_rochow' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'ghosh_gupta' => [
                         'format' => 'physical',
                         'unit' => 'eV',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'pearson' => [
                         'format' => 'physical',
                         'unit' => 'eV',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ]
                 ],
                 'hardness' => [
                     'mohs' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'vickers' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ],
                     'brinell' => [
                         'format' => 'exp',
-                        'empty' => 'undefined',
-                        'link' => true
+                        'empty' => 'undefined'
                     ]
                 ],
                 'GHS' => [
@@ -565,7 +537,7 @@
                     
                     $proplist[] = '<tr class="property p-' . $key . '">' .
                         '<th>' .
-                            ( !empty( $params['link'] ) && $params['link']
+                            ( $t->is_allowed( $key )
                                 ? Linker::i( $lng->msg( $key ), $lng->msg( $key ) )
                                 : $lng->msg( $key )
                             ) . ( $lng->is_defined( $key . '_glossary' )
