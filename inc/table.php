@@ -247,19 +247,17 @@
                 case 'trend':
                     return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
                         '<bar></bar>' .
-                        '<values>' .
-                            '<val pos="0">' .
-                                ( count( $this->scheme ) == 2 && $this->scheme[1]
-                                    ? '0'
-                                    : ( new Formatter( $this->range['min'] ) )->exp() ) .
-                            '</val>' .
-                            '<val pos="9">' .
-                                ( count( $this->scheme ) == 2 && $this->scheme[1]
-                                    ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
-                                    : '' ) .
-                                ( new Formatter( $this->range['max'] ) )->exp() .
-                            '</val>' .
-                        '</values>' .
+                        '<val pos="0">' .
+                            ( count( $this->scheme ) == 2 && $this->scheme[1]
+                                ? '0'
+                                : ( new Formatter( $this->range['min'] ) )->exp() ) .
+                        '</val>' .
+                        '<val pos="9">' .
+                            ( count( $this->scheme ) == 2 && $this->scheme[1]
+                                ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
+                                : '' ) .
+                            ( new Formatter( $this->range['max'] ) )->exp() .
+                        '</val>' .
                     '</trend>';
                 
             }
@@ -359,7 +357,7 @@
             '</tr>' .
             '<tr>' .
                 '<th>&nbsp;</th>' .
-                '<td class="property" colspan="' . $label . '">' . $lng->msg( $this->property ) . '</td>' .
+                '<td class="legend-header" colspan="' . $label . '">' . $lng->msg( $this->property ) . '</td>' .
                 '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
                     $this->get_legend() .
                 '</td>' .

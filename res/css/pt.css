@@ -414,6 +414,7 @@ dl.glossary dd {
 
 table.table {
     width: 100%;
+    font-size: 0.9em;
     border-collapse: separate;
     border-spacing: 4px;
     -webkit-user-select: none;
@@ -479,13 +480,13 @@ table.table .element symbol cs {
     position: absolute;
     bottom: 14%;
     right: 14%;
-    font-size: 1.8vw;
+    font-size: 1.6vw;
 }
 
 table.table .header {
     padding: 0.1em 0.2em;
     text-align: center;
-    font-size: 70%;
+    font-size: 75%;
     font-weight: bold;
     color: var( --mid-gray );
 }
@@ -494,8 +495,12 @@ table.table .placeholder {
     text-align: center;
     vertical-align: middle;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.7vw;
+    font-size: 1.6vw;
     color: var( --mid-gray );
+}
+
+table.table .legend-header {
+    font-weight: bold;
 }
 
 table.table tr.empty-row > * {
@@ -1084,10 +1089,10 @@ table.table.trend.green .element[trend="9"] {
 }
 
 table.table.full-page {
-    width: 75%;
+    width: 70%;
     height: auto;
     border-spacing: 0.4vw;
-    font-size: 1vw;
+    font-size: 0.9vw;
 }
 
 table.table.full-page .element {
@@ -1111,6 +1116,86 @@ table.table.long-table .element symbol cs {
     transform: translate( 50%, 50% );
     font-family: 'Work Sans', sans-serif;
     font-size: 0.8em;
+}
+
+/* LEGEND */
+
+/* LEGEND -> TREND */
+
+trend {
+    display: grid;
+    grid-template-columns: repeat( 3, 10% );
+    grid-template-rows: repeat( 2, auto );
+    grid-gap: 0;
+    justify-items: center;
+    grid-template-areas:
+        'bar bar bar bar bar bar bar bar bar bar'
+        'vp0 vp1 vp2 vp3 vp4 vp5 vp6 vp7 vp8 vp9'
+    ;
+}
+
+trend bar {
+    grid-area: bar;
+    justify-self: stretch;
+    height: 10px;
+    background: var( --light-gray );
+    border-radius: 5px;
+}
+
+trend val {
+    position: relative;
+    padding-top: 5px;
+    font-size: 0.9rem;
+}
+
+trend val::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: calc( 50% - 1px );
+    width: 2px;
+    height: 18px;
+    background: var( --mid-gray );
+}
+
+trend val[pos="0"] {
+    grid-area: vp0;
+}
+
+trend val[pos="1"] {
+    grid-area: vp1;
+}
+
+trend val[pos="2"] {
+    grid-area: vp2;
+}
+
+trend val[pos="3"] {
+    grid-area: vp3;
+}
+
+trend val[pos="4"] {
+    grid-area: vp4;
+}
+
+trend val[pos="5"] {
+    grid-area: vp5;
+}
+
+trend val[pos="6"] {
+    grid-area: vp6;
+}
+
+trend val[pos="7"] {
+    grid-area: vp7;
+}
+
+trend val[pos="8"] {
+    grid-area: vp8;
+}
+
+trend val[pos="9"] {
+    grid-area: vp9;
 }
 
 /* ERROR */
