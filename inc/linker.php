@@ -28,11 +28,15 @@
             string $url
         ) {
             
-            return urlencode( str_replace(
-                [ ' ', '&shy;' ],
-                [ '_', '' ],
-                $url
-            ) );
+            return str_replace(
+                [ '%28', '%29' ],
+                [ '(', ')' ],
+                urlencode( str_replace(
+                    [ ' ', '&shy;' ],
+                    [ '_', '' ],
+                    $url
+                ) )
+            );
             
         }
         

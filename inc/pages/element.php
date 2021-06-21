@@ -417,6 +417,16 @@
                         'empty' => 'undefined'
                     ]
                 ],
+                'biology' => [
+                    'trace' => [
+                        'format' => 'i18n',
+                        'empty' => false
+                    ],
+                    'bio' => [
+                        'format' => 'i18n',
+                        'empty' => false
+                    ]
+                ],
                 'GHS' => [
                     'GHS%' => [
                         'format' => 'img',

@@ -12,11 +12,14 @@
             'electron_affinity' => [ 'fire' ],
             'ghosh_gupta' => [ 'fire' ],
             'magnetic_susceptibility' => [ 'ice', true ],
+            'mf_earth' => [ 'green' ],
+            'molar_volume' => [ 'ice' ],
             'mohs' => [ 'green' ],
             'mulliken' => [ 'fire' ],
             'pauling' => [ 'fire' ],
             'pearson' => [ 'fire' ],
             'potential' => [ 'ice', true ],
+            'r_calc' => [ 'fire' ],
             'sanderson' => [ 'fire' ],
             'vickers' => [ 'green' ]
         ];

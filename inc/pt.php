@@ -20,13 +20,14 @@
         'classification' => [
             'set', 'group', 'period', 'block', 'age', 'crystal_system',
             'bravais', 'metal', 'heavy_metal', 'magnetism', 'superconductivity',
-            'radioactivity', 'goldschmidt', 'acid_base', 'basicity'
+            'radioactivity', 'goldschmidt', 'acid_base', 'basicity',
+            'trace', 'bio'
         ],
         'trend' => [
-            'magnetic_susceptibility', 'density', 'electron_affinity',
-            'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
-            'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs', 'vickers',
-            'brinell'
+            'potential', 'molar_volume', 'density', 'r_calc', 'electron_affinity',
+            'magnetic_susceptibility', 'pauling', 'allen', 'mulliken', 'sanderson',
+            'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs', 'vickers', 'brinell',
+            'mf_earth'
         ],
         'interactive' => [
             'phase', 'discovery'
