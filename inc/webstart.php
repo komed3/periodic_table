@@ -68,6 +68,13 @@
         $page = new Menu_Page();
         print $page->output();
         
+    } else if( $pagestr == mb_strtolower( $lng->msg( 'search' ) ) ) {
+        
+        require_once __DIR__ . '/pages/search.php';
+        
+        $page = new Search_Page();
+        print $page->output();
+        
     } else if( $pagestr == mb_strtolower( $lng->msg( 'glossary' ) ) ) {
         
         require_once __DIR__ . '/pages/glossary.php';
