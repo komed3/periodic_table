@@ -11,7 +11,7 @@
         $page = new Table_Page( 'set' );
         print $page->output();
         
-    } else if( $pagestr == 'e' || $pagestr == mb_strtolower( $lng->msg( 'element-page' ) ) ) {
+    } else if( $pagestr == 'e' || $pagestr == mb_strtolower( $lng->msg( 'element' ) ) ) {
         
         if( empty( $url[1] ) || !( $e = new Element( $url[1] ) )->is_element() ) {
             

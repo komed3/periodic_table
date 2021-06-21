@@ -348,6 +348,9 @@
                     'metal' => [
                         'format' => 'i18n'
                     ],
+                    'heavy_metal' => [
+                        'format' => 'i18n'
+                    ],
                     'goldschmidt' => [
                         'format' => 'i18n'
                     ],
@@ -412,6 +415,16 @@
                     'brinell' => [
                         'format' => 'exp',
                         'empty' => 'undefined'
+                    ]
+                ],
+                'biology' => [
+                    'trace' => [
+                        'format' => 'i18n',
+                        'empty' => false
+                    ],
+                    'bio' => [
+                        'format' => 'i18n',
+                        'empty' => false
                     ]
                 ],
                 'GHS' => [

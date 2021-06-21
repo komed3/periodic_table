@@ -433,21 +433,21 @@ dl.glossary dd {
 legend {
     display: flex;
     flex-flow: row wrap;
-    margin-bottom: -0.75vh;
-    font-size: 0.72vw;
+    margin-bottom: -0.5vw;
+    font-size: 0.85vw;
 }
 
 legend entry {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    margin: 0 1.6vh 0.75vh 0;
+    margin: 0 1vw 0.5vw 0;
 }
 
 legend entry key {
-    width: 1.6vh;
-    height: 1.6vh;
-    margin-right: 0.6vh;
+    width: 1vw;
+    height: 1vw;
+    margin-right: 0.25vw;
     background: var( --light-gray );
     border: 1px solid var( --color );
 }
@@ -465,41 +465,42 @@ trend {
         'start middle end'
     ;
     line-height: 1;
-    font-size: 0.72vw;
+    font-size: 0.85vw;
 }
 
 trend bar {
     grid-area: bar;
     justify-self: stretch;
-    height: 10px;
+    height: 0.74vw;
     background: var( --light-gray );
-    border-radius: 5px;
+    border-radius: 0.37vw;
+    box-shadow: 2px 2px 4px var( --light-gray );
 }
 
-trend val {
+trend value {
     position: relative;
-    padding-top: 0.5vw;
+    padding-top: 10px;
 }
 
-trend val::after {
+trend value::after {
     content: '';
     position: absolute;
     top: 0;
     left: calc( 50% - 0.5px );
     width: 1px;
-    height: 0.4vw;
+    height: 8px;
     background: var( --color );
 }
 
-trend val[start] {
+trend value[start] {
     grid-area: start;
 }
 
-trend val[middle] {
+trend value[middle] {
     grid-area: middle;
 }
 
-trend val[end] {
+trend value[end] {
     grid-area: end;
 }
 
@@ -515,6 +516,27 @@ trend[scheme="ice"] bar {
 
 trend[scheme="green"] bar {
     background: linear-gradient( to right, #d8f2c7, #4a744a );
+}
+
+/* LEGEND -> RANGE */
+
+range {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+range input {
+    flex: auto;
+    background: transparent;
+    cursor: pointer;
+    outline: 0 none;
+}
+
+range value {
+    flex: 0 0 12%;
+    text-align: right;
 }
 
 /* TABLE */
@@ -534,6 +556,10 @@ table.table .element {
     position: relative;
     background: var( --light-gray );
     overflow: hidden;
+}
+
+table.table .element:hover {
+    opacity: 0.8;
 }
 
 table.table .element overlay {
@@ -606,9 +632,19 @@ table.table .placeholder {
     color: var( --mid-gray );
 }
 
-table.table .label.legend {
+table.table .menu {
     vertical-align: top;
-    font-weight: bold;
+}
+
+table.table .menu select {
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    background: var( --bgcolor );
+    border: 1px solid var( --mid-gray );
+    border-radius: 0;
+    outline: 0 none;
+    cursor: pointer;
 }
 
 table.table tr.empty-row > * {
@@ -639,20 +675,23 @@ table.table.set .element[radioactive] overlay {
     );
 }
 
-table.table.set .element:not([set]),
-table.table.group .element:not([group]),
-table.table.period .element:not([period]),
-table.table.block .element:not([block]),
-table.table.age .element:not([age]),
-table.table.metal .element:not([metal]),
-table.table.radioactivity .element:not([radioactivity]),
-table.table.magnetism .element:not([magnetism]),
 table.table.acid_base .element:not([acid_base]),
+table.table.age .element:not([age]),
 table.table.basicity .element:not([basicity]),
-table.table.goldschmidt .element:not([goldschmidt]),
-table.table.crystal_system .element:not([crystal_system]),
+table.table.block .element:not([block]),
+table.table.bio .element:not([bio]),
 table.table.bravais .element:not([bravais]),
+table.table.crystal_system .element:not([crystal_system]),
+table.table.goldschmidt .element:not([goldschmidt]),
+table.table.group .element:not([group]),
+table.table.heavy_metal .element:not([heavy_metal]),
+table.table.magnetism .element:not([magnetism]),
+table.table.metal .element:not([metal]),
+table.table.period .element:not([period]),
+table.table.radioactivity .element:not([radioactivity]),
+table.table.set .element:not([set]),
 table.table.superconductivity .element:not([superconductivity]),
+table.table.trace .element:not([trace]),
 table.table.trend .element:not([trend]),
 legend entry[val="unknown"] key {
     background: var( --bgcolor );
@@ -674,6 +713,24 @@ table.table.set .element[phase="gas"] symbol cs {
 
 table.table.set .element[phase="artificial"] symbol cs {
     color: var( --phase-artificial );
+}
+
+/* TABLE -> COLOR SCHEME -> INTERACTIVE */
+
+table.table.interactive.discovery .element[prop="1"] {
+    background: var( --highlight );
+}
+
+table.table.interactive.phase .element[phase="solid"] {
+    background: #ccffcc;
+}
+
+table.table.interactive.phase .element[phase="liquid"] {
+    background: #ccccff;
+}
+
+table.table.interactive.phase .element[phase="gas"] {
+    background: #ffffcc;
 }
 
 /* TABLE -> COLOR SCHEME -> PROPERTIES */
@@ -928,9 +985,34 @@ legend[property="metal"] entry[val="nonmetal"] key {
 	background: #eed4ee;
 }
 
+table.table.heavy_metal .element[heavy_metal="nonmetal"],
+legend[property="heavy_metal"] entry[val="nonmetal"] key {
+	background: #eed4ee;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@0"],
+legend[property="heavy_metal"] entry[val="heavy-@0"] key {
+	background: #eeff88;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@5"],
+legend[property="heavy_metal"] entry[val="heavy-@5"] key {
+	background: #ffdd00;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@10"],
+legend[property="heavy_metal"] entry[val="heavy-@10"] key {
+	background: #ff9900;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@20"],
+legend[property="heavy_metal"] entry[val="heavy-@20"] key {
+	background: #ff5500;
+}
+
 table.table.radioactivity .element[radioactivity="stable"],
 legend[property="radioactivity"] entry[val="stable"] key {
-	background: #99ffff;
+	background: #cceeff;
 }
 
 table.table.radioactivity .element[radioactivity="slightly-radioactive"],
@@ -940,7 +1022,7 @@ legend[property="radioactivity"] entry[val="slightly-radioactive"] key {
 
 table.table.radioactivity .element[radioactivity="significantly-radioactive"],
 legend[property="radioactivity"] entry[val="significantly-radioactive"] key {
-	background: #ffff99;
+	background: #ffff55;
 }
 
 table.table.radioactivity .element[radioactivity="radioactive"],
@@ -950,7 +1032,7 @@ legend[property="radioactivity"] entry[val="radioactive"] key {
 
 table.table.radioactivity .element[radioactivity="highly-radioactive"],
 legend[property="radioactivity"] entry[val="highly-radioactive"] key {
-	background: #ff9999;
+	background: #ff7777;
 }
 
 table.table.radioactivity .element[radioactivity="extremely-radioactive"],
@@ -960,17 +1042,17 @@ legend[property="radioactivity"] entry[val="extremely-radioactive"] key {
 
 table.table.magnetism .element[magnetism="diamagnetism"],
 legend[property="magnetism"] entry[val="diamagnetism"] key {
-	background: #d3e4e4;
+	background: #ffbb99;
 }
 
 table.table.magnetism .element[magnetism="ferromagnetism"],
 legend[property="magnetism"] entry[val="ferromagnetism"] key {
-	background: #9fb6b6;
+	background: #aadd88;
 }
 
 table.table.magnetism .element[magnetism="paramagnetism"],
 legend[property="magnetism"] entry[val="paramagnetism"] key {
-	background: #5d8483;
+	background: #aaddff;
 }
 
 table.table.acid_base .element[acid_base="basic"],
@@ -1155,6 +1237,41 @@ legend[property="superconductivity"] entry[val="normal"] key {
 table.table.superconductivity .element[superconductivity="special"],
 legend[property="superconductivity"] entry[val="special"] key {
 	background: #eecc00;
+}
+
+table.table.trace .element[trace="fundamental"],
+legend[property="trace"] entry[val="fundamental"] key {
+	background: #5a985a;
+}
+
+table.table.trace .element[trace="quantity"],
+legend[property="trace"] entry[val="quantity"] key {
+	background: #8ada8a;
+}
+
+table.table.trace .element[trace="essential"],
+legend[property="trace"] entry[val="essential"] key {
+	background: #a6ff32;
+}
+
+table.table.trace .element[trace="non-essential"],
+legend[property="trace"] entry[val="non-essential"] key {
+	background: #eaff66;
+}
+
+table.table.bio .element[bio="primary"],
+legend[property="bio"] entry[val="primary"] key {
+	background: #88cc55;
+}
+
+table.table.bio .element[bio="secondary"],
+legend[property="bio"] entry[val="secondary"] key {
+	background: #eedd66;
+}
+
+table.table.bio .element[bio="variable"],
+legend[property="bio"] entry[val="variable"] key {
+	background: #ee9988;
 }
 
 /* TABLE -> COLOR SCHEME -> TRENDS */

@@ -3,22 +3,41 @@
     class Table {
         
         protected $allowed_props;
+        
         protected $trend_schemes = [
             'allen' => [ 'fire' ],
             'allred_rochow' => [ 'fire' ],
             'brinell' => [ 'green' ],
-            'density' => [ 'green' ],
+            'density' => [ 'ice' ],
             'electron_affinity' => [ 'fire' ],
             'ghosh_gupta' => [ 'fire' ],
-            'heavy_metal' => [ 'ice' ],
             'magnetic_susceptibility' => [ 'ice', true ],
+            'mf_earth' => [ 'green' ],
+            'molar_volume' => [ 'ice' ],
             'mohs' => [ 'green' ],
             'mulliken' => [ 'fire' ],
             'pauling' => [ 'fire' ],
             'pearson' => [ 'fire' ],
             'potential' => [ 'ice', true ],
+            'r_calc' => [ 'fire' ],
             'sanderson' => [ 'fire' ],
             'vickers' => [ 'green' ]
+        ];
+        
+        protected $interactive = [
+            'discovery' => [
+                'default' => 1766,
+                'step' => 1,
+                'suffix' => ''
+            ],
+            'phase' => [
+                'default' => 293,
+                'min' => 0,
+                'max' => 6500,
+                'step' => 1,
+                'format' => 'num',
+                'suffix' => '&nbsp;K'
+            ]
         ];
         
         protected $fields = [];
@@ -31,9 +50,11 @@
         
         public $type = 'classification';
         public $property = 'set';
+        
         public $scheme = [];
         public $props = [];
         public $range = null;
+        public $i_val = null;
         
         public $current = null;
         
@@ -86,7 +107,7 @@
             $this->range = array_map( 'doubleval', $db->query('
                 SELECT  MIN( CONVERT( p_value, decimal( 65, 38 ) ) ) AS min,
                         MAX( CONVERT( p_value, decimal( 65, 38 ) ) ) AS max
-                FROM    property
+                FROM    ' . $db->prefix . 'property
                 WHERE   p_key = "' . $this->property . '"
             ')->fetch_assoc() );
             
@@ -104,6 +125,54 @@
                     abs( $this->range[ $value < 0 ? 'min' : 'max' ] ) * 9 )
                 : ceil( ( $value - $this->range['min'] ) /
                     abs( $this->range['max'] - $this->range['min'] ) * 9 );
+            
+        }
+        
+        protected function get_ival() {
+            
+            global $url;
+            
+            if( is_null( $this->i_val ) )
+                $this->i_val = isset( $url[1] ) && is_numeric( $url[1] )
+                    ? $url[1] : $this->interactive[ $this->property ]['default'];
+            
+            return $this->i_val;
+            
+        }
+        
+        protected function get_interactive(
+            Element $e
+        ) {
+            
+            switch( $this->property ) {
+                
+                default:
+                    return [];
+                
+                case 'discovery':
+                    return [ 'prop' => intval(
+                        ( $prop = $e->get_prop( $this->property ) )->rows == 0 ||
+                        intval( $prop->p[0]->val->raw() ) <= intval( $this->get_ival() )
+                    ) ];
+                
+                case 'phase':
+                    $melting = ( $prop = $e->get_prop( 'melting' ) )->rows > 0
+                        ? $e->get_prop( 'melting' )->p[0]->val->rawnum()
+                        : INF;
+                    
+                    $boiling = ( $prop = $e->get_prop( 'boiling' ) )->rows > 0
+                        ? $e->get_prop( 'boiling' )->p[0]->val->rawnum()
+                        : INF;
+                    
+                    $temp = intval( $this->get_ival() );
+                    
+                    return $melting < INF && $boiling < INF
+                        ? [ 'phase' => $temp <= $melting
+                                ? 'solid' : ( $temp >= $boiling
+                                    ? 'gas' : 'liquid' ) ]
+                        : [];
+                
+            }
             
         }
         
@@ -125,6 +194,9 @@
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
                         ? [ 'trend' => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
                         : [];
+                
+                case 'interactive':
+                    return $this->get_interactive( $e );
                 
                 case 'property':
                     return [
@@ -270,6 +342,8 @@
         
         public function get_legend() {
             
+            global $_IP, $db, $lng;
+            
             switch( $this->type ) {
                 
                 default:
@@ -288,18 +362,45 @@
                 case 'trend':
                     return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
                         '<bar></bar>' .
-                        '<val start>' .
+                        '<value start>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? '0'
                                 : ( new Formatter( $this->range['min'] ) )->exp() ) .
-                        '</val>' .
-                        '<val end>' .
+                        '</value>' .
+                        '<value end>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
                                 : '' ) .
                             ( new Formatter( $this->range['max'] ) )->exp() .
-                        '</val>' .
+                        '</value>' .
                     '</trend>';
+                
+                case 'interactive':
+                    $this->get_range();
+                    
+                    $min = !empty( $this->interactive[ $this->property ]['min'] )
+                        ? $this->interactive[ $this->property ]['min']
+                        : $this->range['min'];
+                    
+                    $max = !empty( $this->interactive[ $this->property ]['max'] )
+                        ? $this->interactive[ $this->property ]['max']
+                        : $this->range['max'];
+                    
+                    $format = !empty( $this->interactive[ $this->property ]['format'] )
+                        ? $this->interactive[ $this->property ]['format']
+                        : 'raw';
+                    
+                    return '<range>' .
+                        '<input type="range" onchange=\'location.href="' .
+                            $_IP . Linker::l( $lng->msg( $this->property ) ) . '/"+this.value;\' min="' .
+                            $min . '" max="' . $max . '" value="' .
+                            intval( $this->get_ival() ) . '" step="' .
+                            $this->interactive[ $this->property ]['step'] . '" />' .
+                        '<value>' .
+                            ( new Formatter( intval( $this->get_ival() ) ) )->$format() .
+                            $this->interactive[ $this->property ]['suffix'] .
+                        '</value>' .
+                    '</range>';
                 
                 case 'property':
                     return $this->build_legend(
@@ -307,6 +408,35 @@
                     );
                 
             }
+            
+        }
+        
+        public function get_menu() {
+            
+            global $_IP, $lng;
+            
+            $options = '';
+            
+            foreach( $this->allowed_props as $group => $props ) {
+                
+                $options .= '<optgroup label="' . $lng->msg( $group ) . '">';
+                
+                foreach( $props as $prop ) {
+                    
+                    $options .= '<option value="' . Linker::l( $lng->msg( $prop ) ) . '" ' .
+                        ( $prop == $this->property ? 'selected' : '' ) . '>' .
+                        $lng->msg( $prop ) .
+                    '</option>';
+                    
+                }
+                
+                $options .= '</optgroup>';
+                
+            }
+            
+            return '<select class="menu" onchange=\'location.href="' . $_IP . '"+this.value;\'>' .
+                $options .
+            '</select>';
             
         }
         
@@ -354,7 +484,8 @@
                                 'g' => $g
                             ];
                             
-                            $this->table .= '<td class="empty placeholder" period="' . $p . '" group="' . $g . '">' .
+                            $this->table .= '<td class="empty placeholder" period="' .
+                                $p . '" group="' . $g . '">' .
                                 $e->symbol .
                             '</td>';
                             
@@ -382,7 +513,8 @@
                 
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
-                    '<td class="label ex-group" colspan="' . ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
+                    '<td class="label ex-group" colspan="' .
+                        ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
                         $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 
@@ -403,8 +535,8 @@
             '</tr>' .
             '<tr>' .
                 '<th>&nbsp;</th>' .
-                '<td class="label legend" colspan="' . $label . '">' .
-                    $lng->msg( $this->property ) .
+                '<td class="menu" colspan="' . $label . '">' .
+                    $this->get_menu() .
                 '</td>' .
                 '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
                     $this->get_legend() .
