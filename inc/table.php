@@ -24,11 +24,16 @@
         protected $interactive = [
             'discovery' => [
                 'default' => 1766,
-                'step' => 1
+                'step' => 1,
+                'suffix' => ''
             ],
             'phase' => [
                 'default' => 293,
-                'step' => 1
+                'min' => 0,
+                'max' => 6500,
+                'step' => 1,
+                'format' => 'num',
+                'suffix' => '&nbsp;K'
             ]
         ];
         
@@ -124,8 +129,8 @@
             
             global $url;
             
-            if( empty( $this->i_val ) )
-                $this->i_val = !empty( $url[1] ) && is_numeric( $url[1] )
+            if( is_null( $this->i_val ) )
+                $this->i_val = isset( $url[1] ) && is_numeric( $url[1] )
                     ? $url[1] : $this->interactive[ $this->property ]['default'];
             
             return $this->i_val;
@@ -146,6 +151,23 @@
                         ( $prop = $e->get_prop( $this->property ) )->rows == 0 ||
                         intval( $prop->p[0]->val->raw() ) <= intval( $this->get_ival() )
                     ) ];
+                
+                case 'phase':
+                    $melting = ( $prop = $e->get_prop( 'melting' ) )->rows > 0
+                        ? $e->get_prop( 'melting' )->p[0]->val->rawnum()
+                        : INF;
+                    
+                    $boiling = ( $prop = $e->get_prop( 'boiling' ) )->rows > 0
+                        ? $e->get_prop( 'boiling' )->p[0]->val->rawnum()
+                        : INF;
+                    
+                    $temp = intval( $this->get_ival() );
+                    
+                    return $melting < INF && $boiling < INF
+                        ? [ 'phase' => $temp <= $melting
+                                ? 'solid' : ( $temp >= $boiling
+                                    ? 'gas' : 'liquid' ) ]
+                        : [];
                 
             }
             
@@ -353,14 +375,28 @@
                 case 'interactive':
                     $this->get_range();
                     
+                    $min = !empty( $this->interactive[ $this->property ]['min'] )
+                        ? $this->interactive[ $this->property ]['min']
+                        : $this->range['min'];
+                    
+                    $max = !empty( $this->interactive[ $this->property ]['max'] )
+                        ? $this->interactive[ $this->property ]['max']
+                        : $this->range['max'];
+                    
+                    $format = !empty( $this->interactive[ $this->property ]['format'] )
+                        ? $this->interactive[ $this->property ]['format']
+                        : 'raw';
+                    
                     return '<range>' .
                         '<input type="range" onchange=\'location.href="' .
-                            $_IP . Linker::l( $lng->msg( $this->property ) ) . '/"+this.value;\' value="' .
-                            intval( $this->get_ival() ) . '" min="' .
-                            $this->range['min'] . '" max="' .
-                            $this->range['max'] . '" step="' .
+                            $_IP . Linker::l( $lng->msg( $this->property ) ) . '/"+this.value;\' min="' .
+                            $min . '" max="' . $max . '" value="' .
+                            intval( $this->get_ival() ) . '" step="' .
                             $this->interactive[ $this->property ]['step'] . '" />' .
-                        '<value>' . intval( $this->get_ival() ) . '</value>' .
+                        '<value>' .
+                            ( new Formatter( intval( $this->get_ival() ) ) )->$format() .
+                            $this->interactive[ $this->property ]['suffix'] .
+                        '</value>' .
                     '</range>';
                 
                 case 'property':
@@ -445,7 +481,8 @@
                                 'g' => $g
                             ];
                             
-                            $this->table .= '<td class="empty placeholder" period="' . $p . '" group="' . $g . '">' .
+                            $this->table .= '<td class="empty placeholder" period="' .
+                                $p . '" group="' . $g . '">' .
                                 $e->symbol .
                             '</td>';
                             
@@ -473,7 +510,8 @@
                 
                 $this->table .= '<tr>' .
                     '<th>&nbsp;</th>' .
-                    '<td class="label ex-group" colspan="' . ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
+                    '<td class="label ex-group" colspan="' .
+                        ( $label = $this->maxG - count( $group['fields'] ) ) . '">' .
                         $lng->msg( 'group-' . ( new Element( $element ) )->symbol ) .
                     '</td>';
                 

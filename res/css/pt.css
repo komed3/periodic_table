@@ -715,8 +715,20 @@ table.table.set .element[phase="artificial"] symbol cs {
 
 /* TABLE -> COLOR SCHEME -> INTERACTIVE */
 
-table.table.discovery .element[prop="1"] {
+table.table.interactive.discovery .element[prop="1"] {
     background: var( --highlight );
+}
+
+table.table.interactive.phase .element[phase="solid"] {
+    background: #ccffcc;
+}
+
+table.table.interactive.phase .element[phase="liquid"] {
+    background: #ccccff;
+}
+
+table.table.interactive.phase .element[phase="gas"] {
+    background: #ffffcc;
 }
 
 /* TABLE -> COLOR SCHEME -> PROPERTIES */
