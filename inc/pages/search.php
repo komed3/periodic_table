@@ -9,43 +9,6 @@
         
         public $results = [];
         
-        protected function fetch_results() {
-            
-            global $db;
-            
-            $offset = ( $this->page - 1 ) * $this->limit;
-            
-            $res = $db->query('
-                SELECT  ID
-                FROM    ' . $db->prefix . 'element
-                WHERE   ID LIKE "%' . $this->searchstr . '%"
-                OR      e_symbol LIKE "%' . $this->searchstr . '%"
-                OR      e_name LIKE "%' . $this->searchstr . '%"
-                LIMIT   ' . $offset . ', ' . $this->limit
-            );
-            
-            while( $row = $res->fetch_object() ) {
-                
-                $e = new Element( $row->ID );
-                
-                $this->results[] = '<div class="result">' .
-                    '<h2>' .
-                        $e->get_symbol() .
-                        Linker::p(
-                            'page',
-                            $e->get_slug(),
-                            $e->get_name()
-                        ) .
-                    '</h2>' .
-                    '<p>' .
-                        $e->get_short() .
-                    '</p>' .
-                '</div>';
-                
-            }
-            
-        }
-        
         function __construct() {
             
             global $args, $lng;
@@ -86,6 +49,43 @@
                     ( new Long_Table() )->output() .
                 '</aside>'
             );
+            
+        }
+        
+        protected function fetch_results() {
+            
+            global $db;
+            
+            $offset = ( $this->page - 1 ) * $this->limit;
+            
+            $res = $db->query('
+                SELECT  ID
+                FROM    ' . $db->prefix . 'element
+                WHERE   ID LIKE "%' . $this->searchstr . '%"
+                OR      e_symbol LIKE "%' . $this->searchstr . '%"
+                OR      e_name LIKE "%' . $this->searchstr . '%"
+                LIMIT   ' . $offset . ', ' . $this->limit
+            );
+            
+            while( $row = $res->fetch_object() ) {
+                
+                $e = new Element( $row->ID );
+                
+                $this->results[] = '<div class="result">' .
+                    '<h2>' .
+                        $e->get_symbol() .
+                        Linker::p(
+                            'page',
+                            $e->get_slug(),
+                            $e->get_name()
+                        ) .
+                    '</h2>' .
+                    '<p>' .
+                        $e->get_short() .
+                    '</p>' .
+                '</div>';
+                
+            }
             
         }
         
