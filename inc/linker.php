@@ -24,6 +24,18 @@
             
         }
         
+        public function l(
+            string $url
+        ) {
+            
+            return urlencode( str_replace(
+                [ ' ', '&shy;' ],
+                [ '_', '' ],
+                $url
+            ) );
+            
+        }
+        
         public function i(
             string $url,
             string $text,
@@ -34,13 +46,7 @@
             global $_IP;
             
             return Linker::builder(
-                $_IP . urlencode( str_replace(
-                    [ ' ', '&shy;' ],
-                    [ '_', '' ],
-                    $url
-                ) ) . ( !empty( $anchor )
-                    ? '#' . $anchor
-                    : '' ),
+                $_IP . self::l( $url ) . ( !empty( $anchor ) ? '#' . $anchor : '' ),
                 $text,
                 $params
             );
@@ -58,17 +64,8 @@
             global $_IP, $lng;
             
             return Linker::builder(
-                $_IP . urlencode( str_replace(
-                    [ ' ', '&shy;' ],
-                    [ '_', '' ],
-                    $lng->msg( $page . '-page' )
-                ) ) . '/' . urlencode( str_replace(
-                    [ ' ', '&shy;' ],
-                    [ '_', '' ],
-                    $url
-                ) ) . ( !empty( $anchor )
-                    ? '#' . $anchor
-                    : '' ),
+                $_IP . self::l( $lng->msg( $page ) ) . '/' . self::l( $url ) .
+                    ( !empty( $anchor ) ? '#' . $anchor : '' ),
                 $text,
                 $params
             );

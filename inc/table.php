@@ -309,6 +309,35 @@
             
         }
         
+        public function get_menu() {
+            
+            global $_IP, $lng;
+            
+            $options = '';
+            
+            foreach( $this->allowed_props as $group => $props ) {
+                
+                $options .= '<optgroup label="' . $lng->msg( $group ) . '">';
+                
+                foreach( $props as $prop ) {
+                    
+                    $options .= '<option value="' . Linker::l( $lng->msg( $prop ) ) . '" ' .
+                        ( $prop == $this->property ? 'selected' : '' ) . '>' .
+                        $lng->msg( $prop ) .
+                    '</option>';
+                    
+                }
+                
+                $options .= '</optgroup>';
+                
+            }
+            
+            return '<select class="menu" onchange=\'location.href="' . $_IP . '"+this.value;\'>' .
+                $options .
+            '</select>';
+            
+        }
+        
         public function build() {
             
             global $lng;
@@ -403,7 +432,7 @@
             '<tr>' .
                 '<th>&nbsp;</th>' .
                 '<td class="label legend" colspan="' . $label . '">' .
-                    $lng->msg( $this->property ) .
+                    $this->get_menu() .
                 '</td>' .
                 '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
                     $this->get_legend() .
