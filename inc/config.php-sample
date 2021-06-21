@@ -1,0 +1,12 @@
+<?php
+    
+    $_IP = *** IP ADDRESS ***
+    $_LNG = *** LANGUAGE CODE ***;
+    
+    $db_host = *** DB HOST ***;
+    $db_user = *** DB USER ***;
+    $db_pswd = *** DB PASSWORD ***;
+    $db_name = *** DB NAME ***;
+    $db_prfx = *** DB PREFIX ***;
+    
+?>

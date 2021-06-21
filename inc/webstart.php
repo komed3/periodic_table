@@ -1,6 +1,41 @@
 <?php
     
+    /* LOAD REQUIRED INCLUDES --------------------------------------- */
+    
     require_once __DIR__ . '/pt.php';
+    require_once __DIR__ . '/formatter.php';
+    require_once __DIR__ . '/linker.php';
+    require_once __DIR__ . '/page.php';
+    require_once __DIR__ . '/property.php';
+    require_once __DIR__ . '/element.php';
+    require_once __DIR__ . '/table.php';
+    require_once __DIR__ . '/longtable.php';
+    
+    /* FUNCTIONS ---------------------------------------------------- */
+    
+    function get404() {
+        
+        require_once __DIR__ . '/pages/404.php';
+        
+        $page = new Error_Page();
+        print $page->output();
+        
+    }
+    
+    function getSearchBar() {
+        
+        global $_IP, $lng;
+        
+        return '<form action="' . $_IP . $lng->msg( 'search' ) . '" method="get" autocomplete="on" class="search-bar">' .
+            '<input type="text" name="q" value="' .
+                ( empty( $_GET['q'] ) ? '' : $_GET['q'] ) . '" placeholder="' .
+                $lng->msg( 'search-placeholder' ) . '" />' .
+            '<button type="submit" class="icon">search</button>' .
+        '</form>';
+        
+    }
+    
+    /* PAGE --------------------------------------------------------- */
     
     $pagestr = mb_strtolower( empty( $url[0] ) ? '' : $url[0] );
     
