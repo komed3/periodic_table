@@ -3,6 +3,7 @@
     class Table {
         
         protected $allowed_props;
+        
         protected $trend_schemes = [
             'allen' => [ 'fire' ],
             'allred_rochow' => [ 'fire' ],
@@ -20,6 +21,17 @@
             'vickers' => [ 'green' ]
         ];
         
+        protected $interactive = [
+            'discovery' => [
+                'default' => 1766,
+                'step' => 1
+            ],
+            'phase' => [
+                'default' => 293,
+                'step' => 1
+            ]
+        ];
+        
         protected $fields = [];
         protected $table = '';
         
@@ -30,9 +42,11 @@
         
         public $type = 'classification';
         public $property = 'set';
+        
         public $scheme = [];
         public $props = [];
         public $range = null;
+        public $i_val = null;
         
         public $current = null;
         
@@ -85,7 +99,7 @@
             $this->range = array_map( 'doubleval', $db->query('
                 SELECT  MIN( CONVERT( p_value, decimal( 65, 38 ) ) ) AS min,
                         MAX( CONVERT( p_value, decimal( 65, 38 ) ) ) AS max
-                FROM    property
+                FROM    ' . $db->prefix . 'property
                 WHERE   p_key = "' . $this->property . '"
             ')->fetch_assoc() );
             
@@ -106,14 +120,15 @@
             
         }
         
-        protected function get_ival(
-            $default = null
-        ) {
+        protected function get_ival() {
             
             global $url;
             
-            return !empty( $url[1] ) && is_numeric( $url[1] )
-                ? $url[1] : $default;
+            if( empty( $this->i_val ) )
+                $this->i_val = !empty( $url[1] ) && is_numeric( $url[1] )
+                    ? $url[1] : $this->interactive[ $this->property ]['default'];
+            
+            return $this->i_val;
             
         }
         
@@ -129,7 +144,7 @@
                 case 'discovery':
                     return [ 'prop' => intval(
                         ( $prop = $e->get_prop( $this->property ) )->rows == 0 ||
-                        intval( $prop->p[0]->val->raw() ) <= $this->get_ival( 0 )
+                        intval( $prop->p[0]->val->raw() ) <= intval( $this->get_ival() )
                     ) ];
                 
             }
@@ -302,6 +317,8 @@
         
         public function get_legend() {
             
+            global $_IP, $db, $lng;
+            
             switch( $this->type ) {
                 
                 default:
@@ -320,18 +337,31 @@
                 case 'trend':
                     return '<trend property="' . $this->property . '" scheme="' . $this->scheme[0] . '">' .
                         '<bar></bar>' .
-                        '<val start>' .
+                        '<value start>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? '0'
                                 : ( new Formatter( $this->range['min'] ) )->exp() ) .
-                        '</val>' .
-                        '<val end>' .
+                        '</value>' .
+                        '<value end>' .
                             ( count( $this->scheme ) == 2 && $this->scheme[1]
                                 ? ( new Formatter( $this->range['min'] ) )->exp() . '/'
                                 : '' ) .
                             ( new Formatter( $this->range['max'] ) )->exp() .
-                        '</val>' .
+                        '</value>' .
                     '</trend>';
+                
+                case 'interactive':
+                    $this->get_range();
+                    
+                    return '<range>' .
+                        '<input type="range" onchange=\'location.href="' .
+                            $_IP . Linker::l( $lng->msg( $this->property ) ) . '/"+this.value;\' value="' .
+                            intval( $this->get_ival() ) . '" min="' .
+                            $this->range['min'] . '" max="' .
+                            $this->range['max'] . '" step="' .
+                            $this->interactive[ $this->property ]['step'] . '" />' .
+                        '<value>' . intval( $this->get_ival() ) . '</value>' .
+                    '</range>';
                 
                 case 'property':
                     return $this->build_legend(

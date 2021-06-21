@@ -477,12 +477,12 @@ trend bar {
     box-shadow: 2px 2px 4px var( --light-gray );
 }
 
-trend val {
+trend value {
     position: relative;
     padding-top: 10px;
 }
 
-trend val::after {
+trend value::after {
     content: '';
     position: absolute;
     top: 0;
@@ -492,15 +492,15 @@ trend val::after {
     background: var( --color );
 }
 
-trend val[start] {
+trend value[start] {
     grid-area: start;
 }
 
-trend val[middle] {
+trend value[middle] {
     grid-area: middle;
 }
 
-trend val[end] {
+trend value[end] {
     grid-area: end;
 }
 
@@ -538,7 +538,7 @@ table.table .element {
 }
 
 table.table .element:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 table.table .element overlay {
