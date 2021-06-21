@@ -284,6 +284,22 @@ footer .nav li {
     font-size: 0.8em;
 }
 
+body.table footer {
+    position: fixed;
+    right: 2vh;
+    bottom: 1.5vh;
+    margin: 0;
+    font-size: 0.8em;
+}
+
+body.table footer .credits {
+    margin: 0;
+}
+
+body.table footer .nav {
+    display: none;
+}
+
 /* MAIN */
 
 main {
@@ -417,21 +433,21 @@ dl.glossary dd {
 legend {
     display: flex;
     flex-flow: row wrap;
-    margin-bottom: -0.75vh;
-    font-size: 0.72vw;
+    margin-bottom: -0.5vw;
+    font-size: 0.85vw;
 }
 
 legend entry {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    margin: 0 1.6vh 0.75vh 0;
+    margin: 0 1vw 0.5vw 0;
 }
 
 legend entry key {
-    width: 1.6vh;
-    height: 1.6vh;
-    margin-right: 0.6vh;
+    width: 1vw;
+    height: 1vw;
+    margin-right: 0.25vw;
     background: var( --light-gray );
     border: 1px solid var( --color );
 }
@@ -449,20 +465,21 @@ trend {
         'start middle end'
     ;
     line-height: 1;
-    font-size: 0.72vw;
+    font-size: 0.85vw;
 }
 
 trend bar {
     grid-area: bar;
     justify-self: stretch;
-    height: 10px;
+    height: 0.74vw;
     background: var( --light-gray );
-    border-radius: 5px;
+    border-radius: 0.37vw;
+    box-shadow: 2px 2px 4px var( --light-gray );
 }
 
 trend val {
     position: relative;
-    padding-top: 0.5vw;
+    padding-top: 10px;
 }
 
 trend val::after {
@@ -471,7 +488,7 @@ trend val::after {
     top: 0;
     left: calc( 50% - 0.5px );
     width: 1px;
-    height: 0.4vw;
+    height: 8px;
     background: var( --color );
 }
 
@@ -518,6 +535,10 @@ table.table .element {
     position: relative;
     background: var( --light-gray );
     overflow: hidden;
+}
+
+table.table .element:hover {
+    opacity: 0.9;
 }
 
 table.table .element overlay {
@@ -629,6 +650,7 @@ table.table.period .element:not([period]),
 table.table.block .element:not([block]),
 table.table.age .element:not([age]),
 table.table.metal .element:not([metal]),
+table.table.heavy_metal .element:not([heavy_metal]),
 table.table.radioactivity .element:not([radioactivity]),
 table.table.magnetism .element:not([magnetism]),
 table.table.acid_base .element:not([acid_base]),
@@ -910,6 +932,31 @@ legend[property="metal"] entry[val="metalloid"] key {
 table.table.metal .element[metal="nonmetal"],
 legend[property="metal"] entry[val="nonmetal"] key {
 	background: #eed4ee;
+}
+
+table.table.heavy_metal .element[heavy_metal="nonmetal"],
+legend[property="heavy_metal"] entry[val="nonmetal"] key {
+	background: #eed4ee;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@0"],
+legend[property="heavy_metal"] entry[val="heavy-@0"] key {
+	background: #eeff88;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@5"],
+legend[property="heavy_metal"] entry[val="heavy-@5"] key {
+	background: #ffdd00;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@10"],
+legend[property="heavy_metal"] entry[val="heavy-@10"] key {
+	background: #ff9900;
+}
+
+table.table.heavy_metal .element[heavy_metal="heavy-@20"],
+legend[property="heavy_metal"] entry[val="heavy-@20"] key {
+	background: #ff5500;
 }
 
 table.table.radioactivity .element[radioactivity="stable"],

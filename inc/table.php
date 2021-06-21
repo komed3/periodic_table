@@ -10,7 +10,6 @@
             'density' => [ 'green' ],
             'electron_affinity' => [ 'fire' ],
             'ghosh_gupta' => [ 'fire' ],
-            'heavy_metal' => [ 'ice' ],
             'magnetic_susceptibility' => [ 'ice', true ],
             'mohs' => [ 'green' ],
             'mulliken' => [ 'fire' ],

@@ -348,6 +348,9 @@
                     'metal' => [
                         'format' => 'i18n'
                     ],
+                    'heavy_metal' => [
+                        'format' => 'i18n'
+                    ],
                     'goldschmidt' => [
                         'format' => 'i18n'
                     ],

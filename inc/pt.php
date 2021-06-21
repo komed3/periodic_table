@@ -19,14 +19,14 @@
     $_props = [
         'classification' => [
             'set', 'group', 'period', 'block', 'age', 'crystal_system',
-            'bravais', 'magnetism', 'superconductivity', 'radioactivity',
-            'metal', 'goldschmidt', 'acid_base', 'basicity'
+            'bravais', 'metal', 'heavy_metal', 'magnetism', 'superconductivity',
+            'radioactivity', 'goldschmidt', 'acid_base', 'basicity'
         ],
         'trend' => [
-            'heavy_metal', 'magnetic_susceptibility', 'density',
-            'electron_affinity', 'potential', 'pauling', 'allen',
-            'mulliken', 'sanderson', 'allred_rochow', 'ghosh_gupta',
-            'pearson', 'mohs', 'vickers', 'brinell'
+            'magnetic_susceptibility', 'density', 'electron_affinity',
+            'potential', 'pauling', 'allen', 'mulliken', 'sanderson',
+            'allred_rochow', 'ghosh_gupta', 'pearson', 'mohs', 'vickers',
+            'brinell'
         ],
         'interactive' => [
             'phase', 'discovery'
