@@ -518,6 +518,27 @@ trend[scheme="green"] bar {
     background: linear-gradient( to right, #d8f2c7, #4a744a );
 }
 
+/* LEGEND -> RANGE */
+
+range {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+range input {
+    flex: auto;
+    background: transparent;
+    cursor: pointer;
+    outline: 0 none;
+}
+
+range value {
+    flex: 0 0 12%;
+    text-align: right;
+}
+
 /* TABLE */
 
 table.table {
