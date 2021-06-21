@@ -28,11 +28,12 @@
                 
                 $e = new Element( $row->ID );
                 
-                $this->results = '<div class="result">' .
+                $this->results[] = '<div class="result">' .
                     '<h2>' .
                         $e->get_symbol() .
                         Linker::p(
-                            'page', $e->get_slug(),
+                            'page',
+                            $e->get_slug(),
                             $e->get_name()
                         ) .
                     '</h2>' .
@@ -70,7 +71,16 @@
             
             $this->add_content(
                 '<article>' .
-                    $this->results .
+                    '<div class="results-header">' .
+                        $lng->msg(
+                            'search-results',
+                            $this->searchstr,
+                            ( new Formatter( count( $this->results ) ) )->num()
+                        ) .
+                    '</div>' .
+                    '<div class="results">' .
+                        implode( '', $this->results ) .
+                    '</div>' .
                 '</article>' .
                 '<aside>' .
                     ( new Long_Table() )->output() .

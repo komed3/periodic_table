@@ -377,6 +377,7 @@
     "SC": "einfach kubisch",
     "search": "Suche",
     "search-placeholder": "Auf der Webseite suchen …",
+    "search-results": "Suche nach <b>$1</b> ergab folgende <b>$2</b>&nbsp;Treffer:",
     "secondary": "sekundär",
     "section-atomic": "Atomare Eigen&shy;schaften",
     "section-biology": "Biologie",
