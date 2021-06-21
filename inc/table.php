@@ -106,6 +106,36 @@
             
         }
         
+        protected function get_ival(
+            $default = null
+        ) {
+            
+            global $url;
+            
+            return !empty( $url[1] ) && is_numeric( $url[1] )
+                ? $url[1] : $default;
+            
+        }
+        
+        protected function get_interactive(
+            Element $e
+        ) {
+            
+            switch( $this->property ) {
+                
+                default:
+                    return [];
+                
+                case 'discovery':
+                    return [ 'prop' => intval(
+                        ( $prop = $e->get_prop( $this->property ) )->rows == 0 ||
+                        intval( $prop->p[0]->val->raw() ) <= $this->get_ival( 0 )
+                    ) ];
+                
+            }
+            
+        }
+        
         protected function get_prop(
             Element $e
         ) {
@@ -124,6 +154,9 @@
                     return ( $prop = $e->get_prop( $this->property ) )->rows > 0
                         ? [ 'trend' => $this->calc_range( doubleval( $prop->p[0]->val->raw() ) ) ]
                         : [];
+                
+                case 'interactive':
+                    return $this->get_interactive( $e );
                 
                 case 'property':
                     return [

@@ -692,6 +692,12 @@ table.table.set .element[phase="artificial"] symbol cs {
     color: var( --phase-artificial );
 }
 
+/* TABLE -> COLOR SCHEME -> INTERACTIVE */
+
+table.table.discovery .element[prop="1"] {
+    background: var( --highlight );
+}
+
 /* TABLE -> COLOR SCHEME -> PROPERTIES */
 
 table.table.set .element[set="actinide"],
