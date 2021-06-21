@@ -477,12 +477,12 @@ trend bar {
     box-shadow: 2px 2px 4px var( --light-gray );
 }
 
-trend val {
+trend value {
     position: relative;
     padding-top: 10px;
 }
 
-trend val::after {
+trend value::after {
     content: '';
     position: absolute;
     top: 0;
@@ -492,15 +492,15 @@ trend val::after {
     background: var( --color );
 }
 
-trend val[start] {
+trend value[start] {
     grid-area: start;
 }
 
-trend val[middle] {
+trend value[middle] {
     grid-area: middle;
 }
 
-trend val[end] {
+trend value[end] {
     grid-area: end;
 }
 
@@ -516,6 +516,27 @@ trend[scheme="ice"] bar {
 
 trend[scheme="green"] bar {
     background: linear-gradient( to right, #d8f2c7, #4a744a );
+}
+
+/* LEGEND -> RANGE */
+
+range {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+range input {
+    flex: auto;
+    background: transparent;
+    cursor: pointer;
+    outline: 0 none;
+}
+
+range value {
+    flex: 0 0 12%;
+    text-align: right;
 }
 
 /* TABLE */
@@ -538,7 +559,7 @@ table.table .element {
 }
 
 table.table .element:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
 table.table .element overlay {
@@ -611,9 +632,19 @@ table.table .placeholder {
     color: var( --mid-gray );
 }
 
-table.table .label.legend {
+table.table .menu {
     vertical-align: top;
-    font-weight: bold;
+}
+
+table.table .menu select {
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    background: var( --bgcolor );
+    border: 1px solid var( --mid-gray );
+    border-radius: 0;
+    outline: 0 none;
+    cursor: pointer;
 }
 
 table.table tr.empty-row > * {
@@ -680,6 +711,24 @@ table.table.set .element[phase="gas"] symbol cs {
 
 table.table.set .element[phase="artificial"] symbol cs {
     color: var( --phase-artificial );
+}
+
+/* TABLE -> COLOR SCHEME -> INTERACTIVE */
+
+table.table.interactive.discovery .element[prop="1"] {
+    background: var( --highlight );
+}
+
+table.table.interactive.phase .element[phase="solid"] {
+    background: #ccffcc;
+}
+
+table.table.interactive.phase .element[phase="liquid"] {
+    background: #ccccff;
+}
+
+table.table.interactive.phase .element[phase="gas"] {
+    background: #ffffcc;
 }
 
 /* TABLE -> COLOR SCHEME -> PROPERTIES */
@@ -961,7 +1010,7 @@ legend[property="heavy_metal"] entry[val="heavy-@20"] key {
 
 table.table.radioactivity .element[radioactivity="stable"],
 legend[property="radioactivity"] entry[val="stable"] key {
-	background: #99ffff;
+	background: #cceeff;
 }
 
 table.table.radioactivity .element[radioactivity="slightly-radioactive"],
@@ -971,7 +1020,7 @@ legend[property="radioactivity"] entry[val="slightly-radioactive"] key {
 
 table.table.radioactivity .element[radioactivity="significantly-radioactive"],
 legend[property="radioactivity"] entry[val="significantly-radioactive"] key {
-	background: #ffff99;
+	background: #ffff55;
 }
 
 table.table.radioactivity .element[radioactivity="radioactive"],
@@ -981,7 +1030,7 @@ legend[property="radioactivity"] entry[val="radioactive"] key {
 
 table.table.radioactivity .element[radioactivity="highly-radioactive"],
 legend[property="radioactivity"] entry[val="highly-radioactive"] key {
-	background: #ff9999;
+	background: #ff7777;
 }
 
 table.table.radioactivity .element[radioactivity="extremely-radioactive"],
@@ -991,17 +1040,17 @@ legend[property="radioactivity"] entry[val="extremely-radioactive"] key {
 
 table.table.magnetism .element[magnetism="diamagnetism"],
 legend[property="magnetism"] entry[val="diamagnetism"] key {
-	background: #d3e4e4;
+	background: #ffbb99;
 }
 
 table.table.magnetism .element[magnetism="ferromagnetism"],
 legend[property="magnetism"] entry[val="ferromagnetism"] key {
-	background: #9fb6b6;
+	background: #aadd88;
 }
 
 table.table.magnetism .element[magnetism="paramagnetism"],
 legend[property="magnetism"] entry[val="paramagnetism"] key {
-	background: #5d8483;
+	background: #aaddff;
 }
 
 table.table.acid_base .element[acid_base="basic"],
