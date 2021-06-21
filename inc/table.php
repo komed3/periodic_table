@@ -7,7 +7,7 @@
             'allen' => [ 'fire' ],
             'allred_rochow' => [ 'fire' ],
             'brinell' => [ 'green' ],
-            'density' => [ 'green' ],
+            'density' => [ 'ice' ],
             'electron_affinity' => [ 'fire' ],
             'ghosh_gupta' => [ 'fire' ],
             'magnetic_susceptibility' => [ 'ice', true ],
@@ -431,7 +431,7 @@
             '</tr>' .
             '<tr>' .
                 '<th>&nbsp;</th>' .
-                '<td class="label legend" colspan="' . $label . '">' .
+                '<td class="menu" colspan="' . $label . '">' .
                     $this->get_menu() .
                 '</td>' .
                 '<td class="legend" colspan="' . ( $this->maxG - $label ) . '">' .
