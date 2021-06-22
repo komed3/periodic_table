@@ -29,7 +29,7 @@
         return '<form action="' . $_IP . $lng->msg( 'search' ) . '" method="get" autocomplete="on" class="search-bar">' .
             '<input type="text" name="q" value="' .
                 ( empty( $_GET['q'] ) ? '' : $_GET['q'] ) . '" placeholder="' .
-                $lng->msg( 'search_placeholder' ) . '" />' .
+                $lng->msg( 'search-placeholder' ) . '" />' .
             '<button type="submit" class="icon">search</button>' .
         '</form>';
         

@@ -33,14 +33,14 @@
                     '<div class="results-header">' .
                         '<div class="rescnt">' .
                             $lng->msg(
-                                'search_results',
+                                'search-results',
                                 $this->searchstr,
                                 $this->rescnt
                             ) .
                         '</div>' .
                         '<div class="respage">' .
                             $lng->msg(
-                                'search_page_results',
+                                'search-results-page',
                                 $this->offset + 1,
                                 min(
                                     $this->rescnt,
@@ -51,6 +51,9 @@
                     '</div>' .
                     '<div class="results">' .
                         implode( '', $this->results ) .
+                    '</div>' .
+                    '<div class="results-more">' .
+                        $this->get_more() .
                     '</div>' .
                 '</article>' .
                 '<aside>' .
@@ -121,6 +124,25 @@
                 '</div>';
                 
             }
+            
+        }
+        
+        protected function get_more() {
+            
+            global $lng;
+            
+            return $this->rescnt > $this->offset + $this->limit
+                ? Linker::q(
+                      $lng->msg( 'search' ),
+                      $lng->msg( 'search-results-more' ),
+                      [
+                          'q' => $this->searchstr,
+                          'page' => $this->page + 1
+                      ]
+                  )
+                : '<span class="results-end">' .
+                      $lng->msg( 'search-results-end' ) .
+                  '</span>';
             
         }
         
