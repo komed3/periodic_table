@@ -49,10 +49,10 @@
                             ) .
                         '</div>' .
                     '</div>' .
-                    '<div class="results">' .
+                    '<div class="results-body">' .
                         implode( '', $this->results ) .
                     '</div>' .
-                    '<div class="results-more">' .
+                    '<div class="results-footer">' .
                         $this->get_more() .
                     '</div>' .
                 '</article>' .
@@ -110,7 +110,11 @@
                         Linker::p(
                             'element',
                             $e->get_slug(),
-                            $e->get_name()
+                            str_replace(
+                                $this->searchstr,
+                                '<b>' . $this->searchstr . '</b>',
+                                $e->get_name()
+                            )
                         ) .
                     '</h3>' .
                     '<p>' .

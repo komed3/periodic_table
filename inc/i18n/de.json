@@ -1,7 +1,7 @@
 {
     "@": "bei",
     "404": "Fehler 404: Seite nicht gefunden",
-    "404-content": "Leider konnte die von dir gesuchte Seite nicht gefunden werden. Möglicherweise liegt ein Tippfehler vor. Versuche es gerne noch einmal oder verwende die Suche:",
+    "404-content": "<i class=\"icon\">bug_report</i>Ups, hier ist etwas schiefgegangen!<br />Leider konnte die von dir gesuchte Seite nicht gefunden werden. Möglicherweise liegt ein Tippfehler vor. Versuche es gerne noch einmal oder verwende die Suche:",
     "acidic": "sauer",
     "acid_base": "Säure-Base-Charakter",
     "actinide": "Actinoide",
@@ -380,7 +380,7 @@
     "search-placeholder": "Auf der Webseite suchen …",
     "search-results": "Suche nach <q><b>$1</b></q> ergab <b>$2</b>&nbsp;Treffer:",
     "search-results-end": "keine weiteren Ergebnisse gefunden",
-    "search-results-more": "nächste Seite …",
+    "search-results-more": "zur nächsten Seite …",
     "search-results-page": "Ergebnisse: $1&ndash;$2",
     "secondary": "sekundär",
     "section-atomic": "Atomare Eigen&shy;schaften",
