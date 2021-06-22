@@ -10,7 +10,7 @@
             
             $this->set_title( $lng->msg( 'element-page-title', $e->ID, $e->symbol, $e->get_name() ) );
             
-            $this->set_description( $e->description );
+            $this->set_description( $e->get_short() );
             $this->add_keywords( $e->ID, $e->symbol, $e->get_name() );
             
             $this->add_classes( 'element' );

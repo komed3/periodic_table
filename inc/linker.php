@@ -49,8 +49,9 @@
             
             global $_IP;
             
-            return Linker::builder(
-                $_IP . self::l( $url ) . ( !empty( $anchor ) ? '#' . $anchor : '' ),
+            return self::builder(
+                $_IP . self::l( $url ) .
+                    ( !empty( $anchor ) ? '#' . $anchor : '' ),
                 $text,
                 $params
             );
@@ -67,8 +68,27 @@
             
             global $_IP, $lng;
             
-            return Linker::builder(
+            return self::builder(
                 $_IP . self::l( $lng->msg( $page ) ) . '/' . self::l( $url ) .
+                    ( !empty( $anchor ) ? '#' . $anchor : '' ),
+                $text,
+                $params
+            );
+            
+        }
+        
+        public function q(
+            string $url,
+            string $text,
+            $query = [],
+            $params = [],
+            $anchor = null
+        ) {
+            
+            global $_IP;
+            
+            return self::builder(
+                $_IP . self::l( $url ) . '?' . http_build_query( $query, '', '&' ) .
                     ( !empty( $anchor ) ? '#' . $anchor : '' ),
                 $text,
                 $params
@@ -82,7 +102,7 @@
             $params = []
         ) {
             
-            return Linker::builder(
+            return self::builder(
                 $url,
                 $text,
                 array_merge( [
