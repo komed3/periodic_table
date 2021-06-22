@@ -3,23 +3,19 @@
     class Search_Page extends Page {
         
         public $limit = 20;
+        public $offset = 0;
         public $page = 1;
         
         public $searchstr = '';
         
         public $results = [];
+        public $rescnt = 0;
         
         function __construct() {
             
-            global $args, $lng;
+            global $lng;
             
-            $this->searchstr = empty( $args['q'] )
-                ? '' : $args['q'];
-            
-            $this->page = empty( $args['page'] )
-                ? 1 : $args['page'];
-            
-            $this->fetch_results();
+            $this->run_search();
             
             $this->set_title( $lng->msg( 'search' ) );
             
@@ -35,11 +31,23 @@
             $this->add_content(
                 '<article>' .
                     '<div class="results-header">' .
-                        $lng->msg(
-                            'search-results',
-                            $this->searchstr,
-                            ( new Formatter( count( $this->results ) ) )->num()
-                        ) .
+                        '<div class="rescnt">' .
+                            $lng->msg(
+                                'search_results',
+                                $this->searchstr,
+                                $this->rescnt
+                            ) .
+                        '</div>' .
+                        '<div class="respage">' .
+                            $lng->msg(
+                                'search_page_results',
+                                $this->offset + 1,
+                                min(
+                                    $this->rescnt,
+                                    $this->offset + $this->limit
+                                )
+                            ) .
+                        '</div>' .
                     '</div>' .
                     '<div class="results">' .
                         implode( '', $this->results ) .
@@ -52,11 +60,33 @@
             
         }
         
+        protected function run_search() {
+            
+            global $args;
+            
+            $this->searchstr = empty( $args['q'] )
+                ? '' : $args['q'];
+            
+            $this->page = empty( $args['page'] )
+                ? 1 : $args['page'];
+            
+            $this->offset = ( $this->page - 1 ) * $this->limit;
+            
+            $this->fetch_results();
+            
+        }
+        
         protected function fetch_results() {
             
-            global $db;
+            global $db, $lng;
             
-            $offset = ( $this->page - 1 ) * $this->limit;
+            $this->rescnt = $db->query('
+                SELECT  ID
+                FROM    ' . $db->prefix . 'element
+                WHERE   ID LIKE "%' . $this->searchstr . '%"
+                OR      e_symbol LIKE "%' . $this->searchstr . '%"
+                OR      e_name LIKE "%' . $this->searchstr . '%"
+            ')->num_rows;
             
             $res = $db->query('
                 SELECT  ID
@@ -64,7 +94,7 @@
                 WHERE   ID LIKE "%' . $this->searchstr . '%"
                 OR      e_symbol LIKE "%' . $this->searchstr . '%"
                 OR      e_name LIKE "%' . $this->searchstr . '%"
-                LIMIT   ' . $offset . ', ' . $this->limit
+                LIMIT   ' . $this->offset . ', ' . $this->limit
             );
             
             while( $row = $res->fetch_object() ) {
@@ -72,16 +102,21 @@
                 $e = new Element( $row->ID );
                 
                 $this->results[] = '<div class="result">' .
-                    '<h2>' .
+                    '<h3>' .
                         $e->get_symbol() .
                         Linker::p(
-                            'page',
+                            'element',
                             $e->get_slug(),
                             $e->get_name()
                         ) .
-                    '</h2>' .
+                    '</h3>' .
                     '<p>' .
                         $e->get_short() .
+                        Linker::p(
+                            'element',
+                            $e->get_slug(),
+                            $lng->msg( 'read-more' )
+                        ) .
                     '</p>' .
                 '</div>';
                 
