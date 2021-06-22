@@ -86,6 +86,16 @@
             
         }
         
+        public function get_short() {
+            
+            $words = explode( ' ', $this->description );
+            
+            return count( $words ) > 30
+                ? implode( ' ', array_slice( $words, 0, 30 ) ) . ' …'
+                : $this->description;
+            
+        }
+        
         public function get_prop(
             string $prop,
             $default = null
