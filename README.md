@@ -1,2 +1,3 @@
 # periodic_table
-periodic table web project
+
+It's a free and open source periodic table web project. Have fun ;)
