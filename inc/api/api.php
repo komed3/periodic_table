@@ -10,7 +10,7 @@
             
             $this->CLI = ( php_sapi_name() === 'cli' );
             
-            $this->load_params();
+            $this->load_args();
             
         }
         
@@ -34,11 +34,24 @@
             
         }
         
-        public function is_CLI() {
+        protected function load_module() {
             
-            return $this->CLI;
+            require_once __DIR__ . '/modules/' . (
+                !empty( $this->args['action'] ) &&
+                file_exists( __DIR__ . '/modules/' . $this->args['action'] . '.php' )
+                    ? $this->args['action']
+                    : 'help'
+            ) . '.php';
+            
+            $module = new API_module( $this );
             
         }
+        
+        public function run() {
+            
+            $this->load_module();
+            
+        } 
         
     }
     

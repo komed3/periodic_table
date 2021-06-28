@@ -20,5 +20,8 @@
      
      require_once __DIR__ . '/inc/pt.php';
      require_once __DIR__ . '/inc/api/api.php';
+     
+     $api = new API();
+     $api->run();
     
 ?>
