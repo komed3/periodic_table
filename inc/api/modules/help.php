@@ -2,13 +2,27 @@
     
     class API_module {
         
-        private $api;
-        
         function __construct(
             API $api
         ) {
             
-            $this->api = $api;
+            if( $api->CLI )
+                $this->cli_help();
+            
+            else
+                $this->web_help();
+            
+        }
+        
+        private function cli_help() {
+            
+            
+            
+        }
+        
+        private function web_help() {
+            
+            
             
         }
         
